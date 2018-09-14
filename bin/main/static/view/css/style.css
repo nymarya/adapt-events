@@ -34,7 +34,7 @@ body{
 }
 
 .bgcolor-lb{
-	background-color: #c9d8dc;
+	background-color: #c9dede;
 }
 
 .bgcolor-g{
@@ -54,12 +54,28 @@ h1{
 	color: white;
 }
 
+h4{
+	font-family: 'Lato', sans-serif;
+	font-size: 1.5em;	
+}
+
+h5{
+	font-family: 'Lato', sans-serif;
+	font-size: 1em;	
+}
+	
+
 .register-form{
 	margin-top: 150px;
 }
 
+a{
+	color: black;
+}
+
 a:hover{
 	text-decoration: none;
+	color: #216778;
 }
 
 .dashboard-nav{
@@ -73,3 +89,24 @@ a:hover{
 	position: absolute;
  	height: 100%;	
 }
+
+
+
+/**** Configurações Dashboard ****/
+.profile-image {
+	width: 80px;
+	height: 80px;
+	border-radius: 100%;
+}
+
+.profile{
+	margin-top: 100px;
+}
+
+.nav-label{
+	font-size: 1.3em;
+}
+
+
+	
+	
