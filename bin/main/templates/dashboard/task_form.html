@@ -37,7 +37,6 @@
    			
    			<div class="container row">
    				
-   				
    				<div class="col-md-3 right-nav bgcolor-lb">
    					<div class="margin-dash">
    						<center>
@@ -48,14 +47,13 @@
    					</div>
    					<hr />
    					
-   					
    					<div class="container row" >
                 		<ul class="nav flex-column" >
 
                    			<li class="nav-item">
 		                        <div class="nav-link active" >
         	                	    <i class="fa fa-home" style="font-size: 1.3em; color: #4d4d4d"></i>
-            	        	        <a href="#" class="nav-label">Home</a>
+            	        	        <a th:href="@{/dashboard}" class="nav-label">Home</a>
                 		        </div>
                     		</li>
 
@@ -69,7 +67,7 @@
 		                    <li class="nav-item">
 		                        <div class="nav-link active">
 		                            <i class="fa fa-tasks" style="font-size: 1.3em; color: #4d4d4d"></i>
-		                            <a th:href="@{/task-register}" class="nav-label">Cadastrar tarefa</a>
+		                            <a href="#" class="nav-label">Cadastrar tarefa</a>
 		                        </div>
 		                    </li>
 
@@ -84,9 +82,26 @@
    						
    				</div>
    				
-   				<div class="col-md-9 bgcolor-g" >
-   					
-   						
+   				<div class="col-md-9 bgcolor-g margin-dash task-form">
+
+   					<form>
+	      				
+						<input type="text" class="form-control" placeholder="Título da tarefa"><br>
+						<input type="text" class="form-control" placeholder="Data final de entrega"><br>
+						<input type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
+						<input type="text" class="form-control" placeholder="Descrição da tarefa"><br>
+						
+						<label>Defina a dificuldade de realizar essa tarefa:</label>
+						<select class="custom-select">
+						  <option selected value="1">Fácil</option>
+						  <option value="2">Médio</option>
+						  <option value="3">Difícil</option>
+						</select><br><br>
+						
+						
+						
+					  	<button type="submit" class="btn btn-blue">Cadastrar tarefa</button>
+					</form>
    				
    				</div>
    			

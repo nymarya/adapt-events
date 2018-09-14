@@ -86,8 +86,8 @@ a:hover{
 }
 
 .right-nav{
-	position: absolute;
- 	height: 100%;	
+	position: relative;
+ 	height: 100vh;	
 }
 
 
@@ -99,12 +99,16 @@ a:hover{
 	border-radius: 100%;
 }
 
-.profile{
+.margin-dash{
 	margin-top: 100px;
 }
 
 .nav-label{
 	font-size: 1.3em;
+}
+
+.task-form {
+	padding: 3em;
 }
 
 

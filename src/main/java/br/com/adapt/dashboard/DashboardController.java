@@ -8,7 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
 
 	@GetMapping("/dashboard")
-	public String login() {
+	public String dashboardIndex() {
         return "dashboard/calendar";
     }
+	
+	@GetMapping("/task-register")
+	public String taskRegister() {
+        return "dashboard/task_form";
+    }
+	
 }
