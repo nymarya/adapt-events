@@ -1,19 +1,31 @@
 <!doctype html>
-<html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/src/main/resources/view/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
 
-<title>Hello, world!</title>
 <style type="text/css">
+
+body{
+	font-family: 'Lato', sans-serif;
+}
+
 .head {
 	top: 0;
 	right: 0;
@@ -22,22 +34,12 @@
 	position: fixed;
 	height: 76px;
 	z-index: 99;
-	background-color: #fff;
 	border-bottom: 1px solid #d0d4d9;
 	-webkit-box-shadow: 0px 1px 1px #d0d4d9;
 	box-shadow: 0px 1px 1px #d0d4d9;
+	padding: 20px;
 }
 
-.head-nav {
-	top: 22px;
-	right: 105px;
-	bottom: 22px;
-	left: 105px;
-	position: absolute;
-	width: auto;
-	height: 32px;
-	z-index: 3;
-}
 
 .head-nav-list {
 	display: inline-block;
@@ -52,35 +54,33 @@
     margin-top: 200px;
     margin-bottom: 110px;
 }
+
+.bgcolor-b{
+	background-color: #216778;
+}
+
+.bgcolor-g{
+	background-color: #f2f2f2;
+}
+
+h1{
+	color: white;
+}
+
 </style>
 </head>
 <body>
-	<header class="navbar head">
-
-		<div class="navbar-nav-scroll">
-			<nav class="head-nav">
-				<div class="row">
-					<div class="col-md-5">
-					<p style="color:#FFF">
-					aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-					</p>
-					</div>
-					<div class="col-md-2">
-						<h1>Adapt</h1>
-					</div>
-					<div class="col-md-5">
-					<p style="color:#FFF">
-					aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-					</p>
-					</div>
-				</div>
-			</nav>
-		</div>
+	<header class="navbar head bgcolor-b">
+		<nav class="col-md-12">
+			<center><h1>Adapt</h1></center>
+		</nav>
 	</header>
-	<div class="container-fluid">
+	
+	
+	<div class="container-fluid bgcolor-g">
 		<div class="container-fluid">
-      <div class="row flex-xl-nowrap">
-        <div class="col-12 col-md-6 col-xl-2 login-or-register-img">
+      		<div class="row flex-xl-nowrap">
+        		<div class="col-12 col-md-6 col-xl-2 login-or-register-img">
 					<img data-js-component-id="component1153274547448579454"
 						src="http://www.bits.com.mx/wp-content/uploads/2017/02/206.png"
 						data-hi-res="https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder@2x-vfl87XcA-.png"
@@ -88,19 +88,17 @@
 				</div>
         
 
-        <div class="col-12 col-md-6 login-or-register" role="main">
-					<div class="login-register-login-part">
-						<div class="clearfix">
-							<div class="login-register-switch"> Login ou 
-								<a href="#" class="login-register-switch-link">Criar uma
-									conta</a>
-							</div>
+        	<div class="col-12 col-md-6 login-or-register" role="main">
+				<div class="login-register-login-part">
+					<div class="clearfix">
+						<div class="login-register-switch"> Login ou 
+							<a th:href="@{/register}" class="login-register-switch-link">Criar uma conta</a>
 						</div>
-						<div id="component1153274547448579457">
-							
-										<form class="clearfix credentials-form login-form"
-											method="POST" data-reactid="9">
-											<div class="credentials-form__fields" data-reactid="10">
+					</div>
+				
+					<div id="component1153274547448579457">		
+						<form class="clearfix credentials-form login-form" method="POST" data-reactid="9">
+							<div class="credentials-form__fields" data-reactid="10">
 												<div
 													class="form-group"
 													data-reactid="11">
