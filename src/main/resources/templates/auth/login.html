@@ -15,163 +15,101 @@
 			crossorigin="anonymous">
     	
     	<!-- CSS -->
-    	<link rel="stylesheet" type="text/css" th:href="@{/src/main/resources/view/style.css}"  />
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/style.css}"  />
 		
 		<!-- Open Sans Font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
-
-<style type="text/css">
-
-body{
-	font-family: 'Lato', sans-serif;
-}
-
-.head {
-	top: 0;
-	right: 0;
-	left: 0;
-	overflow: hidden;
-	position: fixed;
-	height: 76px;
-	z-index: 99;
-	border-bottom: 1px solid #d0d4d9;
-	-webkit-box-shadow: 0px 1px 1px #d0d4d9;
-	box-shadow: 0px 1px 1px #d0d4d9;
-	padding: 20px;
-}
-
-
-.head-nav-list {
-	display: inline-block;
-}
-.login-or-register-img {
-    padding-left: 50px;
-    margin-top: 50px;
-    margin-bottom: 110px;
-    margin-right: 400px;
-}
-.login-or-register {
-    margin-top: 200px;
-    margin-bottom: 110px;
-}
-
-.bgcolor-b{
-	background-color: #216778;
-}
-
-.bgcolor-g{
-	background-color: #f2f2f2;
-}
-
-h1{
-	color: white;
-}
-
-</style>
-</head>
-<body>
-	<header class="navbar head bgcolor-b">
-		<nav class="col-md-12">
-			<center><h1>Adapt</h1></center>
-		</nav>
-	</header>
 	
-	
-	<div class="container-fluid bgcolor-g">
-		<div class="container-fluid">
-      		<div class="row flex-xl-nowrap">
-        		<div class="col-12 col-md-6 col-xl-2 login-or-register-img">
-					<img data-js-component-id="component1153274547448579454"
-						src="http://www.bits.com.mx/wp-content/uploads/2017/02/206.png"
-						data-hi-res="https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder@2x-vfl87XcA-.png"
-						alt="" class="login-or-register-img">
-				</div>
-        
-
-        	<div class="col-12 col-md-6 login-or-register" role="main">
-				<div class="login-register-login-part">
-					<div class="clearfix">
-						<div class="login-register-switch"> Login ou 
-							<a th:href="@{/register}" class="login-register-switch-link">Criar uma conta</a>
-						</div>
+	</head>
+	<body>
+		<header class="navbar head bgcolor-b">
+			<nav class="col-md-12">
+				<center><a th:href="@{/}"><h1>Adapt</h1></a></center>
+			</nav>
+		</header>
+		
+		
+		<div class="bgcolor-g">
+			<div class="container">
+	      		<div class="row">
+	        		<div class="col-sm-12 col-md-6 col-lg-6 login-or-register-img">
+						<center>
+						<img data-js-component-id="component1153274547448579454"
+							src="http://www.bits.com.mx/wp-content/uploads/2017/02/206.png"
+							data-hi-res="https://cfl.dropboxstatic.com/static/images/empty_states/sign-in-boulder@2x-vfl87XcA-.png"
+							alt="" class="login-or-register-img">
+							</center>
 					</div>
-				
-					<div id="component1153274547448579457">		
-						<form class="clearfix credentials-form login-form" method="POST" data-reactid="9">
-							<div class="credentials-form__fields" data-reactid="10">
-												<div
-													class="form-group"
-													data-reactid="11">
-													<div class="text-input-error-wrapper" data-reactid="12"></div>
-													<div class="text-input-wrapper" data-reactid="13">
-													<label
-															for="login_password17844461660614086" data-reactid="20">E-mail</label>
-														<input type="email" id="login_email8204522035607653"
-															class="text-input-input form-control" name="login_email" value=""
-															autocomplete="off" data-reactid="14">
-													</div>
-												</div>
-												<div
-													class="text-input standard login-text-input login-password"
-													data-reactid="16">
-													<div class="text-input-error-wrapper" data-reactid="17"></div>
-													<div class="text-input-wrapper" data-reactid="18">
-													<label for="login_password17844461660614086" data-reactid="20">Senha</label>
-														<input type="password"
-															id="login_password17844461660614086"
-															class="text-input-input password-input form-control"
-															name="login_password" value="" autocomplete="off"
-															data-reactid="19">
-													</div>
-												</div>
-											</div>
-											<div class="clearfix" data-reactid="33">
-												<div class="checkbox standard remember-me checkbox-inline"
-													data-reactid="34">
-													<div class="text-input-error-wrapper form-group" data-reactid="35"></div>
-													<input type="checkbox" id="remember_me17764500486290702"
-														name="remember_me" aria-checked="true" data-reactid="36"
-														value="on" checked=""><label
-														for="remember_me17764500486290702" class="checkbox_label"
-														data-reactid="37"><span data-reactid="38">
-															<!-- react-text: 39 -->Lembrar meus dados<!-- /react-text -->
-													</span></label>
-												</div>
-												<button class="btn btn-primary"
-													type="submit" data-reactid="40">
-													<div class="signin-text" data-reactid="41">Acessar
-														conta</div>
-												</button>
-												<div class="login-need-help" data-reactid="42">
-													<a class="forgot-password-link"
-														href="/forgot?email_from_login=" data-reactid="43">Esqueceu
-														a senha?</a>
-												</div>
-											</div>
-										</form>
+	        
+	
+	        		<div class="col-sm-12 col-md-12 col-lg-5 login-or-register" role="main">
+						<div class="login-register-login-part">			
+							<div class="login-register-switch"> Login ou 
+								<a th:href="@{/user-register}" class="login-register-switch-link">Criar uma conta</a>
+							</div>
+					
+									
+							<form method="POST" data-reactid="9">
+								
+								<div data-reactid="10">
+									<div class="form-group" data-reactid="11">
+										<div class="text-input-error-wrapper" data-reactid="12"></div>
+										<div class="text-input-wrapper" data-reactid="13">
+											<label for="login_password" data-reactid="20">E-mail</label>
+											<input type="email" id="login_email" class="text-input-input form-control" 
+												   name="login_email" value="" autocomplete="off" data-reactid="14">
+										</div>
+									</div>
+									<div class="text-input standard login-text-input login-password" data-reactid="16">
+										<div class="text-input-error-wrapper" data-reactid="17"></div>
+										<div class="text-input-wrapper" data-reactid="18">
+											<label for="login_password" data-reactid="20">Senha</label>
+											<input type="password" id="login_password" class="text-input-input password-input form-control"
+												   name="login_password" value="" autocomplete="off" data-reactid="19">
+										</div>
 									</div>
 								</div>
-							</div>
+								
+								<div data-reactid="33">
+									<div class="checkbox standard remember-me checkbox-inline" data-reactid="34">
+										<div class="text-input-error-wrapper form-group" data-reactid="35"></div>
+										<input type="checkbox" id="remember_me"
+											   name="remember_me" aria-checked="true" data-reactid="36"
+									           value="on" checked="">
+									    <label for="remember_me" class="checkbox_label"	data-reactid="37">
+									    <span data-reactid="38"></span></label>
+									</div>
+									
+									<button class="btn btn-blue" type="submit" data-reactid="40">
+										<div class="signin-text" data-reactid="41">Acessar conta</div>
+									</button>
+									
+									<div class="login-need-help" data-reactid="42">
+										<a class="forgot-password-link color-b" href="/forgot?email_from_login=" data-reactid="43">
+											Esqueceu a senha?</a>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
-
 				</div>
-      </div>
-    </div>
-	</div>
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-</body>
+			</div>
+	
+		</div>
+	    
+	
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	</body>
 </html>
