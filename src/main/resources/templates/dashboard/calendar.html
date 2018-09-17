@@ -18,12 +18,16 @@
     	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
 		
 		<!-- Open Sans Font -->
-		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet" />			
 		
 		<!-- Font Awesome -->
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+		<!-- Full Calendar -->
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
+
+
 		
-	
 
 	</head>
 	<body>
@@ -76,7 +80,7 @@
 							<li class="nav-item">
 		                        <div class="nav-link active">
 		                            <i class="fa fa-user" style="font-size: 1.3em; color: #4d4d4d"></i>
-		                            <a href="#" class="nav-label">Perfil</a>
+		                            <a th:href="@{/profile}" class="nav-label">Perfil</a>
 		                        </div>
 		                    </li>
 		                </ul>
@@ -84,10 +88,10 @@
    						
    				</div>
    				
-   				<div class="col-md-9 bgcolor-g" >
+   				<div class="col-md-9 bgcolor-g margin-dash" >
    					
-   						
-   				
+   					<div id="calendar" ></div>
+   					
    				</div>
    			
    			</div>
@@ -95,4 +99,41 @@
    		</section>
    		
 	</body>
+	
+	
+	<!-- Full Calendar -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	
+	<script type="text/javascript">
+	
+		$( document ).ready(function() {
+			
+			$('#calendar').fullCalendar({
+				defaultView: 'agendaFourDay',
+			    groupByResource: true,
+			    header: {
+			    	left: 'prev,next',
+			      	center: 'title',
+			      	right: 'agendaDay,agendaFourDay'
+			    },
+			    views: {
+			      	agendaFourDay: {
+			        	type: 'agenda',
+			        	duration: { days: 4 }
+			     	}
+			    },
+			    events: 'https://fullcalendar.io/demo-events.json',
+			   	height: 550,
+			   	
+
+			});
+
+		});
+
+	</script>
+	
 </html>
