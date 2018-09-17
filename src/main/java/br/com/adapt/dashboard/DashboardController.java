@@ -17,4 +17,9 @@ public class DashboardController {
         return "dashboard/task_form";
     }
 	
+	@GetMapping("/task-edit")
+	public String taskEdit() {
+        return "dashboard/task_edit_form";
+    }
+	
 }
