@@ -1,0 +1,84 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+
+</head>
+<body>
+	<header class="navbar head bgcolor-b">
+		<nav class="col-md-12">
+			<center><a th:href="@{/}"><h1>Adapt</h1></a></center>
+		</nav>
+	</header>
+	
+	
+	<div class="">
+		<div class="container">
+      		<div class="row">
+      			<div class="col-md-3"></div>
+      			<div class="col-md-6">
+      			
+	      			<form class="register-form">
+	      			
+	      				<div class="form-group">
+						    <label for="exampleInputName">Nome:</label>
+						    <input type="text" class="form-control" id="exampleInputName" placeholder="Digite seu nome">
+					  	</div>
+					  	<div class="form-group">
+						    <label for="exampleInputEmail1">Email:</label>
+						    <input type="email" class="form-control" id="exampleInputEmail1"  placeholder="Digite seu email">
+					  	</div>
+					  	<div class="form-group">
+						    <label for="exampleInputPassword1">Senha:</label>
+						    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite uma senha">
+						</div>
+						<div class="form-group">
+						    <label for="exampleInputPassword1">Confirme senha:</label>
+						    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Digite novamente a senha">
+						</div>
+						
+					  	<button type="submit" class="btn btn-blue">Cadastrar</button>
+					</form>
+      			
+      			</div>
+      			<div class="col-md-3"></div>
+      			
+        		<br><br><br>
+			</div>
+		</div>
+
+	</div>
+    
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+</html>

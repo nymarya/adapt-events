@@ -1,0 +1,113 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		
+	
+
+	</head>
+	<body>
+   		
+   		<section>
+   			
+   			<nav class="dashboard-nav bgcolor-b">
+   				<!-- NAVBAR -->
+   			</nav>
+   			
+   			
+   			<div class="container row">
+   				
+   				<div class="col-md-3 right-nav bgcolor-lb">
+   					<div class="margin-dash">
+   						<center>
+   						<img class="profile-image" th:src="@{/view/images/profile.png}"/>
+   						<h4>Jaine Budke</h4>
+   						<h5>jainebudke@hotmail.com</h5>
+   						</center>
+   					</div>
+   					<hr />
+   					
+   					<div class="container row" >
+                		<ul class="nav flex-column" >
+
+                   			<li class="nav-item">
+		                        <div class="nav-link active" >
+        	                	    <i class="fa fa-home" style="font-size: 1.3em; color: #4d4d4d"></i>
+            	        	        <a th:href="@{/dashboard}" class="nav-label">Home</a>
+                		        </div>
+                    		</li>
+
+		                   	<li class="nav-item">
+		                        <div class="nav-link active">
+		                            <i class="fa fa-check" style="font-size: 1.3em; color: #4d4d4d"></i>
+		                            <a href="#" class="nav-label">Check-in</a>
+		                        </div>
+		                    </li>
+		                    
+		                    <li class="nav-item">
+		                        <div class="nav-link active">
+		                            <i class="fa fa-tasks" style="font-size: 1.3em; color: #4d4d4d"></i>
+		                            <a th:href="@{/task-register}" class="nav-label">Cadastrar tarefa</a>
+		                        </div>
+		                    </li>
+
+							<li class="nav-item">
+		                        <div class="nav-link active">
+		                            <i class="fa fa-user" style="font-size: 1.3em; color: #4d4d4d"></i>
+		                            <a th:href="@{/profile}" class="nav-label">Perfil</a>
+		                        </div>
+		                    </li>
+		                </ul>
+		            </div>
+   						
+   				</div>
+   				
+   				<div class="col-md-9 bgcolor-g margin-dash task-form">
+
+   					<form>
+	      				
+						<input type="text" class="form-control" placeholder="Título da tarefa"><br>
+						<input type="text" class="form-control" placeholder="Data final de entrega"><br>
+						<input type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
+						<input type="text" class="form-control" placeholder="Descrição da tarefa"><br>
+						
+						<label>Defina a dificuldade de realizar essa tarefa:</label>
+						<select class="custom-select">
+						  <option selected value="1">Fácil</option>
+						  <option value="2">Médio</option>
+						  <option value="3">Difícil</option>
+						</select><br><br>
+						
+						
+						
+					  	<button type="submit" class="btn btn-blue">Editar tarefa</button>
+					</form>
+   				
+   				</div>
+   			
+   			</div>
+   			
+   		</section>
+   		
+	</body>
+</html>
