@@ -1,4 +1,4 @@
-package adapt.repository;
+package br.com.adapt.repository;
 
 import org.springframework.stereotype.Repository;
 import br.com.adapt.model.Task;
