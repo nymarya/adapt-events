@@ -7,6 +7,7 @@ import br.com.adapt.domain.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -69,7 +72,13 @@ public class Task implements Serializable {
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 	
-	
+	@ManyToMany
+    @JoinTable(
+        name = "tasks_tags",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+	private List<Tag> tags;
 	
 	
 	public Integer getId() {

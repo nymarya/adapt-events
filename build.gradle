@@ -30,5 +30,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     runtime('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile(group: 'org.postgresql', name: 'postgresql', version: '42.1.1')
     runtime('com.h2database:h2')
 }

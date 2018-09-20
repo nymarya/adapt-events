@@ -37,10 +37,10 @@ public class Scheduler implements Serializable{
 	private Integer id;
 	
 	
-	@OneToMany(mappedBy="task", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
     List<Task> tasks;
 
-	@OneToMany(mappedBy="freeBlocks", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
     List<Freeblock> freeBlocks;
 
 	@OneToOne
