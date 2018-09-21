@@ -1,5 +1,7 @@
 ## Clonar o projeto
-```git clone https://github.com/nymarya/adapt```
+```git clone https://github.com/nymarya/adapt``` (via HTTP)
+ou
+```git clone git@github.com:nymarya/adapt.git``` (via ssh)
 
 ## Importar com projeto
 Após o [Spring Tool Suite](https://spring.io/tools/sts) e instalar algum plugins do Gradle:
