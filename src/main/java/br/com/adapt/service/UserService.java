@@ -5,6 +5,8 @@ package br.com.adapt.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +24,25 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@Transactional(readOnly = false)
 	public User save(User entity) {
-		return userRepository.save(entity);
+		final User user = new User();
+		user.setPassword(passwordEncoder.encode(entity.getPassword()));
+		user.setName(entity.getName());
+		user.setEmail(entity.getEmail());
+		return userRepository.save(user);
+	}
+	
+	public User autenticate(String emailAddress) {
+		User usuario = userRepository.findByEmailAddress(emailAddress);
+		if (usuario == null) {
+			throw new RuntimeException("Usuário não cadastrado!");
+		}
+		return usuario;
 	}
 	
 	
