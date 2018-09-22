@@ -1,0 +1,61 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+	<head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	</head>
+	<body>
+   		
+   				
+ 		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+	 		<h1>Tags</h1>
+			<hr />
+			<a th:href="@{/tags/create}" class="btn btn-success">Nova tag</a><br/><br/>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th> 
+						<th>Cor</th> 
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tag : ${tags}">
+						<td th:text="${tag.name}"></td> 
+						<td th:text="${tag.color}"></td> 
+						<td>
+								<a th:href="#" class="btn btn-primary">Ver</a> 
+						 		<a th:href="#" class="btn btn-info">Editar</a> 
+								<a th:href="#" class="btn btn-danger">Remover</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	 				
+		</div>
+	</body>
+</html>
+

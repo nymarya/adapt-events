@@ -47,7 +47,8 @@ public class Scheduler implements Serializable{
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	
+	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
+    List<Tag> tags;
 	
 	
 	public Integer getId() {
@@ -82,7 +83,19 @@ public class Scheduler implements Serializable{
 		this.user = user;
 	}
 
-	
+	/**
+	 * @return the tags
+	 */
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 		
 	
 }

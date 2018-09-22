@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +46,10 @@ public class Tag implements Serializable{
         inverseJoinColumns = @JoinColumn(name = "task_id")
     )
 	private List<Tag> tasks;
+	
+	@ManyToOne
+	@JoinColumn(name = "scheduler_id")
+	private Scheduler scheduler;
 
 	
 	/**
@@ -117,5 +122,22 @@ public class Tag implements Serializable{
 	public void setTasks(List<Tag> tasks) {
 		this.tasks = tasks;
 	}
+
+
+	/**
+	 * @return the scheduler
+	 */
+	public Scheduler getScheduler() {
+		return scheduler;
+	}
+
+
+	/**
+	 * @param scheduler the scheduler to set
+	 */
+	public void setScheduler(Scheduler scheduler) {
+		this.scheduler = scheduler;
+	}
+	
 	
 }

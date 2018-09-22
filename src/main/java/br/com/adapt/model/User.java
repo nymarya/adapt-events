@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -41,8 +42,25 @@ public class User implements Serializable{
 	private String password;
 
 	
+	@OneToOne
+	private Scheduler scheduler;
 	
-	
+	/**
+	 * @return the scheduler
+	 */
+	public Scheduler getScheduler() {
+		return scheduler;
+	}
+
+
+	/**
+	 * @param scheduler the scheduler to set
+	 */
+	public void setScheduler(Scheduler scheduler) {
+		this.scheduler = scheduler;
+	}
+
+
 	/**
 	 * Get the id
 	 * @return the id
