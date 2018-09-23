@@ -1,0 +1,67 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+	<head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+	</head>
+	<body>
+   		
+   				
+ 		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+	 		<h1 class="adapt">Tags</h1>
+			<hr />
+			<a th:href="@{/tags/create}" class="btn btn-success pull-right">Nova tag</a><br/><br/>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th> 
+						<th>Cor</th> 
+						<th>Opções</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="tag : ${tags}">
+						<td th:text="${tag.name}"></td> 
+						<td th:text="${tag.color}"></td> 
+						<td style="text-align:center">
+								<a th:href="${'/tags/'+ tag.id }" class="btn btn-xs btn-primary">Ver</a> 
+						 		<a th:href="${'/tags/'+ tag.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
+								<form th:action="${'/tags/'+ tag.id +'/delete'}"
+                                   class="btn-group"  method="post" name="f">
+                                 <button class="btn btn-xs btn-danger"
+                                         onclick="return confirm('Você tem certeza que deseja excluir essa essa tag?');">
+                                     Excluir
+                                 </button>
+                             </form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	 				
+		</div>
+	</body>
+</html>
+

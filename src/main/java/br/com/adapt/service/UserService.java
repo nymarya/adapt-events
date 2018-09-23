@@ -53,5 +53,13 @@ public class UserService {
 		return usuario;
 	}
 	
+	public User findByEmailAdress( String emailAddress) {
+		User usuario = userRepository.findByEmailAddress(emailAddress);
+		if (usuario == null) {
+			throw new RuntimeException("Usuário não encontrado!");
+		}
+		return usuario;
+	}
+	
 	
 }

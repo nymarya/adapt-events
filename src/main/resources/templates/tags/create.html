@@ -1,0 +1,64 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+	<head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		
+		<th:block layout:fragment="stylesheet">	
+  			<link th:href="@{/view/plugins/colorpicker/colorpicker.min.css}" rel="stylesheet">
+	   	</th:block>
+
+	</head>
+	<body>
+   		
+   				
+ 		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+					<h1 class="adapt">Cadastro de tag</h1>
+					<hr />
+ 					<form name="f" th:action="@{/tags}" method="post">
+ 						<div class="form-group">
+      				<label for="name">Nome:</label>
+					<input type="text" name="name" class="form-control" >
+				</div>
+				<div class="form-group">
+      				<label for="color">Cor:</label>
+					<input type="text" name="color" class="form-control colorpicker" >
+				</div>						
+				
+				
+			  	<button type="submit" class="btn btn-blue">Cadastrar tag</button>
+			</form>
+ 				
+		</div>
+   		<th:block layout:fragment="script">	
+   			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  					integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  					crossorigin="anonymous"></script>
+		   	<script th:src="@{/view/plugins/colorpicker/colorpicker.js}" ></script>
+		   	<script>
+		   		$('.colorpicker').colorpicker();
+		   	</script>	
+	   	</th:block>
+	</body>
+</html>
+
