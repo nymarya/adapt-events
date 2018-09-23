@@ -107,6 +107,21 @@ public class TagController {
 		return "redirect:/tags";
 	}
 	
+	@GetMapping("tags/{id}")
+	public String show(Model model, @PathVariable("id") Integer id) {
+		
+		try {
+			if (id != null) {
+				
+				Tag entity = tagService.findById(id);
+				model.addAttribute("tag", entity);
+			}
+		} catch (Exception e) {
+			throw new ServiceException(e.getMessage());
+		}
+		return "tags/show";
+	}
+	
 	@PostMapping("tags/{id}/delete")
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		try {

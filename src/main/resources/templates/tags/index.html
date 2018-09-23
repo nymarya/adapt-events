@@ -47,7 +47,7 @@
 						<td th:text="${tag.name}"></td> 
 						<td th:text="${tag.color}"></td> 
 						<td style="text-align:center">
-								<a href="#" class="btn btn-xs btn-primary">Ver</a> 
+								<a th:href="${'/tags/'+ tag.id }" class="btn btn-xs btn-primary">Ver</a> 
 						 		<a th:href="${'/tags/'+ tag.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
 								<form th:action="${'/tags/'+ tag.id +'/delete'}"
                                    class="btn-group"  method="post" name="f">
