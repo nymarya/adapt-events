@@ -5,14 +5,20 @@ package br.com.adapt.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.adapt.model.Tag;
@@ -51,5 +57,37 @@ public class TagController {
         return "tags/create";
     }
 	
+	@PostMapping("/tags")
+	public String store( @Valid @ModelAttribute Tag entityTag,BindingResult result, RedirectAttributes redirectAttributes) {
+		Tag tag = null;
+		
+		try {
+
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        User user = userService.findByEmailAdress(auth.getName());
+			tag = tagService.save(entityTag, user.getScheduler());
+			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			e.printStackTrace();
+		}
+		return "redirect:/tags";
+	}
+	
+	@PostMapping("tags/{id}/delete")
+	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+		try {
+			if (id != null) {
+				Tag entity = tagService.findById(id);
+				tagService.delete(entity);
+				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
+			}
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			throw new ServiceException(e.getMessage());
+		}
+		return "redirect:/tags";
+	}
+
 	
 }

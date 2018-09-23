@@ -30,9 +30,9 @@
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
 
-	 		<h1>Tags</h1>
+	 		<h1 class="adapt">Tags</h1>
 			<hr />
-			<a th:href="@{/tags/create}" class="btn btn-success">Nova tag</a><br/><br/>
+			<a th:href="@{/tags/create}" class="btn btn-success pull-right">Nova tag</a><br/><br/>
 			
 			<table class="table">
 				<thead>
@@ -46,10 +46,16 @@
 					<tr th:each="tag : ${tags}">
 						<td th:text="${tag.name}"></td> 
 						<td th:text="${tag.color}"></td> 
-						<td>
-								<a th:href="#" class="btn btn-primary">Ver</a> 
-						 		<a th:href="#" class="btn btn-info">Editar</a> 
-								<a th:href="#" class="btn btn-danger">Remover</a>
+						<td style="text-align:center">
+								<a href="#" class="btn btn-xs btn-primary">Ver</a> 
+						 		<a href="#" class="btn btn-xs btn-info">Editar</a> 
+								<form th:action="${'/tags/'+ tag.id +'/delete'}"
+                                   class="btn-group"  method="post" name="f">
+                                 <button class="btn btn-xs btn-danger"
+                                         onclick="return confirm('Você tem certeza que deseja excluir essa essa tag?');">
+                                     Excluir
+                                 </button>
+                             </form>
 						</td>
 					</tr>
 				</tbody>

@@ -50,7 +50,7 @@ public class Tag implements Serializable{
     )
 	private List<Tag> tasks;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 
