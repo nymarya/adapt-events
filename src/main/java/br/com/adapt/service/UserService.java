@@ -25,6 +25,9 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
+	private SchedulerService schedulerService;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	
@@ -34,13 +37,26 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(entity.getPassword()));
 		user.setName(entity.getName());
 		user.setEmail(entity.getEmail());
-		return userRepository.save(user);
+		
+		// Ao criar um usuario, deve ser criado um
+		// scheduler pra ele
+		User userTemp =  userRepository.save(user);
+		schedulerService.save(userTemp);
+		return userTemp;
 	}
 	
 	public User autenticate(String emailAddress) {
 		User usuario = userRepository.findByEmailAddress(emailAddress);
 		if (usuario == null) {
 			throw new RuntimeException("Usuário não cadastrado!");
+		}
+		return usuario;
+	}
+	
+	public User findByEmailAdress( String emailAddress) {
+		User usuario = userRepository.findByEmailAddress(emailAddress);
+		if (usuario == null) {
+			throw new RuntimeException("Usuário não encontrado!");
 		}
 		return usuario;
 	}

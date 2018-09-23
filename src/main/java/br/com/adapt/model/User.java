@@ -5,6 +5,7 @@ package br.com.adapt.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class User implements Serializable{
 	private String password;
 
 	
-	@OneToOne
+	@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
 	private Scheduler scheduler;
 	
 	/**

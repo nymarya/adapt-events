@@ -11,11 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.adapt.model.Tag;
 import br.com.adapt.model.User;
 import br.com.adapt.service.TagService;
+import br.com.adapt.service.UserService;
 
 /**
  * @author mayra
@@ -31,9 +34,13 @@ public class TagController {
 
 	@Autowired
 	private TagService tagService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/tags")
-	public String index(Model model, @AuthenticationPrincipal User user) {
+	public String index(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmailAdress(auth.getName());
 		List<Tag> all = user.getScheduler().getTags();
 		model.addAttribute("tags", all);
         return "tags/index";
