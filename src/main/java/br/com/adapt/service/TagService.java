@@ -23,6 +23,11 @@ public class TagService {
 	private TagRepository tagRepository;
 	
 	@Transactional(readOnly = false)
+	public Tag save(Tag entity) {
+		return tagRepository.save(entity);
+	}
+	
+	@Transactional(readOnly = false)
 	public Tag save(Tag entity, Scheduler scheduler) {
         entity.setScheduler(scheduler);
 		return tagRepository.save(entity);

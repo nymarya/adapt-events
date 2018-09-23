@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,6 +69,37 @@ public class TagController {
 	        User user = userService.findByEmailAdress(auth.getName());
 			tag = tagService.save(entityTag, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
+			e.printStackTrace();
+		}
+		return "redirect:/tags";
+	}
+	
+	@GetMapping("tags/{id}/edit")
+	public String update(Model model, @PathVariable("id") Integer id) {
+		
+		try {
+			if (id != null) {
+				
+				Tag entity = tagService.findById(id);
+				model.addAttribute("tag", entity);
+			}
+		} catch (Exception e) {
+			throw new ServiceException(e.getMessage());
+		}
+		return "tags/edit";
+	}
+	
+	@RequestMapping(value = "/tags/{id}", method = RequestMethod.POST)
+	public String update(@Valid @ModelAttribute Tag entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
+		Tag tag = null;
+		try {
+			entity.setId(id);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        User user = userService.findByEmailAdress(auth.getName());
+			tag = tagService.save(entity, user.getScheduler());
+			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			e.printStackTrace();
