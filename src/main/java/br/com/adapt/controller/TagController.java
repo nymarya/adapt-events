@@ -22,7 +22,6 @@ import br.com.adapt.service.TagService;
  *
  */
 @Controller
-@RequestMapping("/tags")
 public class TagController {
 	
 	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";
@@ -33,7 +32,7 @@ public class TagController {
 	@Autowired
 	private TagService tagService;
 	
-	@GetMapping
+	@GetMapping("/tags")
 	public String index(Model model, @AuthenticationPrincipal User user) {
 		List<Tag> all = user.getScheduler().getTags();
 		model.addAttribute("tags", all);
@@ -41,7 +40,7 @@ public class TagController {
     }
 
 	@GetMapping("/tags/create")
-	public String create(Model model, @ModelAttribute Tag entityTag) {
+	public String create(Model model) {
         return "tags/create";
     }
 	
