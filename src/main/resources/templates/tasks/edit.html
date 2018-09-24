@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+
+	<body>
+
+
+   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+			<form name="f" th:action="${'/tasks/'+ task.id }" method="POST">
+	    				
+				<input name="title" type="text" class="form-control" th:field="${task.title}"><br>
+				<input name="date" type="text" class="form-control" th:field="${task.dueDate}"><br>
+				<input type="text" class="form-control" th:field="${task.expectedTime}"><br>
+				<input type="text" class="form-control" th:field="${task.description}"><br>
+				
+				<label>Defina a dificuldade de realizar essa tarefa:</label>
+				
+	
+				<select class="custom-select">
+				  <option th:selected="${task.dificulty} == 'Baixa'" >Fácil</option>
+				  <option th:selected="${task.dificulty} == 'Média'" >Médio</option>
+				  <option  th:selected="${task.dificulty} == 'Alta'" >Difícil</option>
+				  <option th:text="${task.dificulty} == 'Alta' ? 'selected' : ''" ></option>
+				</select><br><br>
+					
+					<span th:text="${task.dificulty}"></span> <br>
+					<span th:text="${task.dificulty} == Alta"></span> <br>
+				
+		  		<button type="submit" class="btn btn-blue">Editar tarefa</button>
+			</form>
+   				
+   		</div>
+   		
+   		
+	</body>
+</html>

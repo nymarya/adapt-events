@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+
+	<body>
+
+
+   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+			
+			<h1 class="adapt">Detalhes da tarefa</h1>
+			<hr />
+
+			<label for="title">Título: </label>  
+			<span th:text="${task.title}"></span> <br>
+
+
+			<label for="dueDate">Data de entrega: </label>  
+			<span th:text="${task.dueDate}"></span><br> 
+
+			<label for="expectedTime">Tempo esperado: </label>  
+			<span th:text="${task.expectedTime}"></span><br> 
+
+			<label for="difficulty">Dificuldade: </label>  
+			<span th:text="${task.dificulty}"></span> <br>
+
+			<label for="description">Descrição: </label>  
+			<span th:text="${task.description}"></span> <br>
+			
+			<label for="priority">Prioridade: </label>  
+			<span th:text="${task.priority}"></span> <br>
+			
+			<label for="type">Tipo: </label>  
+			<span th:text="${task.type}"></span> <br><br>
+			
+			<a th:href="@{/tasks}" class="btn btn-primary" >Retornar à listagem</a> 
+			
+   				
+   		</div>
+   		
+   		
+	</body>
+</html>

@@ -19,7 +19,6 @@ public class AdaptUserDetailsService implements UserDetailsService {
         super();
     }
  
-    @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByEmailAddress(username);
         if (user == null) {

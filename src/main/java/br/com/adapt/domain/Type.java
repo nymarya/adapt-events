@@ -10,4 +10,13 @@ package br.com.adapt.domain;
  */
 public enum Type {
 	ROUTINE, TEMPORARY;
+	
+	@Override
+	public String toString() {
+		switch(this) {
+	    	case ROUTINE: return "Rotina";
+	    	case TEMPORARY: return "Temporária";
+	    	default: throw new IllegalArgumentException();
+	    }
+	}
 }

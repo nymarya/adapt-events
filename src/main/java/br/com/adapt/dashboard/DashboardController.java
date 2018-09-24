@@ -12,10 +12,7 @@ public class DashboardController {
         return "dashboard/calendar";
     }
 	
-	@GetMapping("/task-register")
-	public String taskRegister() {
-        return "dashboard/task_form";
-    }
+	
 	
 	@GetMapping("/task-edit")
 	public String taskEdit() {

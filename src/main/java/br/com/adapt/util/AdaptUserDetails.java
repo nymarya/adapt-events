@@ -24,33 +24,32 @@ public class AdaptUserDetails implements UserDetails {
 
     //
 
-    @Override
     public String getUsername() {
         return user.getEmail();
     }
 
-    @Override
+     
     public String getPassword() {
         return user.getPassword();
     }
 
 
-    @Override
+     
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
+     
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
+     
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
+     
     public boolean isEnabled() {
         return true;
     }
@@ -62,7 +61,7 @@ public class AdaptUserDetails implements UserDetails {
     }
 
 
-	@Override
+	 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		 List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 
