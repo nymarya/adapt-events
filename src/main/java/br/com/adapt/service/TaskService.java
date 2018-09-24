@@ -21,6 +21,10 @@ public class TaskService {
 	@Autowired
 	private TaskRepository taskRepository;
 	
+	@Transactional(readOnly = false)
+	public Task saveTask(Task entity) {
+		return taskRepository.save(entity);
+	}
 	
 	@Transactional(readOnly = false)
 	public Task saveTask(Task entity, Scheduler scheduler) {

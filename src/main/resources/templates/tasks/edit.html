@@ -12,22 +12,33 @@
 	    				
 				<input name="title" type="text" class="form-control" th:field="${task.title}"><br>
 				<input name="date" type="text" class="form-control" th:field="${task.dueDate}"><br>
-				<input type="text" class="form-control" th:field="${task.expectedTime}"><br>
-				<input type="text" class="form-control" th:field="${task.description}"><br>
+				<input name="expectedTime" type="text" class="form-control" th:field="${task.expectedTime}"><br>
+				<input name="description" type="text" class="form-control" th:field="${task.description}"><br>
 				
 				<label>Defina a dificuldade de realizar essa tarefa:</label>
+
+				<select name="dificulty" class="custom-select">
+				  <option th:selected="${task.dificulty.toString() == 'Baixa' }" value="LOW" >Baixa</option>
+  				  <option th:selected="${task.dificulty.toString() == 'Média' }" value="MEDIUM" >Média</option>
+  				  <option th:selected="${task.dificulty.toString() == 'Alta' }"  value="HIGH">Alta</option>
+				</select><br>
+							
 				
-	
-				<select class="custom-select">
-				  <option th:selected="${task.dificulty} == 'Baixa'" >Fácil</option>
-				  <option th:selected="${task.dificulty} == 'Média'" >Médio</option>
-				  <option  th:selected="${task.dificulty} == 'Alta'" >Difícil</option>
-				  <option th:text="${task.dificulty} == 'Alta' ? 'selected' : ''" ></option>
+				<label>Defina a prioridade dessa tarefa:</label>
+				<select class="custom-select form-group" name="priority">
+				  <option th:selected="${task.priority.toString() == 'Nenhuma' }" value="NONE">Nenhuma</option>
+				  <option th:selected="${task.priority.toString() == 'Baixa' }"  value="LOW" >Baixa</option>
+  				  <option th:selected="${task.priority.toString() == 'Média' }"  value="MEDIUM">Média</option>
+  				  <option th:selected="${task.priority.toString() == 'Alta' }"  value="HIGH">Alta</option>
+				</select><br>
+				
+				<label>Essa tarefa faz parte da sua rotina?</label>
+				<select class="custom-select form-group" name="type">
+				  <option th:selected="${task.type.toString() == 'Rotina' }" value="ROUTINE">Sim</option>
+				  <option th:selected="${task.type.toString() == 'Temporária' }" value="TEMPORARY">Não</option>
 				</select><br><br>
-					
-					<span th:text="${task.dificulty}"></span> <br>
-					<span th:text="${task.dificulty} == Alta"></span> <br>
 				
+					
 		  		<button type="submit" class="btn btn-blue">Editar tarefa</button>
 			</form>
    				
