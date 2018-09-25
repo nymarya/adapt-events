@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+
+	<body>
+
+
+   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+			<form name="f" th:action="${'/tasks/'+ task.id }" method="POST">
+	    				
+				<input name="title" type="text" class="form-control" th:field="${task.title}"><br>
+				<input name="date" type="text" class="form-control" th:field="${task.dueDate}"><br>
+				<input name="expectedTime" type="text" class="form-control" th:field="${task.expectedTime}"><br>
+				<input name="description" type="text" class="form-control" th:field="${task.description}"><br>
+				
+				<label>Defina a dificuldade de realizar essa tarefa:</label>
+
+				<select name="dificulty" class="custom-select">
+				  <option th:selected="${task.dificulty.toString() == 'Baixa' }" value="LOW" >Baixa</option>
+  				  <option th:selected="${task.dificulty.toString() == 'Média' }" value="MEDIUM" >Média</option>
+  				  <option th:selected="${task.dificulty.toString() == 'Alta' }"  value="HIGH">Alta</option>
+				</select><br>
+							
+				
+				<label>Defina a prioridade dessa tarefa:</label>
+				<select class="custom-select form-group" name="priority">
+				  <option th:selected="${task.priority.toString() == 'Nenhuma' }" value="NONE">Nenhuma</option>
+				  <option th:selected="${task.priority.toString() == 'Baixa' }"  value="LOW" >Baixa</option>
+  				  <option th:selected="${task.priority.toString() == 'Média' }"  value="MEDIUM">Média</option>
+  				  <option th:selected="${task.priority.toString() == 'Alta' }"  value="HIGH">Alta</option>
+				</select><br>
+				
+				<label>Essa tarefa faz parte da sua rotina?</label>
+				<select class="custom-select form-group" name="type">
+				  <option th:selected="${task.type.toString() == 'Rotina' }" value="ROUTINE">Sim</option>
+				  <option th:selected="${task.type.toString() == 'Temporária' }" value="TEMPORARY">Não</option>
+				</select><br><br>
+				
+					
+		  		<button type="submit" class="btn btn-blue">Editar tarefa</button>
+			</form>
+   				
+   		</div>
+   		
+   		
+	</body>
+</html>
