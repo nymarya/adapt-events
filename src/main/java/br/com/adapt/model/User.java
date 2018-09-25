@@ -15,6 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  * @author mayra
@@ -34,9 +38,11 @@ public class User implements Serializable{
 	private Integer id;
 
 	@Column(name = "name")
+	@NotEmpty(message = "*Nome é um campo obrigatório")
 	private String name;
 
 	@Column(name = "email")
+	@Email(message = "*Email inválido ")
 	private String email;
 
 	@Column(name = "password")

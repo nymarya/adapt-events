@@ -47,7 +47,7 @@ public class RegisterController {
 		}
 
 		
-        return "auth/register";
+        return "redirect:/login";
     }
 	
 }
