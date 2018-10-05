@@ -5,6 +5,7 @@ package br.com.adapt.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -65,6 +66,7 @@ public class SchedulerService {
 		// recupera blocos livres do banco de dados
 		List<Freeblock> blocks =  user.getScheduler().getFreeBlocks();
 		
+        
 		// organiza os blocos livres no map
 	    // Map<Date, Date> freeBlocks = new HashMap<Date, Date>();
 	    SortedMap<Date, Date> freeBlocks = new TreeMap<Date, Date>();
@@ -75,21 +77,41 @@ public class SchedulerService {
 	    	freeBlocks.put(startDate, endDate);
 	    }
 	    
-	    // ordena map
-	    System.out.println(freeBlocks);
+	    // STUB: ordena map
+	    
 	    
 		// recupera tarefas do banco de dados
 		List<Task> tasks = user.getScheduler().getTasks();
 		
-        // ordena tarefas com base na data
+        // STUB: ordena tarefas com base na data
+		
 		
 		// ALGORITMO DE ALOCAÇÃO
 		// percorre lista de tarefas
-		// - percorre lista de slots
-		// ---- tenta alocar tarefa i no bloco j
-		// 		se conseguir, mexe no map alterando os blocos de tempo livre e sai do for
-		// 		se n conseguir, tenta no proximo
-		// - se não conseguir alocar alguma tarefa, manda mensagem ao usuario
+		for( int i=0; i<tasks.size(); i++ ){
+			
+			// percorre lista de slots
+			Iterator iterator = freeBlocks.entrySet().iterator();
+		    while (iterator.hasNext()) {
+		    	Map.Entry block = (Map.Entry) iterator.next();
+		        
+		    	Date startDate = (Date) block.getKey();
+		    	Date endDate = (Date) block.getValue();
+		    	
+		    	// STUB: efetuar diferença e recuperar horas livres
+		    	
+				//if( tasks.get(i).getExpectedTime() <  ){
+		    		
+		    		// aloca tarefa	
+		    		// mexe no map alterando os blocos de tempo livre e sai do for
+		    		
+				//}
+		    	
+		    					
+			}
+		    
+		    // STUB: se não conseguir alocar alguma tarefa, manda mensagem ao usuario
+		}
 		
 		
 		return freeBlocks;

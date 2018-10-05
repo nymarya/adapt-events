@@ -20,6 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 /**
  * @author jainebudke
  *
@@ -80,6 +82,9 @@ public class Task implements Serializable {
     )
 	private List<Tag> tags;
 	
+	@Nullable
+	@Column(name="day")
+	private int day;
 	
 	public Integer getId() {
 		return id;
@@ -183,6 +188,20 @@ public class Task implements Serializable {
 
 	public void setScheduler(Scheduler scheduler) {
 		this.scheduler = scheduler;
+	}
+
+	/**
+	 * @return the day
+	 */
+	public int getDay() {
+		return day;
+	}
+
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(int day) {
+		this.day = day;
 	}
 	
 	
