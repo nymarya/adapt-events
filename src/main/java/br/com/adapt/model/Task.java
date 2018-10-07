@@ -6,7 +6,7 @@ package br.com.adapt.model;
 import br.com.adapt.domain.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,10 +40,10 @@ public class Task implements Serializable {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "start_date", insertable=false, nullable=true)
+	@Column(name = "start_date")
 	private Date startDate;
 	
-	@Column(name = "end_date", insertable=false, nullable=true)
+	@Column(name = "end_date")
 	private Date endDate;
 	
 	@Column(name = "due_date")

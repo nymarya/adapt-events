@@ -28,6 +28,9 @@ public class RegisterController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * Redirecionamento para página de registro de usuário
+	 */
 	@GetMapping("/user-register")
 	public String register() {
         return "auth/register";
@@ -47,7 +50,7 @@ public class RegisterController {
 		}
 
 		
-        return "auth/register";
+        return "auth/login";
     }
 	
 }
