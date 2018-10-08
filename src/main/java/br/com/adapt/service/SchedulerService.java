@@ -66,20 +66,6 @@ public class SchedulerService {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
 		
-		
-		// recupera blocos livres do banco de dados
-		// List<Freeblock> blocks =  user.getScheduler().getFreeBlocks();
-		
-        
-		// organiza os blocos livres no map
-	    // Map<Date, Date> freeBlocks = new HashMap<Date, Date>();
-	    // SortedMap<Date, Date> freeBlocks = new TreeMap<Date, Date>();
-
-	    /*for( int i=0; i<blocks.size(); i++ ){
-	    	Date startDate = blocks.get(i).getStartDate();
-	    	Date endDate = blocks.get(i).getEndDate();
-	    	freeBlocks.put(startDate, endDate);
-	    }*/
         
         // lista de tarefas de rotina
         List< List<Task> > routineTasks = new ArrayList< List<Task> >();
@@ -112,6 +98,9 @@ public class SchedulerService {
 	        		case 6: routineTasks.get(6).add(task); break;
 	        		default: break;
         		}
+	        	
+	        	// remove tarefa rotina da lista de tarefas 
+	        	tasks.remove(task);
         		
         	}
         }
@@ -124,56 +113,28 @@ public class SchedulerService {
         			return t1.getStartDate().compareTo(t2.getStartDate());
         		}
         	});
-        	
-        	
-        }
-       
-        
-        // percorre a lista de tarefas cadastradas
-        /*for( int i=0; i<tasks.size(); i++ ){
-        	
-        	if(  ){
         		
-        	}
-        	
-        }*/
+        }
         
-	    
-	    // STUB: ordena map
-	    
-	    
-		// recupera tarefas do banco de dados
-		//List<Task> tasks = user.getScheduler().getTasks();
-		
-        // STUB: ordena tarefas com base na data
-		
+        
+        // STUB: CRIAR BLOCOS LIVRES
+        
+        
+        // ordena lista de tarefas temporárias    
+    	Collections.sort(tasks, new Comparator<Task>() {
+    		public int compare(Task t1, Task t2) {
+    			return t1.getStartDate().compareTo(t2.getStartDate());
+    		}
+    	});
+    	
 		
 		// ALGORITMO DE ALOCAÇÃO
 		// percorre lista de tarefas
-		/*for( int i=0; i<tasks.size(); i++ ){
+		for( int i=0; i<tasks.size(); i++ ){
+		
+			// percorre blocos livres verificando se tarefa "cabe" lá dentro
 			
-			// percorre lista de slots
-			//Iterator iterator = freeBlocks.entrySet().iterator();
-		    //while (iterator.hasNext()) {
-		    	//Map.Entry block = (Map.Entry) iterator.next();
-		        
-		    	//Date startDate = (Date) block.getKey();
-		    	//Date endDate = (Date) block.getValue();
-		    	
-		    	// STUB: efetuar diferença e recuperar horas livres
-		    	
-				//if( tasks.get(i).getExpectedTime() <  ){
-		    		
-		    		// aloca tarefa	
-		    		// mexe no map alterando os blocos de tempo livre e sai do for
-		    		
-				//}
-		    	
-		    					
-			}*/
-		    
-		    // STUB: se não conseguir alocar alguma tarefa, manda mensagem ao usuario
-		//}
+		}
 		
 		
 		return routineTasks;
