@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
@@ -32,7 +34,7 @@ import br.com.adapt.service.UserService;
  *
  */
 
-@Controller
+@RestController
 public class TaskController {
 
 	
@@ -142,4 +144,12 @@ public class TaskController {
 		}
 		return "redirect:/tasks";
 	}
+
+    @GetMapping("/api/tasks")
+    public List<Task> tasks(@RequestParam(value="start", defaultValue="World") String start,
+    		@RequestParam(value="end", defaultValue="World") String end,
+    		@RequestParam(value="_", defaultValue="World") String e) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return taskService.findByUserEmail(auth.getName());
+    }
 }

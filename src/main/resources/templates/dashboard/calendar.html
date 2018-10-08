@@ -45,30 +45,44 @@
 		
 		<script type="text/javascript">
 		
-			$( document ).ready(function() {
-				
+			
+			$(document).ready(function() {
+
 				$('#calendar').fullCalendar({
-					defaultView: 'agendaFourDay',
-				    groupByResource: true,
-				    header: {
-				    	left: 'prev,next',
-				      	center: 'title',
-				      	right: 'agendaDay,agendaFourDay'
-				    },
-				    views: {
-				      	agendaFourDay: {
-				        	type: 'agenda',
-				        	duration: { days: 4 }
-				     	}
-				    },
-				    events: 'https://fullcalendar.io/demo-events.json',
-				   	height: 450,
-				   	
-	
+					defaultView : 'agendaFourDay',
+					groupByResource : true,
+					header : {
+						left : 'prev,next',
+						center : 'title',
+						right : 'agendaDay,agendaFourDay'
+					},
+					views : {
+						agendaFourDay : {
+							type : 'agenda',
+							duration : {
+								days : 4
+							}
+						}
+					},
+					height : 450,
+
+			eventSources : [
+
+					// your event source
+					{
+						url : '/api/tasks',
+						type : 'GET',
+						error : function(e) {
+							alert('there was an error while fetching events!');
+							console.log(e);
+						},
+						color : 'yellow', // a non-ajax option
+						textColor : 'black' // a non-ajax option
+					} ]
+
 				});
-	
+
 			});
-	
 		</script>
 	</th:block>
 	

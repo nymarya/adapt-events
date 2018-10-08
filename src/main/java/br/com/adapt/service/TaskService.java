@@ -1,5 +1,7 @@
 package br.com.adapt.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +42,10 @@ public class TaskService {
 	@Transactional(readOnly=false)
 	public void delete(Task entity) {
 		taskRepository.delete(entity);
+	}
+
+	public List<Task> findByUserEmail(String name) {
+		return taskRepository.findByUserEmail(name);
 	}
 	
 }
