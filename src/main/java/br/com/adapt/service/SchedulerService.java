@@ -4,6 +4,7 @@
 package br.com.adapt.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,14 +101,16 @@ public class SchedulerService {
         	if( task.getType() == Type.ROUTINE ){
         		
         		// verifica de qual dia da semana é e add tarefa na lista
+        		
 	        	switch( task.getDay() ) {
-	        		case 0: routineTasks.get(0).add(task); 
-	        		case 1: routineTasks.get(1).add(task); 
-	        		case 2: routineTasks.get(2).add(task); 
-	        		case 3: routineTasks.get(3).add(task); 
-	        		case 4: routineTasks.get(4).add(task); 
-	        		case 5: routineTasks.get(5).add(task); 
-	        		case 6: routineTasks.get(6).add(task); 
+	        		case 0: routineTasks.get(0).add(task); break;
+	        		case 1: routineTasks.get(1).add(task); break;
+	        		case 2: routineTasks.get(2).add(task); break;
+	        		case 3: routineTasks.get(3).add(task); break;
+	        		case 4: routineTasks.get(4).add(task); break;
+	        		case 5: routineTasks.get(5).add(task); break;
+	        		case 6: routineTasks.get(6).add(task); break;
+	        		default: break;
         		}
         		
         	}
@@ -116,14 +119,12 @@ public class SchedulerService {
         // ordena tarefas de rotina
         for( int i=0; i<7; i++ ){
         	
-        	routineTasks.get(i).sort( new Comparator<Task>() {
-                public int compare(Task t1, Task t2) {
-                    if(t1.getStartDate() == t2.getStartDate() ){
-                        return 0;
-                    }
-                    return t1.getStartDate() != null ? -1 : 1;
-                 }
-            });
+        	Collections.sort(routineTasks.get(i), new Comparator<Task>() {
+        		public int compare(Task t1, Task t2) {
+        			return t1.getStartDate().compareTo(t2.getStartDate());
+        		}
+        	});
+        	
         	
         }
        

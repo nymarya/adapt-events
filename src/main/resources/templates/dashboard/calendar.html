@@ -17,7 +17,10 @@
  			<span th:text="${tasks}"></span>
  			
  			<div th:each="task : ${tasks}">
+ 				
+ 				<h4>----</h4> 
  				<div th:each="t : ${task}">
+
 					<h4 th:text="${t.title}"></h4> 
 					<h4 th:text="${t.startDate}"></h4> 
 				</div>
