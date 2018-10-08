@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.User;
 import br.com.adapt.service.SchedulerService;
 
@@ -30,8 +31,8 @@ public class DashboardController {
 	
 	@GetMapping("/scheduler")
 	public String index(Model model) {
-		SortedMap<Date, Date> blocks = SchedulerService.generate();
-		model.addAttribute("freeblocks", blocks);
+		List< List<Task> > tasks = SchedulerService.generate();
+		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
     }
 	

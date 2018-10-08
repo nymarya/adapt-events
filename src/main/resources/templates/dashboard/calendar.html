@@ -14,7 +14,14 @@
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
  			
  			<h2>OI</h2>
- 			<span th:text="${freeBlocks}"></span>
+ 			<span th:text="${tasks}"></span>
+ 			
+ 			<div th:each="task : ${tasks}">
+ 				<div th:each="t : ${task}">
+					<h4 th:text="${t.title}"></h4> 
+					<h4 th:text="${t.startDate}"></h4> 
+				</div>
+			</div>
  			
  			<div id="calendar" ></div>
    					
