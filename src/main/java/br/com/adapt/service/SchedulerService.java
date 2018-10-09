@@ -33,6 +33,7 @@ import br.com.adapt.model.Freeblock;
 
 import br.com.adapt.repository.SchedulerRepository;
 import br.com.adapt.repository.TagRepository;
+import br.com.adapt.repository.TaskRepository;
 
 
 
@@ -48,7 +49,24 @@ public class SchedulerService {
 	private SchedulerRepository schedulerRepository;
 	
 	@Autowired
+	private TaskRepository taskRepository;
+	
+	@Autowired
+	private TaskService taskService;
+	
+	
+	@Autowired
 	private UserService userService;
+	
+	// Lista de tarefas rotina
+	private List< List<Task> > routineTasks = new ArrayList< List<Task> >();
+
+	// lista de tarefas de temporarias
+    private List< Task > temporaryTasks = new ArrayList< Task >();
+    
+    // lista de blocos livres
+    private List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
+
 	
 	/**
 	 * Ao criar um usuário, deve ser criado um 
@@ -64,38 +82,10 @@ public class SchedulerService {
 	}
 	
 	
-	public List< List< Freeblock > > generate(){
+	public void generateGroupsTask( List<Task> tasks ){
 		
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByEmailAdress(auth.getName());
-		
-       
-		
-		
-
-        // lista de tarefas de rotina
-        List< List<Task> > routineTasks = new ArrayList< List<Task> >();
-        
-        for( int i=0; i<7; i++ ){
-        	routineTasks.add( new ArrayList<Task>() );
-        }
-        
-        
-     // lista de tarefas de temporarias
-        List< Task > temporaryTasks = new ArrayList< Task >();
-        
-        
-        
-        
-        
-        List<Task> tasks = user.getScheduler().getTasks();
-        
-        
-        // percorre todas as tarefas
-        //for( int i=0; i<tasks.size(); i++ ){
+		// percorre todas as tarefas
 		for( Task task : tasks ){
-        	//Task task = tasks.get(i);
         	
         	// verifica se é rotina
         	if( task.getType() == Type.ROUTINE ){
@@ -117,12 +107,13 @@ public class SchedulerService {
         	}
         	
         }
-        
-
+	
 		
-		
-		// ordena tarefas de rotina
-        for( int i=0; i<7; i++ ){
+	}
+	
+	
+	public void orderRoutineByDate() {
+		for( int i=0; i<7; i++ ){
         	
         	Collections.sort(routineTasks.get(i), new Comparator<Task>() {
         		public int compare(Task t1, Task t2) {
@@ -131,16 +122,21 @@ public class SchedulerService {
         	});
         		
         }
+	}
+	
+	public void orderTemporaryTasksByPriority() {
 
-        
-        // listas de blocos livres 
-        List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
-        for( int i=0; i<7; i++ ){
-        	freeblocks.add( new ArrayList<Freeblock>() );
-        }
-        
-        
-        
+    	Collections.sort(temporaryTasks, new Comparator<Task>() {
+    		public int compare(Task t1, Task t2) {
+    			return t1.getPriority().compareTo(t2.getPriority());
+    		}
+    	});
+    	
+	}
+	
+	public void generateFreeBlocks() {
+		
+	      
         String[] hours = {"07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
         				  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
         				  "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30",
@@ -150,8 +146,6 @@ public class SchedulerService {
         // percorre as listas de cada dia da semana
         for( int d=0; d<7; d++ ){	
 	        
-        	//LocalTime lastEndDate = "07:00";
-        	//LocalTime lastEndDate = LocalTime.parse("07:00");
         	LocalTime lastEndDate = LocalTime.of(07, 00);
         	
 	        // percorre tarefas rotineiras
@@ -205,25 +199,13 @@ public class SchedulerService {
 	        
         
         }
-        
-     
-
-             
-        
-        // ordena lista de tarefas temporárias   
-
-    	/*Collections.sort(temporaryTasks, new Comparator<Task>() {
-    		public int compare(Task t1, Task t2) {
-    			return t1.getStartDate().compareTo(t2.getStartDate());
-    		}
-    	});*/
-    	
-
-    	
+	}
+	
+	
+	public void distributeTaskTime() {
+		
 		boolean update = true;
-        
-		// ALGORITMO DE ALOCAÇÃO
-		// percorre lista de tarefas
+		
 		for( int i=0; i<temporaryTasks.size(); i++ ){
 			
 			update = true;
@@ -249,11 +231,8 @@ public class SchedulerService {
 						
 						endTime = endTime.plusMinutes(temporaryTasks.get(i).getExpectedTime());
 						
-						
-						//System.out.println(temporaryTasks.get(i).getExpectedTime());
-						//System.out.println(block.getStartDate());
-						//System.out.println(endTime);
 						temporaryTasks.get(i).setEndDate( endTime );
+						
 						
 						// diminui tempo do bloco livre
 						block.setStartDate( endTime );
@@ -268,22 +247,70 @@ public class SchedulerService {
 			}
 			
 		}
+	}
+	
+	
+	public List< List< Freeblock > > generate(){
+		
+		// recupera usuario ativo
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmailAdress(auth.getName());
+		
+
+        // inicializa lista de tarefas de rotina
+        for( int i=0; i<7; i++ ){
+        	routineTasks.add( new ArrayList<Task>() );
+        }
+        
+        
+        // recupera lista de tarefas do usuario
+        List<Task> tasks = user.getScheduler().getTasks();
+        
+        
+        // gera listas com tarefas rotina e temporárias
+        generateGroupsTask( tasks );
+		
+		
+		// ordena tarefas de rotina
+        orderRoutineByDate();
+
+        
+        // inicializa lista de blocos livres 
+        for( int i=0; i<7; i++ ){
+        	freeblocks.add( new ArrayList<Freeblock>() );
+        }
+        
+        
+        // gera blocos livres
+        generateFreeBlocks();
+
+
+        
+        // ordena lista de tarefas temporárias   
+        orderTemporaryTasksByPriority();
+
+        
+        // alocar tempo das tarefas
+        distributeTaskTime();
 		
 		
 
 	
-		for( int j=0; j<temporaryTasks.size(); j++ ){
+        
+        // TESTE //
+		/*for( int j=0; j<temporaryTasks.size(); j++ ){
 			System.out.println("TASK "+j);
+			System.out.println(temporaryTasks.get(j));
 			System.out.println(temporaryTasks.get(j).getDay());
 			System.out.println(temporaryTasks.get(j).getStartDate());
 			System.out.println(temporaryTasks.get(j).getEndDate());
 			System.out.println(temporaryTasks.get(j).getExpectedTime());
-		}
+		}*/
 		
-	
-        
+		
 		
 		return freeblocks;
+		
 	}
 	
 	

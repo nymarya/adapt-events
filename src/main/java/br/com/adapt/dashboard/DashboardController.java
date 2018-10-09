@@ -26,7 +26,10 @@ public class DashboardController {
 	private SchedulerService SchedulerService;
 	
 	@GetMapping("/dashboard")
-	public String dashboardIndex() {
+	public String dashboardIndex(Model model) {
+		
+		List< List< Freeblock > > tasks = SchedulerService.generate();
+		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
     }
 	
