@@ -247,11 +247,12 @@ public class SchedulerService {
 						temporaryTasks.get(i).setStartDate( block.getStartDate() );
 						LocalTime endTime = block.getStartDate();
 						
-						endTime = endTime.plusMinutes(tasks.get(i).getExpectedTime());
+						endTime = endTime.plusMinutes(temporaryTasks.get(i).getExpectedTime());
 						
-						System.out.println("EXPECTED: "+tasks.get(i).getExpectedTime());
-						System.out.println(block.getStartDate());
-						System.out.println(endTime);
+						
+						//System.out.println(temporaryTasks.get(i).getExpectedTime());
+						//System.out.println(block.getStartDate());
+						//System.out.println(endTime);
 						temporaryTasks.get(i).setEndDate( endTime );
 						
 						// diminui tempo do bloco livre
@@ -276,6 +277,7 @@ public class SchedulerService {
 			System.out.println(temporaryTasks.get(j).getDay());
 			System.out.println(temporaryTasks.get(j).getStartDate());
 			System.out.println(temporaryTasks.get(j).getEndDate());
+			System.out.println(temporaryTasks.get(j).getExpectedTime());
 		}
 		
 	
