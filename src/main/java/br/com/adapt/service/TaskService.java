@@ -1,9 +1,13 @@
 package br.com.adapt.service;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,8 +54,6 @@ public class TaskService {
 	}
 
 	public List<Task> findByUserEmail(String name) {
-		//DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
-		//LocalDateTime timePoint = LocalDateTime.now(/* tz */).with(TemporalAdjusters.previousOrSame(firstDayOfWeek));; 
 		List<Task> tasks= taskRepository.findByUserEmail(name);
 		return tasks;
 	}
