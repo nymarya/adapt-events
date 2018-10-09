@@ -220,11 +220,14 @@ public class SchedulerService {
     	
 
     	
-		
+		boolean update = true;
+        
 		// ALGORITMO DE ALOCAÇÃO
 		// percorre lista de tarefas
 		for( int i=0; i<temporaryTasks.size(); i++ ){
-				
+			
+			update = true;
+			
 			// percorre blocos livres verificando se tarefa "cabe" lá dentro
 			for( int j=0; j<7; j++ ){
 				
@@ -235,23 +238,26 @@ public class SchedulerService {
 					
 					long freeTime = Duration.between(block.getEndDate(), block.getStartDate()).toMinutes();
 					
-					System.out.println("Da tarefa: "+temporaryTasks.get(i).getExpectedTime());
-					System.out.println("Do bloco: "+freeTime*(-1));
-					
 					// se tempo esperado pra concluir tarefa couber no bloco
-					if( temporaryTasks.get(i).getExpectedTime() < freeTime*(-1) ){
-						
-						System.out.println( block.getStartDate() );
+					if( temporaryTasks.get(i).getExpectedTime() < freeTime*(-1) 
+							&& update==true ){
 						
 						// atualiza o horário na tarefa
 						temporaryTasks.get(i).setDay(j);
 						temporaryTasks.get(i).setStartDate( block.getStartDate() );
 						LocalTime endTime = block.getStartDate();
-						endTime.plus(tasks.get(i).getExpectedTime(), ChronoUnit.MINUTES);
+						
+						endTime = endTime.plusMinutes(tasks.get(i).getExpectedTime());
+						
+						System.out.println("EXPECTED: "+tasks.get(i).getExpectedTime());
+						System.out.println(block.getStartDate());
+						System.out.println(endTime);
 						temporaryTasks.get(i).setEndDate( endTime );
 						
 						// diminui tempo do bloco livre
 						block.setStartDate( endTime );
+						
+						update = false;
 						
 					}
 					
