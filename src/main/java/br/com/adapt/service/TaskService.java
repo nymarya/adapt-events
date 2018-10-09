@@ -1,5 +1,16 @@
 package br.com.adapt.service;
 
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +51,11 @@ public class TaskService {
 	@Transactional(readOnly=false)
 	public void delete(Task entity) {
 		taskRepository.delete(entity);
+	}
+
+	public List<Task> findByUserEmail(String name) {
+		List<Task> tasks= taskRepository.findByUserEmail(name);
+		return tasks;
 	}
 	
 }

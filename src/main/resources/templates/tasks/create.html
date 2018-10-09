@@ -2,6 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout}">
+	  
+	  <head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		
+		<th:block layout:fragment="stylesheet">	
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">	   	
+			</th:block>
+
+	</head>
 
 	<body>
 
@@ -9,13 +37,12 @@
 
  			<form method="POST"
      			  th:action="@{/task/save}"
-				  th:object="${task}">
+				  th:object="${task}" >
      				
+     			<label>Digite o título da tarefa: </label>
 				<input name="title" type="text" class="form-control" placeholder="Título da tarefa"><br>
 
-				<label>Defina a data final de entrega dessa tarefa:</label>
-				<input name="dueDate" type="date" class="form-control" placeholder="Data final de entrega"><br>
-				<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
+				<label>Descreva a tarefa a ser realizada:</label>
 				<input name="description" type="text" class="form-control" placeholder="Descrição da tarefa"><br>
 				
 				<label>Defina a dificuldade de realizar essa tarefa:</label>
@@ -26,25 +53,98 @@
 				  <option value="HIGH">Difícil</option>
 				</select><br><br>
 				
-				<label>Defina a prioridade dessa tarefa:</label>
-				<select class="custom-select form-group" name="priority">
-				  <option selected value="NONE">Nenhuma</option>
-				  <option value="LOW">Baixa</option>
-				  <option value="MEDIUM">Média</option>
-				  <option value="HIGH">Alta</option>
-				</select><br><br>
 				
 				<label>Essa tarefa faz parte da sua rotina?</label>
 				<select class="custom-select form-group" name="type">
-				  <option selected value="ROUTINE">Sim</option>
-				  <option value="TEMPORARY">Não</option>
-				</select><br><br>
+				  <option value="ROUTINE">Sim</option>
+				  <option selected value="TEMPORARY">Não</option>
+				</select>
 				
+				<div class="form-group temporary" style="">
+					<label>Defina a prioridade dessa tarefa:</label>
+					<select class="custom-select form-group" name="priority">
+					  <option selected value="NONE">Nenhuma</option>
+					  <option value="LOW">Baixa</option>
+					  <option value="MEDIUM">Média</option>
+					  <option value="HIGH">Alta</option>
+					</select><br>
+				</div>
+				
+				<div class="form-group temporary" style="">
+					<label>Defina a data final de entrega dessa tarefa:</label>
+					<input name="dueDate" type="date" class="form-control" placeholder="Data final de entrega"><br>
+				</div>
+				
+				<div class="form-group temporary" style="">
+					<label>Defina o tempo necessário para realizar a tarefa:</label>
+					<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
+				</div>
+				
+				<div class="form-group routine" style="display:none">
+      				<label for="dia">Dia</label>
+      				<select class="custom-select form-group" name="day">
+						<option value="0">Domingo</option>
+						<option value="1" selected>Segunda</option>
+						<option value="2">Terça</option>
+						<option value="3">Quarta</option>
+						<option value="4">Quinta</option>
+						<option value="5">Sexta</option>
+						<option value="6">Sexta</option>
+					</select>
+				</div>
+				
+					
+				<div class="form-group routine" style="display:none">
+					<label for="startDate">Inicio</label>
+					<input name="startDate" class=" time form-control">
+				</div>
+				
+				
+				<div class="form-group routine" style="display:none">
+					<label for="endDate">Fim</label>
+					<input name="endDate" class="time form-control">
+				</div>
 				
 			  	<button type="submit" class="btn btn-blue">Cadastrar tarefa</button>
 			</form>
-   				
+   			
    		</div>
+   		
+   		<th:block layout:fragment="script">	
+   			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  					integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  					crossorigin="anonymous"></script>
+		   	<script th:src="@{/view/plugins/colorpicker/colorpicker.js}" ></script>
+		   	<<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+		   	<script>
+		   	$(document).ready(function(){
+		   		$('.time').timepicker({
+		   		    timeFormat: 'HH:mm',
+		   		    interval: 30,
+		   		    minTime: '07',
+		   		    maxTime: '22:00',
+		   		    defaultTime: '11',
+		   		    startTime: '07:00',
+		   		    dynamic: false,
+		   		    dropdown: true,
+		   		    scrollbar: true
+		   		});
+		   			$("[name='type']").on('change', function(){
+		   				if( $(this).val() == "ROUTINE"){
+		   					$('.routine').show();
+		   				} else {
+		   					$('.routine').hide();
+		   				}
+		   				
+		   				if( $(this).val() == "TEMPORARY"){
+		   					$('.temporary').show();
+		   				} else {
+		   					$('.temporary').hide();
+		   				}
+		   			});
+		   		})
+		   	</script>	
+	   	</th:block>
    		
 	</body>
 </html>

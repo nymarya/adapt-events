@@ -1,22 +1,29 @@
 package br.com.adapt.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
@@ -37,7 +44,7 @@ public class TaskController {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";
-	private static final String MSG_SUCESS_UPDATE = "Tag successfully changed.";
+	private static final String MSG_SUCESS_UPDATE = "Tarefa cadastrada com sucesso.";
 	private static final String MSG_SUCESS_DELETE = "Deleted tag successfully.";
 	private static final String MSG_ERROR = "Error.";
 
@@ -57,7 +64,9 @@ public class TaskController {
     }
 	
 	@GetMapping("/tasks/create")
-	public String taskCreate() {
+	public String taskCreate(Model m) {
+		m.addAttribute("endDate", LocalTime.NOON);
+		m.addAttribute("startDate", LocalTime.NOON);
         return "tasks/create";
     }
 	
@@ -141,5 +150,10 @@ public class TaskController {
 			throw new ServiceException(e.getMessage());
 		}
 		return "redirect:/tasks";
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(LocalTime.class, new CustomDateEditor(new SimpleDateFormat("H:m"), true));
 	}
 }

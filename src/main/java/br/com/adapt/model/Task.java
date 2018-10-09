@@ -6,7 +6,9 @@ package br.com.adapt.model;
 import br.com.adapt.domain.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,6 +21,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.lang.Nullable;
 
 /**
  * @author jainebudke
@@ -38,12 +46,16 @@ public class Task implements Serializable {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "start_date", insertable=false, nullable=true)
-	private Date startDate;
+	@DateTimeFormat(pattern = "H:m")
+	@Column(name = "start_date")
+	private LocalTime startDate;
 	
-	@Column(name = "end_date", insertable=false, nullable=true)
-	private Date endDate;
+	@DateTimeFormat(pattern = "H:m")
+	@Column(name = "end_date")
+	private LocalTime endDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "due_date")
 	private Date dueDate;
 
@@ -80,6 +92,9 @@ public class Task implements Serializable {
     )
 	private List<Tag> tags;
 	
+	@Nullable
+	@Column(name="day")
+	private int day;
 	
 	public Integer getId() {
 		return id;
@@ -97,19 +112,19 @@ public class Task implements Serializable {
 		this.title = title;
 	}
 
-	public Date getStartDate() {
+	public LocalTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalTime endDate) {
 		this.endDate = endDate;
 	}
 
@@ -184,6 +199,21 @@ public class Task implements Serializable {
 	public void setScheduler(Scheduler scheduler) {
 		this.scheduler = scheduler;
 	}
+
+	/**
+	 * @return the day
+	 */
+	public int getDay() {
+		return day;
+	}
+
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
 	
 	
 }
