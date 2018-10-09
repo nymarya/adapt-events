@@ -13,18 +13,8 @@
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
  			
- 			<span>----</span>
- 			
- 			<div th:each="block : ${blocks}">
- 				
- 				<h4>--- Outro dia ----</h4>
- 				<!-- <div th:each="b : ${block}"> -->
-					<h4>--- Outro tarefa ----</h4>
-					<h4 th:text="${b.startDate}"></h4> 
-					<h4 th:text="${b.endDate}"></h4> 
-					
-				<!-- </div> -->
-			</div>
+
+
  			
  			<div id="calendar" ></div>
    					
@@ -45,30 +35,72 @@
 		
 		<script type="text/javascript">
 		
-			$( document ).ready(function() {
-				
+			
+			$(document).ready(function() {
+				function getSunday(d) {
+					var t = new Date(d);
+					  t.setDate(t.getDate() - t.getDay());
+					  return t;
+        		}
+
 				$('#calendar').fullCalendar({
-					defaultView: 'agendaFourDay',
-				    groupByResource: true,
-				    header: {
-				    	left: 'prev,next',
-				      	center: 'title',
-				      	right: 'agendaDay,agendaFourDay'
-				    },
-				    views: {
-				      	agendaFourDay: {
-				        	type: 'agenda',
-				        	duration: { days: 4 }
-				     	}
-				    },
-				    events: 'https://fullcalendar.io/demo-events.json',
-				   	height: 450,
-				   	
-	
+					defaultView : 'agendaWeek',
+					groupByResource : true,
+					header : {
+						left : 'prev,next',
+						center : 'title',
+						right : 'agendaDay,agendaWeek'
+					},
+					views : {
+						agendaFourDay : {
+							type : 'agenda',
+							duration : {
+								days : 4
+							}
+						}
+					},
+					height : 450,
+					
+					events: function(start, end, timezone, callback) {
+					    $.ajax({
+					      url: 'api/tasks',
+					      dataType: 'json',
+					      data: {
+					        // our hypothetical feed requires UNIX timestamps
+					        start: start.unix(),
+					        end: end.unix()
+					      },
+					      success: function(doc) {
+					        var events = [];
+					        var sun = getSunday(new Date());
+					        doc.forEach(function(item, a) {
+							  var day = sun + item[3];
+							  var timeStart = item[0].split(":")
+							  var timeEnd = item[1].split(":")
+							  
+							  var start = new Date(day)
+							  start.setHours(timeStart[0])
+							  start.setMinutes(timeStart[1])
+					          events.push({
+					        	  title: item[2],
+					          	  start: start
+					          })
+					          
+					   
+					        });
+					        console.log(events);
+					        callback(events);
+					      }, error: function (xhr, err) {
+					          alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+					          alert("responseText: " + xhr.responseText);
+					      }
+					    });
+					    
+					}
+
 				});
-	
+
 			});
-	
 		</script>
 	</th:block>
 	

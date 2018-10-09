@@ -3,6 +3,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 *.class
 /bin/
+
 application.properties
 
 ### STS ###

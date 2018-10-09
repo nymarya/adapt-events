@@ -3,6 +3,9 @@
  */
 package br.com.adapt.service;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -147,22 +150,24 @@ public class SchedulerService {
         // percorre as listas de cada dia da semana
         for( int d=0; d<7; d++ ){	
 	        
-        	String lastEndDate = "07:00";
+        	//LocalTime lastEndDate = "07:00";
+        	//LocalTime lastEndDate = LocalTime.parse("07:00");
+        	LocalTime lastEndDate = LocalTime.of(07, 00);
         	
 	        // percorre tarefas rotineiras
 	        for( int i=0; i<routineTasks.get(d).size(); i++ ){	
 	        		
 	    		// recupera tarefa rotina da vez
 	    		Task routineTask = routineTasks.get(d).get(i);
-	    		String startDate = routineTask.getStartDate();
+	    		LocalTime startDate = routineTask.getStartDate();
 	    		
 	    		// procura esse horário na lista
 	    		for( int k=0; k<31; k++ ){
 	    		
 	    			// quando achar
-	    			if( startDate.equals(hours[k])  ){
+	    			if( startDate == LocalTime.parse(hours[k]) ){
 	    				
-	    				if( !lastEndDate.equals( hours[k] ) ) {
+	    				if( !(lastEndDate  == LocalTime.parse(hours[k]) ) ) {
 	    					// cria bloco
 		    				Freeblock block = new Freeblock();
 		    				block.setStartDate( lastEndDate );
@@ -183,12 +188,21 @@ public class SchedulerService {
     				
     				Freeblock block = new Freeblock();
     				block.setStartDate( lastEndDate );
-    				block.setEndDate( hours[30] );
+    				block.setEndDate( LocalTime.parse(hours[30]) );
     				freeblocks.get(d).add(block);
     				
     			}
 	        		
 	        }
+	        
+	        // se nao tiver tarefa naquele dia, bloco livre cheio
+	        if( routineTasks.get(d).size() == 0 ){
+	        	Freeblock block = new Freeblock();
+				block.setStartDate( LocalTime.parse(hours[0]) );
+				block.setEndDate( LocalTime.parse(hours[30]) );
+				freeblocks.get(d).add(block);
+	        }
+	        
         
         }
         
@@ -204,22 +218,12 @@ public class SchedulerService {
     		}
     	});*/
     	
-        /*for( int i=0; i<7; i++ ){
-		
-			System.out.println("SEMANA "+i);
-		
-			for( int j=0; j<freeblocks.get(i).size(); j++ ){
-				System.out.println("TAREFA "+j);
-				System.out.println(freeblocks.get(i).get(j).getStartDate());
-				System.out.println(freeblocks.get(i).get(j).getEndDate());
-			}
-			
-		}*/
+
     	
 		
 		// ALGORITMO DE ALOCAÇÃO
 		// percorre lista de tarefas
-		for( int i=0; i<tasks.size(); i++ ){
+		for( int i=0; i<temporaryTasks.size(); i++ ){
 				
 			// percorre blocos livres verificando se tarefa "cabe" lá dentro
 			for( int j=0; j<7; j++ ){
@@ -229,7 +233,28 @@ public class SchedulerService {
 					
 					Freeblock block = freeblocks.get(j).get(k);
 					
-					// 
+					long freeTime = Duration.between(block.getEndDate(), block.getStartDate()).toMinutes();
+					
+					System.out.println("Da tarefa: "+temporaryTasks.get(i).getExpectedTime());
+					System.out.println("Do bloco: "+freeTime*(-1));
+					
+					// se tempo esperado pra concluir tarefa couber no bloco
+					if( temporaryTasks.get(i).getExpectedTime() < freeTime*(-1) ){
+						
+						System.out.println( block.getStartDate() );
+						
+						// atualiza o horário na tarefa
+						temporaryTasks.get(i).setDay(j);
+						temporaryTasks.get(i).setStartDate( block.getStartDate() );
+						LocalTime endTime = block.getStartDate();
+						endTime.plus(tasks.get(i).getExpectedTime(), ChronoUnit.MINUTES);
+						temporaryTasks.get(i).setEndDate( endTime );
+						
+						// diminui tempo do bloco livre
+						block.setStartDate( endTime );
+						
+					}
+					
 					
 				}
 				
@@ -237,6 +262,18 @@ public class SchedulerService {
 			
 		}
 		
+		
+
+	
+		for( int j=0; j<temporaryTasks.size(); j++ ){
+			System.out.println("TASK "+j);
+			System.out.println(temporaryTasks.get(j).getDay());
+			System.out.println(temporaryTasks.get(j).getStartDate());
+			System.out.println(temporaryTasks.get(j).getEndDate());
+		}
+		
+	
+        
 		
 		return freeblocks;
 	}
