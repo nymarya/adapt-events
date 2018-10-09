@@ -13,7 +13,6 @@
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
  			
- 			<h2>OI</h2>
  			<span th:text="${tasks}"></span>
  			
  			<div th:each="task : ${tasks}">
@@ -47,14 +46,19 @@
 		
 			
 			$(document).ready(function() {
+				function getSunday(d) {
+					var t = new Date(d);
+					  t.setDate(t.getDate() - t.getDay());
+					  return t;
+        		}
 
 				$('#calendar').fullCalendar({
-					defaultView : 'agendaFourDay',
+					defaultView : 'agendaWeek',
 					groupByResource : true,
 					header : {
 						left : 'prev,next',
 						center : 'title',
-						right : 'agendaDay,agendaFourDay'
+						right : 'agendaDay,agendaWeek'
 					},
 					views : {
 						agendaFourDay : {
@@ -65,20 +69,43 @@
 						}
 					},
 					height : 450,
-
-			eventSources : [
-
-					// your event source
-					{
-						url : '/api/tasks',
-						type : 'GET',
-						error : function(e) {
-							alert('there was an error while fetching events!');
-							console.log(e);
-						},
-						color : 'yellow', // a non-ajax option
-						textColor : 'black' // a non-ajax option
-					} ]
+					
+					events: function(start, end, timezone, callback) {
+					    $.ajax({
+					      url: 'api/tasks',
+					      dataType: 'json',
+					      data: {
+					        // our hypothetical feed requires UNIX timestamps
+					        start: start.unix(),
+					        end: end.unix()
+					      },
+					      success: function(doc) {
+					        var events = [];
+					        var sun = getSunday(new Date());
+					        doc.forEach(function(item, a) {
+							  var day = sun + item[3];
+							  var timeStart = item[0].split(":")
+							  var timeEnd = item[1].split(":")
+							  
+							  var start = new Date(day)
+							  start.setHours(timeStart[0])
+							  start.setMinutes(timeStart[1])
+					          events.push({
+					        	  title: item[2],
+					          	  start: start
+					          })
+					          
+					   
+					        });
+					        console.log(events);
+					        callback(events);
+					      }, error: function (xhr, err) {
+					          alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+					          alert("responseText: " + xhr.responseText);
+					      }
+					    });
+					    
+					}
 
 				});
 

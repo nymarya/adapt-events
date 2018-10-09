@@ -1,6 +1,11 @@
 package br.com.adapt.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +50,10 @@ public class TaskService {
 	}
 
 	public List<Task> findByUserEmail(String name) {
-		return taskRepository.findByUserEmail(name);
+		//DayOfWeek firstDayOfWeek = WeekFields.of(Locale.getDefault()).getFirstDayOfWeek();
+		//LocalDateTime timePoint = LocalDateTime.now(/* tz */).with(TemporalAdjusters.previousOrSame(firstDayOfWeek));; 
+		List<Task> tasks= taskRepository.findByUserEmail(name);
+		return tasks;
 	}
 	
 }

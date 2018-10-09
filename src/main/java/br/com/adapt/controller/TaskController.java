@@ -1,17 +1,22 @@
 package br.com.adapt.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +39,7 @@ import br.com.adapt.service.UserService;
  *
  */
 
-@RestController
+@Controller
 public class TaskController {
 
 	
@@ -59,7 +64,9 @@ public class TaskController {
     }
 	
 	@GetMapping("/tasks/create")
-	public String taskCreate() {
+	public String taskCreate(Model m) {
+		m.addAttribute("endDate", LocalTime.NOON);
+		m.addAttribute("startDate", LocalTime.NOON);
         return "tasks/create";
     }
 	
@@ -144,12 +151,9 @@ public class TaskController {
 		}
 		return "redirect:/tasks";
 	}
-
-    @GetMapping("/api/tasks")
-    public List<Task> tasks(@RequestParam(value="start", defaultValue="World") String start,
-    		@RequestParam(value="end", defaultValue="World") String end,
-    		@RequestParam(value="_", defaultValue="World") String e) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return taskService.findByUserEmail(auth.getName());
-    }
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(LocalTime.class, new CustomDateEditor(new SimpleDateFormat("H:m"), true));
+	}
 }

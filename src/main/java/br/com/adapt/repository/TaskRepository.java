@@ -16,6 +16,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 	@Query("select u from Task u where u.id = ?1")
 	Task findById(int id);
 
-	@Query("select t from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1")
+	@Query("select t.startDate,t.endDate,t.title,t.day from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1")
 	List<Task> findByUserEmail(String name);
 }

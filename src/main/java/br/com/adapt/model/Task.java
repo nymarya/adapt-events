@@ -7,6 +7,7 @@ import br.com.adapt.domain.*;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -45,11 +46,13 @@ public class Task implements Serializable {
 	@Column(name = "title")
 	private String title;
 
+	@DateTimeFormat(pattern = "H:m")
 	@Column(name = "start_date")
-	private String startDate;
+	private LocalTime startDate;
 	
+	@DateTimeFormat(pattern = "H:m")
 	@Column(name = "end_date")
-	private String endDate;
+	private LocalTime endDate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -109,19 +112,19 @@ public class Task implements Serializable {
 		this.title = title;
 	}
 
-	public String getStartDate() {
+	public LocalTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public LocalTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalTime endDate) {
 		this.endDate = endDate;
 	}
 
