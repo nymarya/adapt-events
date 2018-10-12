@@ -13,17 +13,8 @@
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
  			
- 			<span th:text="${tasks}"></span>
- 			
- 			<div th:each="task : ${tasks}">
- 				
- 				<h4>----</h4> 
- 				<div th:each="t : ${task}">
 
-					<h4 th:text="${t.title}"></h4> 
-					<h4 th:text="${t.startDate}"></h4> 
-				</div>
-			</div>
+
  			
  			<div id="calendar" ></div>
    					
@@ -39,6 +30,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale/pt-br.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		
 		
@@ -54,26 +46,19 @@
 
 				$('#calendar').fullCalendar({
 					defaultView : 'agendaWeek',
-					groupByResource : true,
 					header : {
 						left : 'prev,next',
 						center : 'title',
 						right : 'agendaDay,agendaWeek'
 					},
-					views : {
-						agendaFourDay : {
-							type : 'agenda',
-							duration : {
-								days : 4
-							}
-						}
-					},
+					
 					height : 450,
 					
 					events: function(start, end, timezone, callback) {
 					    $.ajax({
 					      url: 'api/tasks',
 					      dataType: 'json',
+					      type:'GET',
 					      data: {
 					        // our hypothetical feed requires UNIX timestamps
 					        start: start.unix(),
@@ -83,21 +68,25 @@
 					        var events = [];
 					        var sun = getSunday(new Date());
 					        doc.forEach(function(item, a) {
-							  var day = sun + item[3];
-							  var timeStart = item[0].split(":")
-							  var timeEnd = item[1].split(":")
-							  
-							  var start = new Date(day)
-							  start.setHours(timeStart[0])
-							  start.setMinutes(timeStart[1])
-					          events.push({
-					        	  title: item[2],
-					          	  start: start
-					          })
+					        	if( item[0] != null){
+					        	  var timeStart = item[0].split(":")
+								  var timeEnd = item[1].split(":")
+								  
+								  var start = moment().startOf('week').add(item[3],'days').hour(timeStart[0]).minute(timeStart[1]);
+					        	  var end = moment().startOf('week').add(item[3],'days').hour(timeEnd[0]).minute(timeEnd[1]);
+								  var color = item[5] == "ROUTINE" ? "#FFC420" : "#170DFF"
+						          $('#calendar').fullCalendar('renderEvent', {
+						        	  id: item[4],
+						              title: item[2],
+						              start: start,
+						              end: end,
+						              color: color,
+						              editable: item[5] != "ROUTINE"
+						            });
+					        	}
 					          
 					   
 					        });
-					        console.log(events);
 					        callback(events);
 					      }, error: function (xhr, err) {
 					          alert("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
@@ -105,9 +94,16 @@
 					      }
 					    });
 					    
-					}
+					} ,
+					color: 'yellow',   // an option!
+				    textColor: 'black', // an option!
+				    minTime: '07:00:00',
+			        maxTime: '31:00:00',
+			        allDaySlot: false,
+			        locale: 'pt-br'
 
 				});
+				
 
 			});
 		</script>

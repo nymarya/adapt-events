@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import br.com.adapt.model.Freeblock;
 import br.com.adapt.model.Tag;
 import br.com.adapt.model.Task;
 import br.com.adapt.model.User;
@@ -25,13 +26,17 @@ public class DashboardController {
 	private SchedulerService SchedulerService;
 	
 	@GetMapping("/dashboard")
-	public String dashboardIndex() {
+	public String dashboardIndex(Model model) {
+		
+		List< List< Freeblock > > tasks = SchedulerService.generate();
+		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
     }
 	
 	@GetMapping("/scheduler")
 	public String index(Model model) {
-		List< List<Task> > tasks = SchedulerService.generate();
+
+		List< List< Freeblock > > tasks = SchedulerService.generate();
 		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
     }
