@@ -42,7 +42,7 @@ import br.com.adapt.repository.TaskRepository;
  *
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 public class SchedulerService {
 	
 	@Autowired
@@ -74,14 +74,13 @@ public class SchedulerService {
 	 * @param user
 	 * @return
 	 */
-	@Transactional(readOnly = false)
 	public Scheduler save(User user) {
 		final Scheduler scheduler = new Scheduler();
 		scheduler.setUser(user);
 		return schedulerRepository.save(scheduler);
 	}
 	
-	
+	@Transactional(readOnly = true)
 	public void generateGroupsTask( List<Task> tasks ){
 		
 		// percorre todas as tarefas
@@ -111,7 +110,10 @@ public class SchedulerService {
 		
 	}
 	
-	
+	/**
+	 * Ordena tarefas de rotina pela data de início
+	 */
+	@Transactional(readOnly = true)
 	public void orderRoutineByDate() {
 		for( int i=0; i<7; i++ ){
         	
@@ -124,16 +126,20 @@ public class SchedulerService {
         }
 	}
 	
+	/**
+	 * Ordena tarefas pela prioridade
+	 */
 	public void orderTemporaryTasksByPriority() {
 
     	Collections.sort(temporaryTasks, new Comparator<Task>() {
     		public int compare(Task t1, Task t2) {
-    			return t1.getPriority().compareTo(t2.getPriority());
+    			return -(t1.getPriority().compareTo(t2.getPriority()));
     		}
     	});
     	
 	}
 	
+	@Transactional(readOnly = true)
 	public void generateFreeBlocks() {
 		
 	      
@@ -249,7 +255,10 @@ public class SchedulerService {
 		}
 	}
 	
-	
+	/**
+	 * Gera a distribuição de tarefas
+	 * @return
+	 */
 	public List< List< Freeblock > > generate(){
 		
 		// recupera usuario ativo
@@ -262,6 +271,7 @@ public class SchedulerService {
         	routineTasks.add( new ArrayList<Task>() );
         }
         
+        temporaryTasks = new ArrayList<Task>();
         
         // recupera lista de tarefas do usuario
         List<Task> tasks = user.getScheduler().getTasks();
@@ -294,24 +304,8 @@ public class SchedulerService {
         distributeTaskTime();
 		
 		
-
-	
-        
-        // TESTE //
-		/*for( int j=0; j<temporaryTasks.size(); j++ ){
-			System.out.println("TASK "+j);
-			System.out.println(temporaryTasks.get(j));
-			System.out.println(temporaryTasks.get(j).getDay());
-			System.out.println(temporaryTasks.get(j).getStartDate());
-			System.out.println(temporaryTasks.get(j).getEndDate());
-			System.out.println(temporaryTasks.get(j).getExpectedTime());
-		}*/
-		
-		
-		
 		return freeblocks;
 		
 	}
-	
 	
 }

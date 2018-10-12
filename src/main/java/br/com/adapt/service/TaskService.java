@@ -30,13 +30,14 @@ import br.com.adapt.repository.TaskRepository;
 @Service
 @Transactional(readOnly = true)
 public class TaskService {
-
+	
 	@Autowired
 	private TaskRepository taskRepository;
 	
 	@Transactional(readOnly = false)
 	public Task saveTask(Task entity) {
-		return taskRepository.save(entity);
+		Task t = taskRepository.save(entity);
+		return t;
 	}
 	
 	@Transactional(readOnly = false)
@@ -58,6 +59,8 @@ public class TaskService {
         	if(entity.getPriority() == null || expectedTime == 0) {
         		throw new InvalidTaskException("Tarefa inválida.");
         	}
+        	entity.setStartDate(null);
+        	entity.setEndDate(null);
         }
         
         // Se não 
