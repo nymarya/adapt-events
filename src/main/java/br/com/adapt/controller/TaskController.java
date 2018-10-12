@@ -81,8 +81,8 @@ public class TaskController {
 			task = taskService.saveTask(entityTask, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
-			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:/tasks/create";
 		}
 		return "redirect:/tasks";
 	}

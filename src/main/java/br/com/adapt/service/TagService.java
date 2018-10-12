@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.repository.TagRepository;
+import br.com.adapt.exception.InvalidTagException;
 import br.com.adapt.model.Scheduler;
 import br.com.adapt.model.Tag;
 
@@ -28,7 +29,10 @@ public class TagService {
 	}
 	
 	@Transactional(readOnly = false)
-	public Tag save(Tag entity, Scheduler scheduler) {
+	public Tag save(Tag entity, Scheduler scheduler) throws InvalidTagException {
+		if( entity.getName().isEmpty() || entity.getColor().isEmpty() || scheduler == null) {
+			throw new InvalidTagException("Tag inválida.");
+		}
         entity.setScheduler(scheduler);
 		return tagRepository.save(entity);
 	}

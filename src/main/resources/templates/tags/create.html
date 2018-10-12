@@ -33,21 +33,24 @@
    		
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
-					<h1 class="adapt">Cadastro de tag</h1>
-					<hr />
- 					<form name="f" th:action="@{/tags}" method="post">
- 						<div class="form-group">
-      				<label for="name">Nome:</label>
-					<input type="text" name="name" class="form-control" >
-				</div>
-				<div class="form-group">
-      				<label for="color">Cor:</label>
-					<input type="text" name="color" class="form-control colorpicker" >
-				</div>						
+			<h1 class="adapt">Cadastro de tag</h1>
+			<hr />
+				<form name="f" th:action="@{/tags}" method="post">
+					<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
+					<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
+				
+					<div class="form-group">
+      					<label for="name">Nome:</label>
+						<input type="text" name="name" class="form-control" >
+					</div>
+					<div class="form-group">
+	      				<label for="color">Cor:</label>
+						<input type="text" name="color" class="form-control colorpicker" >
+					</div>						
 				
 				
-			  	<button type="submit" class="btn btn-blue">Cadastrar tag</button>
-			</form>
+				  	<button type="submit" class="btn btn-blue">Cadastrar tag</button>
+				</form>
  				
 		</div>
    		<th:block layout:fragment="script">	
