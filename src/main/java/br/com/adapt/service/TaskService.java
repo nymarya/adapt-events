@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.adapt.domain.Type;
+import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Scheduler;
 import br.com.adapt.model.Tag;
 import br.com.adapt.model.Task;
@@ -28,18 +30,40 @@ import br.com.adapt.repository.TaskRepository;
 @Service
 @Transactional(readOnly = true)
 public class TaskService {
-
+	
 	@Autowired
 	private TaskRepository taskRepository;
 	
 	@Transactional(readOnly = false)
 	public Task saveTask(Task entity) {
-		return taskRepository.save(entity);
+		Task t = taskRepository.save(entity);
+		return t;
 	}
 	
 	@Transactional(readOnly = false)
-	public Task saveTask(Task entity, Scheduler scheduler) {
+	public Task saveTask(Task entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
+        //Titulo, descrição e dificuldade sempre são obrigatorios
+        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
+        	throw new InvalidTaskException("Tarefa inválida.");
+        } 
+        
+        //Se for rotina, os campos dia, hora de inicio e fim são obrigatorios
+        if( entity.getType() == Type.ROUTINE) {
+        	Integer day = entity.getDay();
+        	if(entity.getEndDate() == null || entity.getStartDate() == null || day == null) {
+        		throw new InvalidTaskException("Tarefa inválida.");
+        	}
+        } else { //Se não for rotina, prioridade e tempo esperado são obrigatorios
+        	Integer expectedTime = entity.getExpectedTime();
+        	if(entity.getPriority() == null || expectedTime == 0) {
+        		throw new InvalidTaskException("Tarefa inválida.");
+        	}
+        	entity.setStartDate(null);
+        	entity.setEndDate(null);
+        }
+        
+        // Se não 
 		return taskRepository.save(entity);
 	}
 	

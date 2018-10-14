@@ -214,6 +214,8 @@ public class Task implements Serializable {
 		this.day = day;
 	}
 	
-	
+	public String toString() {
+		return title;
+	}
 	
 }

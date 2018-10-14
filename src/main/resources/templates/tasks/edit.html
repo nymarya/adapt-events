@@ -9,6 +9,9 @@
    		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
 
 			<form name="f" th:action="${'/tasks/'+ task.id }" method="POST">
+				<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
+				<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
+						
 	    				
 				<input name="title" type="text" class="form-control" th:field="${task.title}"><br>
 				<input name="date" type="text" class="form-control" th:field="${task.dueDate}"><br>

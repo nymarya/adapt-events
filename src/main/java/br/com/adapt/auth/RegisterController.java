@@ -39,14 +39,13 @@ public class RegisterController {
 	@PostMapping("/user-register-action")
 	public String registerAction( @Valid @ModelAttribute User entityUser, BindingResult result, RedirectAttributes redirectAttributes) {
 		
-		User user = null;
 		
 		try {
-			user = userService.save(entityUser);
+			User user = userService.save(entityUser);
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
-			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", e.getMessage());
+			return "redirect:/user-register";
 		}
 
 		

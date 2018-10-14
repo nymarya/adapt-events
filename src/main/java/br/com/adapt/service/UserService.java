@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.adapt.exception.InvalidUserException;
 import br.com.adapt.model.User;
 import br.com.adapt.repository.UserRepository;
 
@@ -32,11 +33,14 @@ public class UserService {
 	
 	
 	@Transactional(readOnly = false)
-	public User save(User entity) {
+	public User save(User entity) throws InvalidUserException {
 		final User user = new User();
 		user.setPassword(passwordEncoder.encode(entity.getPassword()));
 		user.setName(entity.getName());
 		user.setEmail(entity.getEmail());
+		if( entity.getEmail().isEmpty() || entity.getName().isEmpty() || entity.getPassword().isEmpty()) {
+			throw new InvalidUserException("Usuário inválido.");
+		}
 		
 		// Ao criar um usuario, deve ser criado um
 		// scheduler pra ele
