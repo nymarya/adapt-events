@@ -1,0 +1,115 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+	  
+	  <head>
+
+	 	<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	    <meta name="Adapt" content="" />
+	    <title>Adapt</title>
+	    
+		<!-- Bootstrap -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous">
+    	
+    	<!-- CSS -->
+    	<link rel="stylesheet" type="text/css" th:href="@{/view/css/style.css}"  />
+		
+		<!-- Open Sans Font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">			
+		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		
+		<th:block layout:fragment="stylesheet">	
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">	   	
+			</th:block>
+
+	</head>
+
+	<body>
+
+   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+
+ 			<form method="POST"
+     			  th:action="@{/checkin/save}"
+				   >
+				<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
+				<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
+						
+     			<table class="table">
+				
+				<thead>
+					<tr>
+						<th>Título</th> 
+						<th>Status</th> 
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="t,i : ${tasks.checkins}">
+						<td>
+							<p th:text="${tasks.checkins[__${i.index}__].title}"></p>
+							<input th:field="*{tasks.checkins[__${i.index}__].id}" type="text" class="form-control" hidden >
+						</td> 
+						<td>
+							<div class="form-group">
+							<select class="custom-select form-group" th:field="*{tasks.checkins[__${i.index}__].status}">
+							  <option th:selected="${tasks.checkins[__${i.index}__].status == 'A fazer' }" value="TODO">A fazer</option>
+							  <option th:selected="${tasks.checkins[__${i.index}__].status == 'Fazendo' }" value="DOING">Fazendo</option>
+							  <option th:selected="${tasks.checkins[__${i.index}__].status == 'Feito' }"value="DONE">Feito</option>
+							</select>
+						</div>
+						</td> 
+						
+					</tr>
+				</tbody>
+					
+			</table>
+     					
+			  	<button type="submit" class="btn btn-blue">Atualizar tarefas</button>
+			</form>
+   			
+   		</div>
+   		
+   		<th:block layout:fragment="script">	
+   			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  					integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  					crossorigin="anonymous"></script>
+		   	<script th:src="@{/view/plugins/colorpicker/colorpicker.js}" ></script>
+		   	<<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+		   	<script>
+		   	$(document).ready(function(){
+		   		$('.time').timepicker({
+		   		    timeFormat: 'HH:mm',
+		   		    interval: 30,
+		   		    minTime: '07',
+		   		    maxTime: '22:00',
+		   		    defaultTime: '11',
+		   		    startTime: '07:00',
+		   		    dynamic: false,
+		   		    dropdown: true,
+		   		    scrollbar: true
+		   		});
+		   			$("[name='type']").on('change', function(){
+		   				if( $(this).val() == "ROUTINE"){
+		   					$('.routine').show();
+		   				} else {
+		   					$('.routine').hide();
+		   				}
+		   				
+		   				if( $(this).val() == "TEMPORARY"){
+		   					$('.temporary').show();
+		   				} else {
+		   					$('.temporary').hide();
+		   				}
+		   			});
+		   		})
+		   	</script>	
+	   	</th:block>
+   		
+	</body>
+</html>

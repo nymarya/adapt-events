@@ -7,11 +7,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,7 @@ import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Scheduler;
 import br.com.adapt.model.Tag;
 import br.com.adapt.model.Task;
+import br.com.adapt.model.User;
 import br.com.adapt.repository.TaskRepository;
 
 
@@ -77,9 +81,43 @@ public class TaskService {
 		taskRepository.delete(entity);
 	}
 
+	/**
+	 * Recupera todas as tarefas do usuário logado
+	 * @param name
+	 * @return
+	 */
 	public List<Task> findByUserEmail(String name) {
 		List<Task> tasks= taskRepository.findByUserEmail(name);
 		return tasks;
+	}
+	
+	/**
+	 * recupera todas as tarefas temporarias do usuario logado
+	 * @return
+	 */
+	public List<Task> findTemporaryByUserAuthenticated(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<Task> tasks= taskRepository.findTemporaryByUserEmail(auth.getName());
+		return tasks;
+	}
+
+	/**
+	 * Atualiza os status das tarefas após o check-in
+	 * @param checkins
+	 * @return
+	 * @throws InvalidTaskException 
+	 */
+	@Transactional(readOnly=false)
+	public List<Task> updateStatus(ArrayList<Task> checkins) throws InvalidTaskException {
+		for(Task task: checkins) {
+			if(task.getId() == null || task.getStatus()==null) {
+				throw new InvalidTaskException("Tarefa inválida.");
+			}
+			Task t = findById(task.getId());
+			t.setStatus(task.getStatus());
+			taskRepository.save(t);
+		}
+		return checkins;
 	}
 	
 }
