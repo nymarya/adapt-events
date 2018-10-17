@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -74,8 +76,9 @@ public class Task implements Serializable {
 	@Column(name = "priority")
 	private Priority priority;
 	
-	@Column(name = "status", insertable=false, nullable=true)
-	private Status status;
+	@Column(name = "status", nullable=false)
+	@Enumerated(EnumType.ORDINAL)
+	private Status status = Status.TODO;
 	
 	@Column(name = "type")
 	private Type type;

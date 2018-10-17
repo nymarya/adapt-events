@@ -43,9 +43,9 @@ import br.com.adapt.service.UserService;
 public class TaskController {
 
 	
-	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";
-	private static final String MSG_SUCESS_UPDATE = "Tarefa cadastrada com sucesso.";
-	private static final String MSG_SUCESS_DELETE = "Deleted tag successfully.";
+	private static final String MSG_SUCESS_INSERT = "Tarefa cadastrada com sucesso.";
+	private static final String MSG_SUCESS_UPDATE = "Tarefa atualizada com sucesso.";
+	private static final String MSG_SUCESS_DELETE = "Tarefa removida com sucesso.";
 	private static final String MSG_ERROR = "Error.";
 
 	@Autowired

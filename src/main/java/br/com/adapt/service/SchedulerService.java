@@ -220,7 +220,7 @@ public class SchedulerService {
 			
 			// percorre blocos livres verificando se tarefa "cabe" lá dentro
 			Calendar calendar = Calendar.getInstance();
-			int day = calendar.get(Calendar.DAY_OF_WEEK); 
+			int day = calendar.get(Calendar.DAY_OF_WEEK)-1; 
 			for( int j=day; j<7; j++ ){
 				
 				

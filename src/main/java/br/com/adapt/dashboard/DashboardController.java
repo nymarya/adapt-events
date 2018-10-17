@@ -65,6 +65,9 @@ public class DashboardController {
 	@GetMapping("/checkin")
 	public String checkin(Model model) {
 		List<Task> all = taskService.findTemporaryByUserAuthenticated();
+		if(all.isEmpty()) {
+			return "redirect:/dashboard";
+		}
 		CheckinForms c = new CheckinForms((ArrayList<Task>) all);
 		model.addAttribute("tasks", c);
         return "dashboard/checkin";
@@ -74,6 +77,7 @@ public class DashboardController {
 	public String checkinUpdate(@Valid @ModelAttribute CheckinForms entity, BindingResult result) {
 		try {
 			List<Task> all = taskService.updateStatus(entity.getCheckins());
+			
 		} catch (InvalidTaskException e) {
 			throw new ServiceException(e.getMessage());
 		}

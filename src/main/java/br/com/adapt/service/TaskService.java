@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.adapt.domain.Status;
 import br.com.adapt.domain.Type;
 import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Scheduler;
@@ -47,6 +48,7 @@ public class TaskService {
 	@Transactional(readOnly = false)
 	public Task saveTask(Task entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
+        entity.setStatus(Status.TODO);
         //Titulo, descrição e dificuldade sempre são obrigatorios
         if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
         	throw new InvalidTaskException("Tarefa inválida.");
@@ -66,7 +68,6 @@ public class TaskService {
         	entity.setStartDate(null);
         	entity.setEndDate(null);
         }
-        
         // Se não 
 		return taskRepository.save(entity);
 	}
