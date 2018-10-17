@@ -75,41 +75,5 @@
    			
    		</div>
    		
-   		<th:block layout:fragment="script">	
-   			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  					integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  					crossorigin="anonymous"></script>
-		   	<script th:src="@{/view/plugins/colorpicker/colorpicker.js}" ></script>
-		   	<<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-		   	<script>
-		   	$(document).ready(function(){
-		   		$('.time').timepicker({
-		   		    timeFormat: 'HH:mm',
-		   		    interval: 30,
-		   		    minTime: '07',
-		   		    maxTime: '22:00',
-		   		    defaultTime: '11',
-		   		    startTime: '07:00',
-		   		    dynamic: false,
-		   		    dropdown: true,
-		   		    scrollbar: true
-		   		});
-		   			$("[name='type']").on('change', function(){
-		   				if( $(this).val() == "ROUTINE"){
-		   					$('.routine').show();
-		   				} else {
-		   					$('.routine').hide();
-		   				}
-		   				
-		   				if( $(this).val() == "TEMPORARY"){
-		   					$('.temporary').show();
-		   				} else {
-		   					$('.temporary').hide();
-		   				}
-		   			});
-		   		})
-		   	</script>	
-	   	</th:block>
-   		
 	</body>
 </html>

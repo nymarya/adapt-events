@@ -26,4 +26,10 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 	
 	@Query("select t from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=1")
 	List<Task> findTemporaryByUserEmail(String name);
+	
+	@Query("select t from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=0")
+	List<Task> findRoutineByUserEmail(String name);
+
+	@Query("select t from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=1 and t.status <> 2")
+	List<Task> findTemporaryNotDoneByUserAuthenticated(String name);
 }

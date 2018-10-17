@@ -102,6 +102,16 @@ public class TaskService {
 	}
 
 	/**
+	 * recupera todas as tarefas temporarias do usuario logado
+	 * @return
+	 */
+	public List<Task> findRoutineByUserAuthenticated(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<Task> tasks= taskRepository.findRoutineByUserEmail(auth.getName());
+		return tasks;
+	}
+	
+	/**
 	 * Atualiza os status das tarefas após o check-in
 	 * @param checkins
 	 * @return
@@ -118,6 +128,11 @@ public class TaskService {
 			taskRepository.save(t);
 		}
 		return checkins;
+	}
+
+	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
 	}
 	
 }

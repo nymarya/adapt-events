@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -81,10 +82,11 @@ public class SchedulerService {
 	}
 	
 	@Transactional(readOnly = true)
-	public void generateGroupsTask( List<Task> tasks ){
-		
+	public void generateGroupsTask( ){
+		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
+		List<Task> tasks = taskService.findRoutineByUserAuthenticated();
 		// percorre todas as tarefas
-		for( Task task : tasks ){
+		for( Task task :  tasks){
         	
         	// verifica se é rotina
         	if( task.getType() == Type.ROUTINE ){
@@ -101,9 +103,7 @@ public class SchedulerService {
 	        		default: break;
         		} 
         		
-        	} else {
-        		temporaryTasks.add(task);
-        	}
+        	} 
         	
         }
 	
@@ -207,7 +207,9 @@ public class SchedulerService {
         }
 	}
 	
-	
+	/**
+	 * Tenta distribuir as tarefas temporárias a partir do dia atual.
+	 */
 	public void distributeTaskTime() {
 		
 		boolean update = true;
@@ -217,7 +219,9 @@ public class SchedulerService {
 			update = true;
 			
 			// percorre blocos livres verificando se tarefa "cabe" lá dentro
-			for( int j=0; j<7; j++ ){
+			Calendar calendar = Calendar.getInstance();
+			int day = calendar.get(Calendar.DAY_OF_WEEK); 
+			for( int j=day; j<7; j++ ){
 				
 				
 				for( int k=0; k<freeblocks.get(j).size(); k++ ){
@@ -264,8 +268,8 @@ public class SchedulerService {
 		// recupera usuario ativo
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
-		
-
+		freeblocks.clear();
+        routineTasks.clear();
         // inicializa lista de tarefas de rotina
         for( int i=0; i<7; i++ ){
         	routineTasks.add( new ArrayList<Task>() );
@@ -278,7 +282,7 @@ public class SchedulerService {
         
         
         // gera listas com tarefas rotina e temporárias
-        generateGroupsTask( tasks );
+        generateGroupsTask( );
 		
 		
 		// ordena tarefas de rotina
