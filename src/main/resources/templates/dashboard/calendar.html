@@ -13,12 +13,10 @@
    				
  		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
  			
-
-
- 			
  			<div id="calendar" ></div>
-   					
+				
  		</div>
+ 		
    		
 	
 	
@@ -38,6 +36,7 @@
 		
 			
 			$(document).ready(function() {
+
 				function getSunday(d) {
 					var t = new Date(d);
 					  t.setDate(t.getDate() - t.getDay());

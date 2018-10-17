@@ -41,8 +41,6 @@ public class Scheduler implements Serializable{
 	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
     List<Task> tasks;
 
-	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
-    List<Freeblock> freeBlocks;
 
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -68,13 +66,6 @@ public class Scheduler implements Serializable{
 		this.tasks = tasks;
 	}
 
-	public List<Freeblock> getFreeBlocks() {
-		return freeBlocks;
-	}
-
-	public void setFreeBlocks(List<Freeblock> freeBlocks) {
-		this.freeBlocks = freeBlocks;
-	}
 
 	public User getUser() {
 		return user;
