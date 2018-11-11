@@ -1,4 +1,4 @@
-package br.com.adapt.dashboard;
+package br.com.adapt.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +31,7 @@ import br.com.adapt.util.CheckinForms;
 
 
 @Controller
-public class DashboardController {
+public class ScheduleController {
 
 	
 	@Autowired

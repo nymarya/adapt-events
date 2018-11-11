@@ -1,4 +1,4 @@
-package br.com.adapt.auth;
+package br.com.adapt.controller;
 
 
 import javax.validation.Valid;
