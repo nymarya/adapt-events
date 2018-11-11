@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Freeblock;
 import br.com.adapt.model.Tag;
-import br.com.adapt.model.Task;
+import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.SchedulerService;
-import br.com.adapt.service.TaskService;
+import br.com.adapt.service.ResourceService;
 import br.com.adapt.util.CheckinForm;
 import br.com.adapt.util.CheckinForms;
 
@@ -38,7 +38,7 @@ public class ScheduleController {
 	private SchedulerService SchedulerService;
 	
 	@Autowired
-	private TaskService taskService;
+	private ResourceService resourceService;
 	
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
@@ -64,11 +64,11 @@ public class ScheduleController {
 	
 	@GetMapping("/checkin")
 	public String checkin(Model model) {
-		List<Task> all = taskService.findTemporaryByUserAuthenticated();
+		List<Resource> all = resourceService.findTemporaryByUserAuthenticated();
 		if(all.isEmpty()) {
 			return "redirect:/dashboard";
 		}
-		CheckinForms c = new CheckinForms((ArrayList<Task>) all);
+		CheckinForms c = new CheckinForms((ArrayList<Resource>) all);
 		model.addAttribute("tasks", c);
         return "dashboard/checkin";
     }
@@ -76,7 +76,7 @@ public class ScheduleController {
 	@PostMapping("/checkin/save")
 	public String checkinUpdate(@Valid @ModelAttribute CheckinForms entity, BindingResult result) {
 		try {
-			List<Task> all = taskService.updateStatus(entity.getCheckins());
+			List<Resource> all = resourceService.updateStatus(entity.getCheckins());
 			
 		} catch (InvalidTaskException e) {
 			throw new ServiceException(e.getMessage());

@@ -37,7 +37,7 @@ import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "tasks")
-public class Task implements Serializable {
+public class Resource implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

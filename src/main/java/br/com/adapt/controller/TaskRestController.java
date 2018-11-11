@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
-import br.com.adapt.model.Task;
+import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
-import br.com.adapt.service.TaskService;
+import br.com.adapt.service.ResourceService;
 import br.com.adapt.service.UserService;
 
 
@@ -47,13 +47,13 @@ public class TaskRestController {
 	private UserService userService;
 	
 	@Autowired
-	private TaskService taskService;
+	private ResourceService resourceService;
 
     @GetMapping("/api/tasks")
-    public List<Task> tasks(@RequestParam(value="start", defaultValue="World") String start,
+    public List<Resource> resources(@RequestParam(value="start", defaultValue="World") String start,
     		@RequestParam(value="end", defaultValue="World") String end,
     		@RequestParam(value="_", defaultValue="World") String e) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return taskService.findByUserEmail(auth.getName());
+        return resourceService.findByUserEmail(auth.getName());
     }
 }

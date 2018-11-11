@@ -39,7 +39,7 @@ public class Scheduler implements Serializable{
 	
 	
 	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL)
-    List<Task> tasks;
+    List<Resource> resources;
 
 
 	@OneToOne
@@ -58,12 +58,12 @@ public class Scheduler implements Serializable{
 		this.id = id;
 	}
 
-	public List<Task> getTasks() {
-		return tasks;
+	public List<Resource> getTasks() {
+		return resources;
 	}
 
-	public void setTasks(List<Task> tasks) {
-		this.tasks = tasks;
+	public void setTasks(List<Resource> resources) {
+		this.resources = resources;
 	}
 
 

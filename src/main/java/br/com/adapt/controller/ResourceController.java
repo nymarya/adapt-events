@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
-import br.com.adapt.model.Task;
+import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
-import br.com.adapt.service.TaskService;
+import br.com.adapt.service.ResourceService;
 import br.com.adapt.service.UserService;
 
 
@@ -40,7 +40,7 @@ import br.com.adapt.service.UserService;
  */
 
 @Controller
-public class TaskController {
+public class ResourceController {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tarefa cadastrada com sucesso.";
@@ -52,13 +52,13 @@ public class TaskController {
 	private UserService userService;
 	
 	@Autowired
-	private TaskService taskService;
+	private ResourceService resourceService;
 	
 	@GetMapping("/tasks")
 	public String index(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
-		List<Task> all = user.getScheduler().getTasks();
+		List<Resource> all = user.getScheduler().getTasks();
 		model.addAttribute("tasks", all);
         return "tasks/index";
     }
@@ -71,14 +71,14 @@ public class TaskController {
     }
 	
 	@PostMapping("/task/save")
-	public String store( @Valid @ModelAttribute Task entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
-		Task task = null;
+	public String store( @Valid @ModelAttribute Resource entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
+		Resource resource = null;
 		
 		try {
 
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			task = taskService.saveTask(entityTask, user.getScheduler());
+			resource = resourceService.saveTask(entityTask, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", e.getMessage());
@@ -94,7 +94,7 @@ public class TaskController {
 		try {
 			if (id != null) {
 				
-				Task entityTask = taskService.findById(id);
+				Resource entityTask = resourceService.findById(id);
 				model.addAttribute("task", entityTask);
 				
 			}
@@ -106,13 +106,13 @@ public class TaskController {
 	
 	
 	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(@Valid @ModelAttribute Task entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
-		Task task = null;
+	public String update(@Valid @ModelAttribute Resource entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
+		Resource resource = null;
 		try {
 			entity.setId(id);
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			task = taskService.saveTask(entity, user.getScheduler());
+			resource = resourceService.saveTask(entity, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
@@ -127,7 +127,7 @@ public class TaskController {
 		try {
 			if (id != null) {
 				
-				Task entity = taskService.findById(id);
+				Resource entity = resourceService.findById(id);
 				model.addAttribute("task", entity);
 				
 			}
@@ -141,8 +141,8 @@ public class TaskController {
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		try {
 			if (id != null) {
-				Task entity = taskService.findById(id);
-				taskService.delete(entity);
+				Resource entity = resourceService.findById(id);
+				resourceService.delete(entity);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
 			}
 		} catch (Exception e) {

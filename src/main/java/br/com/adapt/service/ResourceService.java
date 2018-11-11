@@ -23,9 +23,9 @@ import br.com.adapt.domain.Type;
 import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Scheduler;
 import br.com.adapt.model.Tag;
-import br.com.adapt.model.Task;
+import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
-import br.com.adapt.repository.TaskRepository;
+import br.com.adapt.repository.ResourceRepository;
 
 
 /**
@@ -34,19 +34,19 @@ import br.com.adapt.repository.TaskRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public class TaskService {
+public class ResourceService {
 	
 	@Autowired
-	private TaskRepository taskRepository;
+	private ResourceRepository resourceRepository;
 	
 	@Transactional(readOnly = false)
-	public Task saveTask(Task entity) {
-		Task t = taskRepository.save(entity);
+	public Resource saveTask(Resource entity) {
+		Resource t = resourceRepository.save(entity);
 		return t;
 	}
 	
 	@Transactional(readOnly = false)
-	public Task saveTask(Task entity, Scheduler scheduler) throws InvalidTaskException {
+	public Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         //Titulo, descrição e dificuldade sempre são obrigatorios
@@ -69,17 +69,17 @@ public class TaskService {
         	entity.setEndDate(null);
         }
         // Se não 
-		return taskRepository.save(entity);
+		return resourceRepository.save(entity);
 	}
 	
 	@Transactional
-	public Task findById(int id) {
-		return taskRepository.findById(id);
+	public Resource findById(int id) {
+		return resourceRepository.findById(id);
 	}
 	
 	@Transactional(readOnly=false)
-	public void delete(Task entity) {
-		taskRepository.delete(entity);
+	public void delete(Resource entity) {
+		resourceRepository.delete(entity);
 	}
 
 	/**
@@ -87,29 +87,29 @@ public class TaskService {
 	 * @param name
 	 * @return
 	 */
-	public List<Task> findByUserEmail(String name) {
-		List<Task> tasks= taskRepository.findByUserEmail(name);
-		return tasks;
+	public List<Resource> findByUserEmail(String name) {
+		List<Resource> resources= resourceRepository.findByUserEmail(name);
+		return resources;
 	}
 	
 	/**
 	 * recupera todas as tarefas temporarias do usuario logado
 	 * @return
 	 */
-	public List<Task> findTemporaryByUserAuthenticated(){
+	public List<Resource> findTemporaryByUserAuthenticated(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		List<Task> tasks= taskRepository.findTemporaryByUserEmail(auth.getName());
-		return tasks;
+		List<Resource> resources= resourceRepository.findTemporaryByUserEmail(auth.getName());
+		return resources;
 	}
 
 	/**
 	 * recupera todas as tarefas temporarias do usuario logado
 	 * @return
 	 */
-	public List<Task> findRoutineByUserAuthenticated(){
+	public List<Resource> findRoutineByUserAuthenticated(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		List<Task> tasks= taskRepository.findRoutineByUserEmail(auth.getName());
-		return tasks;
+		List<Resource> resources= resourceRepository.findRoutineByUserEmail(auth.getName());
+		return resources;
 	}
 	
 	/**
@@ -119,21 +119,21 @@ public class TaskService {
 	 * @throws InvalidTaskException 
 	 */
 	@Transactional(readOnly=false)
-	public List<Task> updateStatus(ArrayList<Task> checkins) throws InvalidTaskException {
-		for(Task task: checkins) {
-			if(task.getId() == null || task.getStatus()==null) {
+	public List<Resource> updateStatus(ArrayList<Resource> checkins) throws InvalidTaskException {
+		for(Resource resource: checkins) {
+			if(resource.getId() == null || resource.getStatus()==null) {
 				throw new InvalidTaskException("Tarefa inválida.");
 			}
-			Task t = findById(task.getId());
-			t.setStatus(task.getStatus());
-			taskRepository.save(t);
+			Resource t = findById(resource.getId());
+			t.setStatus(resource.getStatus());
+			resourceRepository.save(t);
 		}
 		return checkins;
 	}
 
-	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
+	public List<Resource> findTemporaryNotDoneByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
+		return resourceRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
 	}
 	
 }
