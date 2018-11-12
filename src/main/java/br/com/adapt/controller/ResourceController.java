@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.ResourceService;
@@ -71,7 +72,7 @@ public class ResourceController {
     }
 	
 	@PostMapping("/task/save")
-	public String store( @Valid @ModelAttribute Resource entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
+	public String store( @Valid @ModelAttribute Task entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		
 		try {
@@ -106,7 +107,7 @@ public class ResourceController {
 	
 	
 	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(@Valid @ModelAttribute Resource entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
+	public String update(@Valid @ModelAttribute Task entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		try {
 			entity.setId(id);

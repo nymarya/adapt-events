@@ -18,6 +18,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -36,7 +37,7 @@ import org.springframework.lang.Nullable;
  */
 
 @Entity
-@Table(name = "tasks")
+@Inheritance
 public class Resource implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,19 +57,9 @@ public class Resource implements Serializable {
 	@Column(name = "end_date")
 	private LocalTime endDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
-	@Column(name = "due_date")
-	private Date dueDate;
 
 	@Column(name = "expected_time")
 	private int expectedTime;
-	
-	@Column(name = "transactions", insertable=false, nullable=true)
-	private String transactions;
-	
-	@Column(name = "dificulty")
-	private Difficulty dificulty;
 	
 	@Column(name = "description")
 	private String description;
@@ -87,13 +78,7 @@ public class Resource implements Serializable {
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "tasks_tags",
-        joinColumns = @JoinColumn(name = "task_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-	private List<Tag> tags;
+
 	
 	@Nullable
 	@Column(name="day")
@@ -131,13 +116,7 @@ public class Resource implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public Date getDueDate() {
-		return dueDate;
-	}
 
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
 
 	public int getExpectedTime() {
 		return expectedTime;
@@ -145,22 +124,6 @@ public class Resource implements Serializable {
 
 	public void setExpectedTime(int expectedTime) {
 		this.expectedTime = expectedTime;
-	}
-
-	public String getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(String transactions) {
-		this.transactions = transactions;
-	}
-
-	public Difficulty getDificulty() {
-		return dificulty;
-	}
-
-	public void setDificulty(Difficulty dificulty) {
-		this.dificulty = dificulty;
 	}
 
 	public String getDescription() {

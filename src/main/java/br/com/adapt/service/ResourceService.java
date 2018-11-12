@@ -23,6 +23,7 @@ import br.com.adapt.domain.Type;
 import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Scheduler;
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.repository.ResourceRepository;
@@ -46,7 +47,7 @@ public class ResourceService {
 	}
 	
 	@Transactional(readOnly = false)
-	public Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException {
+	public Resource saveTask(Task entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         //Titulo, descrição e dificuldade sempre são obrigatorios
