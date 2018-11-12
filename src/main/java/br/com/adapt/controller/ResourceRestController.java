@@ -35,7 +35,7 @@ import br.com.adapt.service.UserService;
  */
 
 @RestController
-public class TaskRestController {
+public class ResourceRestController {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";

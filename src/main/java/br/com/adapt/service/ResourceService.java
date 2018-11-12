@@ -35,40 +35,27 @@ import br.com.adapt.repository.ResourceRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public class ResourceService {
+public abstract class ResourceService {
 	
 	@Autowired
 	private ResourceRepository resourceRepository;
 	
 	@Transactional(readOnly = false)
-	public Resource saveTask(Resource entity) {
+	public Resource saveResource(Resource entity) {
 		Resource t = resourceRepository.save(entity);
 		return t;
 	}
 	
+	public abstract Resource save( Resource entity );
+	
+	
 	@Transactional(readOnly = false)
-	public Resource saveTask(Task entity, Scheduler scheduler) throws InvalidTaskException {
+	public Resource saveResource(Resource entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
-        //Titulo, descrição e dificuldade sempre são obrigatorios
-        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
-        	throw new InvalidTaskException("Tarefa inválida.");
-        } 
         
-        //Se for rotina, os campos dia, hora de inicio e fim são obrigatorios
-        if( entity.getType() == Type.ROUTINE) {
-        	Integer day = entity.getDay();
-        	if(entity.getEndDate() == null || entity.getStartDate() == null || day == null) {
-        		throw new InvalidTaskException("Tarefa inválida.");
-        	}
-        } else { //Se não for rotina, prioridade e tempo esperado são obrigatorios
-        	Integer expectedTime = entity.getExpectedTime();
-        	if(entity.getPriority() == null || expectedTime == 0) {
-        		throw new InvalidTaskException("Tarefa inválida.");
-        	}
-        	entity.setStartDate(null);
-        	entity.setEndDate(null);
-        }
+        save( entity );
+        
         // Se não 
 		return resourceRepository.save(entity);
 	}

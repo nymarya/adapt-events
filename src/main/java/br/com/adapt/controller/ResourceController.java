@@ -52,7 +52,7 @@ public class ResourceController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
+	//@Autowired
 	private ResourceService resourceService;
 	
 	@GetMapping("/tasks")
@@ -79,7 +79,7 @@ public class ResourceController {
 
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveTask(entityTask, user.getScheduler());
+			resource = resourceService.saveResource(entityTask, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", e.getMessage());
@@ -113,7 +113,7 @@ public class ResourceController {
 			entity.setId(id);
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveTask(entity, user.getScheduler());
+			resource = resourceService.saveResource(entity, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);

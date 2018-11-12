@@ -37,8 +37,8 @@ public class ScheduleController {
 	@Autowired
 	private SchedulerService SchedulerService;
 	
-	@Autowired
-	private ResourceService resourceService;
+	//@Autowired
+	//private ResourceService taskService;
 	
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
@@ -50,7 +50,6 @@ public class ScheduleController {
 	
 	@GetMapping("/scheduler")
 	public String index(Model model) {
-
 		List< List< Freeblock > > tasks = SchedulerService.generate();
 		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
@@ -62,9 +61,10 @@ public class ScheduleController {
         return "dashboard/task_edit_form";
     }
 	
+	/*
 	@GetMapping("/checkin")
 	public String checkin(Model model) {
-		List<Resource> all = resourceService.findTemporaryByUserAuthenticated();
+		List<Resource> all = taskService.findTemporaryByUserAuthenticated();
 		if(all.isEmpty()) {
 			return "redirect:/dashboard";
 		}
@@ -83,5 +83,5 @@ public class ScheduleController {
 		}
 		
         return "redirect:/dashboard";
-    }
+    }*/
 }
