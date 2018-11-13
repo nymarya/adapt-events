@@ -6,7 +6,6 @@ package br.com.adapt.model;
 import br.com.adapt.domain.*;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.lang.Nullable;
 
 /**
@@ -36,8 +34,8 @@ import org.springframework.lang.Nullable;
  */
 
 @Entity
-@Table(name = "tasks")
-public class Resource implements Serializable {
+@Table(name = "resources")
+public abstract class Resource implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,20 +54,9 @@ public class Resource implements Serializable {
 	@Column(name = "end_date")
 	private LocalTime endDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
-	@Column(name = "due_date")
-	private Date dueDate;
-
 	@Column(name = "expected_time")
 	private int expectedTime;
-	
-	@Column(name = "transactions", insertable=false, nullable=true)
-	private String transactions;
-	
-	@Column(name = "dificulty")
-	private Difficulty dificulty;
-	
+		
 	@Column(name = "description")
 	private String description;
 	
@@ -86,14 +73,6 @@ public class Resource implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
-	
-	@ManyToMany
-    @JoinTable(
-        name = "tasks_tags",
-        joinColumns = @JoinColumn(name = "task_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-	private List<Tag> tags;
 	
 	@Nullable
 	@Column(name="day")
@@ -131,13 +110,6 @@ public class Resource implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public Date getDueDate() {
-		return dueDate;
-	}
-
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
 
 	public int getExpectedTime() {
 		return expectedTime;
@@ -145,22 +117,6 @@ public class Resource implements Serializable {
 
 	public void setExpectedTime(int expectedTime) {
 		this.expectedTime = expectedTime;
-	}
-
-	public String getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(String transactions) {
-		this.transactions = transactions;
-	}
-
-	public Difficulty getDificulty() {
-		return dificulty;
-	}
-
-	public void setDificulty(Difficulty dificulty) {
-		this.dificulty = dificulty;
 	}
 
 	public String getDescription() {

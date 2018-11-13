@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.ResourceService;
+import br.com.adapt.service.TaskService;
 import br.com.adapt.service.UserService;
 
 
@@ -35,7 +37,7 @@ import br.com.adapt.service.UserService;
  */
 
 @RestController
-public class TaskRestController {
+public class ResourceRestController {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";
@@ -46,7 +48,7 @@ public class TaskRestController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
+	
 	private ResourceService resourceService;
 
     @GetMapping("/api/tasks")
@@ -56,4 +58,5 @@ public class TaskRestController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return resourceService.findByUserEmail(auth.getName());
     }
+    
 }

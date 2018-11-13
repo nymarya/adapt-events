@@ -51,7 +51,7 @@ public class ResourceController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
+	
 	private ResourceService resourceService;
 	
 	@GetMapping("/tasks")
@@ -70,7 +70,7 @@ public class ResourceController {
         return "tasks/create";
     }
 	
-	@PostMapping("/task/save")
+	/*@PostMapping("/task/save")
 	public String store( @Valid @ModelAttribute Resource entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		
@@ -150,7 +150,7 @@ public class ResourceController {
 			throw new ServiceException(e.getMessage());
 		}
 		return "redirect:/tasks";
-	}
+	}*/
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

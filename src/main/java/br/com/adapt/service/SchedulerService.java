@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.model.Scheduler;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.User;
 import br.com.adapt.model.Resource;
 import br.com.adapt.domain.Type;
@@ -49,11 +50,12 @@ public class SchedulerService {
 	@Autowired
 	private SchedulerRepository schedulerRepository;
 	
-	@Autowired
+	
 	private ResourceRepository resourceRepository;
 	
-	@Autowired
 	private ResourceService resourceService;
+	private TaskService taskService;
+	
 	
 	
 	@Autowired
@@ -63,7 +65,7 @@ public class SchedulerService {
 	private List< List<Resource> > routineTasks = new ArrayList< List<Resource> >();
 
 	// lista de tarefas de temporarias
-    private List< Resource > temporaryTasks = new ArrayList< Resource >();
+    private List<Resource> temporaryTasks = new ArrayList< Resource >();
     
     // lista de blocos livres
     private List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
@@ -83,9 +85,12 @@ public class SchedulerService {
 	
 	@Transactional(readOnly = true)
 	public void generateGroupsTask( ){
-		temporaryTasks = resourceService.findTemporaryNotDoneByUserAuthenticated();
-		List<Resource> resources = resourceService.findRoutineByUserAuthenticated();
-		// percorre todas as tarefas
+		System.out.println("teste - schedulerService");
+		//temporaryTasks = resourceService.findTemporaryNotDoneByUserAuthenticated();
+		//resourceService.teste();
+		//System.out.println(temporaryTasks);
+		//List<Resource> resources = resourceService.findRoutineByUserAuthenticated();
+		/*// percorre todas as tarefas
 		for( Resource resource :  resources){
         	
         	// verifica se é rotina
@@ -105,7 +110,7 @@ public class SchedulerService {
         		
         	} 
         	
-        }
+        }*/
 	
 		
 	}

@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.adapt.exception.InvalidTaskException;
 import br.com.adapt.model.Freeblock;
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.SchedulerService;
+import br.com.adapt.service.TaskService;
 import br.com.adapt.service.ResourceService;
 import br.com.adapt.util.CheckinForm;
 import br.com.adapt.util.CheckinForms;
@@ -37,16 +39,16 @@ public class ScheduleController {
 	@Autowired
 	private SchedulerService SchedulerService;
 	
-	@Autowired
 	private ResourceService resourceService;
-	
+	private TaskService taskService;
+	/*
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
 		
 		List< List< Freeblock > > tasks = SchedulerService.generate();
 		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
-    }
+    }*/
 	
 	@GetMapping("/scheduler")
 	public String index(Model model) {
@@ -62,7 +64,7 @@ public class ScheduleController {
         return "dashboard/task_edit_form";
     }
 	
-	@GetMapping("/checkin")
+	/*@GetMapping("/checkin")
 	public String checkin(Model model) {
 		List<Resource> all = resourceService.findTemporaryByUserAuthenticated();
 		if(all.isEmpty()) {
@@ -83,5 +85,5 @@ public class ScheduleController {
 		}
 		
         return "redirect:/dashboard";
-    }
+    }*/
 }
