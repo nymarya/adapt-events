@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adapt.model.Tag;
+import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.ResourceService;
@@ -51,7 +52,11 @@ public class ResourceController {
 	@Autowired
 	private UserService userService;
 	
+<<<<<<< HEAD
 	
+=======
+	//@Autowired
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	private ResourceService resourceService;
 	
 	@GetMapping("/tasks")
@@ -70,15 +75,20 @@ public class ResourceController {
         return "tasks/create";
     }
 	
+<<<<<<< HEAD
 	/*@PostMapping("/task/save")
 	public String store( @Valid @ModelAttribute Resource entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
+=======
+	@PostMapping("/task/save")
+	public String store( @Valid @ModelAttribute Task entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 		Resource resource = null;
 		
 		try {
 
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveTask(entityTask, user.getScheduler());
+			resource = resourceService.saveResource(entityTask, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", e.getMessage());
@@ -106,13 +116,13 @@ public class ResourceController {
 	
 	
 	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(@Valid @ModelAttribute Resource entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
+	public String update(@Valid @ModelAttribute Task entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		try {
 			entity.setId(id);
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveTask(entity, user.getScheduler());
+			resource = resourceService.saveResource(entity, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);

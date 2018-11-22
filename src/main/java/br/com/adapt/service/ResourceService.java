@@ -35,21 +35,37 @@ import br.com.adapt.repository.ResourceRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public class ResourceService {
+public abstract class ResourceService {
 	
 	@Autowired
 	private ResourceRepository resourceRepository;
 	
 
 	@Transactional(readOnly = false)
-	public Resource saveTask(Resource entity) {
+	public Resource saveResource(Resource entity) {
 		Resource t = resourceRepository.save(entity);
 		return t;
 	}
 	
+<<<<<<< HEAD
 	/*@Transactional(readOnly = false)
 	public abstract Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException;
 */
+=======
+	public abstract Resource save( Resource entity );
+	
+	
+	@Transactional(readOnly = false)
+	public Resource saveResource(Resource entity, Scheduler scheduler) throws InvalidTaskException {
+        entity.setScheduler(scheduler);
+        entity.setStatus(Status.TODO);
+        
+        save( entity );
+        
+        // Se não 
+		return resourceRepository.save(entity);
+	}
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	
 	/*@Transactional
 	public Resource findById(int id) {

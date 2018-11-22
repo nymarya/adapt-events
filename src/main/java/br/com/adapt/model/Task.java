@@ -17,16 +17,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.adapt.domain.Difficulty;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 @Entity
 @Table(name = "tasks")
 public class Task extends Resource {
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "due_date")
 	private Date dueDate;
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	@Column(name = "dificulty")
 	private Difficulty dificulty;
 	
@@ -38,7 +49,10 @@ public class Task extends Resource {
     )
 	private List<Tag> tags;
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	public Date getDueDate() {
 		return dueDate;
 	}
@@ -46,7 +60,10 @@ public class Task extends Resource {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 
 	public Difficulty getDificulty() {
 		return dificulty;
@@ -55,5 +72,10 @@ public class Task extends Resource {
 	public void setDificulty(Difficulty dificulty) {
 		this.dificulty = dificulty;
 	}
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	
 }

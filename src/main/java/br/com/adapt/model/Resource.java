@@ -17,6 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -34,8 +35,13 @@ import org.springframework.lang.Nullable;
  */
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "resources")
 public abstract class Resource implements Serializable {
+=======
+@Inheritance
+public class Resource implements Serializable {
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 
 	private static final long serialVersionUID = 1L;
 
@@ -54,9 +60,16 @@ public abstract class Resource implements Serializable {
 	@Column(name = "end_date")
 	private LocalTime endDate;
 	
+<<<<<<< HEAD
 	@Column(name = "expected_time")
 	private int expectedTime;
 		
+=======
+
+	@Column(name = "expected_time")
+	private int expectedTime;
+	
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	@Column(name = "description")
 	private String description;
 	
@@ -74,6 +87,11 @@ public abstract class Resource implements Serializable {
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 	
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	@Nullable
 	@Column(name="day")
 	private int day;
@@ -110,6 +128,10 @@ public abstract class Resource implements Serializable {
 		this.endDate = endDate;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 
 	public int getExpectedTime() {
 		return expectedTime;

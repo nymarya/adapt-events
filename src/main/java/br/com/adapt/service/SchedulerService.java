@@ -43,6 +43,7 @@ import br.com.adapt.repository.ResourceRepository;
  * @author mayra
  *
  */
+
 @Service
 @Transactional(readOnly = false)
 public class SchedulerService {
