@@ -35,11 +35,11 @@ import br.com.adapt.repository.ResourceRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public abstract class ResourceService {
+public abstract class ResourceService<T> {
 	
+
 	@Autowired
 	private ResourceRepository resourceRepository;
-	
 
 	@Transactional(readOnly = false)
 	public Resource saveResource(Resource entity) {
@@ -47,35 +47,26 @@ public abstract class ResourceService {
 		return t;
 	}
 	
-<<<<<<< HEAD
-	/*@Transactional(readOnly = false)
+
+	@Transactional(readOnly = false)
 	public abstract Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException;
-*/
-=======
-	public abstract Resource save( Resource entity );
+
+	public abstract T save( T entity );
 	
 	
 	@Transactional(readOnly = false)
-	public Resource saveResource(Resource entity, Scheduler scheduler) throws InvalidTaskException {
-        entity.setScheduler(scheduler);
-        entity.setStatus(Status.TODO);
-        
-        save( entity );
-        
-        // Se não 
-		return resourceRepository.save(entity);
-	}
->>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
+	public abstract Resource saveResource(T entity, Scheduler scheduler) throws InvalidTaskException;
 	
-	/*@Transactional
+	
+	@Transactional
 	public Resource findById(int id) {
 		return resourceRepository.findById(id);
-	}*/
+	}
 	
-	/*@Transactional(readOnly=false)
+	@Transactional(readOnly=false)
 	public void delete(Resource entity) {
 		resourceRepository.delete(entity);
-	}*/
+	}
 
 	/**
 	 * Recupera todas as tarefas do usuário logado
@@ -90,12 +81,13 @@ public abstract class ResourceService {
 	/**
 	 * recupera todas as tarefas temporarias do usuario logado
 	 * @return
+	 **/
 	 
 	public List<Resource> findTemporaryByUserAuthenticated(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<Resource> resources = resourceRepository.findTemporaryByUserEmail(auth.getName());
 		return resources;
-	}*/
+	}
 
 	/**
 	 * recupera todas as tarefas temporarias do usuario logado
@@ -124,7 +116,7 @@ public abstract class ResourceService {
 	 * @return
 	 * @throws InvalidTaskException 
 	 */
-	/*@Transactional(readOnly=false)
+	@Transactional(readOnly=false)
 	public List<Resource> updateStatus(ArrayList<Resource> checkins) throws InvalidTaskException {
 		for(Resource resource: checkins) {
 			if(resource.getId() == null || resource.getStatus()==null) {
@@ -135,7 +127,7 @@ public abstract class ResourceService {
 			resourceRepository.save(t);
 		}
 		return checkins;
-	}*/
+	}
 
 	
 }

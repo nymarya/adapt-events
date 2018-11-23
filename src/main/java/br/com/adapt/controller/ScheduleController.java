@@ -39,22 +39,17 @@ public class ScheduleController {
 	@Autowired
 	private SchedulerService SchedulerService;
 	
-<<<<<<< HEAD
 	private ResourceService resourceService;
 	private TaskService taskService;
-	/*
-=======
-	//@Autowired
-	//private ResourceService taskService;
 	
->>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
+	
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
 		
 		List< List< Freeblock > > tasks = SchedulerService.generate();
 		model.addAttribute("tasks", tasks);
         return "dashboard/calendar";
-    }*/
+    }
 	
 	@GetMapping("/scheduler")
 	public String index(Model model) {
@@ -68,13 +63,10 @@ public class ScheduleController {
 	public String taskEdit() {
         return "dashboard/task_edit_form";
     }
+
 	
-<<<<<<< HEAD
-	/*@GetMapping("/checkin")
-=======
 	/*
 	@GetMapping("/checkin")
->>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	public String checkin(Model model) {
 		List<Resource> all = taskService.findTemporaryByUserAuthenticated();
 		if(all.isEmpty()) {

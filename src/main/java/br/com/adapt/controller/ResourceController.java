@@ -41,7 +41,7 @@ import br.com.adapt.service.UserService;
  */
 
 @Controller
-public class ResourceController {
+public abstract class ResourceController<T> {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tarefa cadastrada com sucesso.";
@@ -52,11 +52,6 @@ public class ResourceController {
 	@Autowired
 	private UserService userService;
 	
-<<<<<<< HEAD
-	
-=======
-	//@Autowired
->>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
 	private ResourceService resourceService;
 	
 	@GetMapping("/tasks")
@@ -75,28 +70,24 @@ public class ResourceController {
         return "tasks/create";
     }
 	
-<<<<<<< HEAD
-	/*@PostMapping("/task/save")
-	public String store( @Valid @ModelAttribute Resource entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
-=======
+	/**
+	 * Método para salvar um novo recurso no BD 
+	 * @param entityTask Entidade com infos a ser salvas
+	 */
 	@PostMapping("/task/save")
-	public String store( @Valid @ModelAttribute Task entityTask,BindingResult result, RedirectAttributes redirectAttributes) {
->>>>>>> cc6b259381d782aede01e1ad38dd634ee2aaf107
-		Resource resource = null;
-		
-		try {
+	public abstract String store( @Valid @ModelAttribute T entityTask,BindingResult result, RedirectAttributes redirectAttributes);
 
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveResource(entityTask, user.getScheduler());
-			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", e.getMessage());
-			return "redirect:/tasks/create";
-		}
-		return "redirect:/tasks";
-	}
-
+	
+	/**
+	 * Método para atualizar recurso no BD 
+	 * @param entityTask Entidade com infos a ser salvas
+	 */
+	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
+	public abstract String update(@Valid @ModelAttribute T entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes);
+	
+	
+	
+	
 	
 	@GetMapping("tasks/{id}/edit")
 	public String update(Model model, @PathVariable("id") Integer id) {
@@ -113,23 +104,7 @@ public class ResourceController {
 		}
 		return "tasks/edit";
 	}
-	
-	
-	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(@Valid @ModelAttribute Task entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
-		Resource resource = null;
-		try {
-			entity.setId(id);
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	        User user = userService.findByEmailAdress(auth.getName());
-			resource = resourceService.saveResource(entity, user.getScheduler());
-			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
-			e.printStackTrace();
-		}
-		return "redirect:/tasks";
-	}
+
 	
 	@GetMapping("tasks/{id}")
 	public String show(Model model, @PathVariable("id") Integer id) {
@@ -160,7 +135,7 @@ public class ResourceController {
 			throw new ServiceException(e.getMessage());
 		}
 		return "redirect:/tasks";
-	}*/
+	}
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
