@@ -88,11 +88,13 @@ public class TaskService extends ResourceService<Task> {
 		return null;
 	}
 
-
+	/**
+	 * Remove tarefa
+	 */
 	@Override
+	@Transactional(readOnly = false)
 	public void delete(Task entity) {
-		taskRepository.delete(entity);
-		
+		taskRepository.delete(entity);		
 	}
 
 

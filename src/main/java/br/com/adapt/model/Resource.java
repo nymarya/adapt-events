@@ -76,7 +76,7 @@ public abstract class Resource implements Serializable {
 	@Column(name = "type")
 	private Type type;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 	
