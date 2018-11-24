@@ -37,7 +37,7 @@ import br.com.adapt.service.UserService;
  */
 
 @RestController
-public class ResourceRestController {
+public abstract class ResourceRestController<T> {
 
 	
 	private static final String MSG_SUCESS_INSERT = "Tag inserted successfully.";
@@ -51,12 +51,11 @@ public class ResourceRestController {
 	
 	private ResourceService resourceService;
 
-    @GetMapping("/api/tasks")
-    public List<Resource> resources(@RequestParam(value="start", defaultValue="World") String start,
+	/** Método para recuperar a lista de recursos alocados
+	 *  em um periodo
+	 */
+    public abstract List<T> resources(@RequestParam(value="start", defaultValue="World") String start,
     		@RequestParam(value="end", defaultValue="World") String end,
-    		@RequestParam(value="_", defaultValue="World") String e) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return resourceService.findByUserEmail(auth.getName());
-    }
+    		@RequestParam(value="_", defaultValue="World") String e);
     
 }

@@ -86,7 +86,6 @@ public class SchedulerService {
 	
 	@Transactional(readOnly = true)
 	public void generateGroupsTask( ){
-		System.out.println("teste - schedulerService");
 		//temporaryTasks = resourceService.findTemporaryNotDoneByUserAuthenticated();
 		//resourceService.teste();
 		//System.out.println(temporaryTasks);

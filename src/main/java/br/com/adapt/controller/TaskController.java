@@ -1,5 +1,7 @@
 package br.com.adapt.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +17,7 @@ import br.com.adapt.service.UserService;
 
 
 @Controller
-public class TaskController<T extends Task> extends ResourceController<T> {
+public class TaskController extends ResourceController<Task> {
 
 	@Autowired
 	private UserService userService;
@@ -33,7 +35,7 @@ public class TaskController<T extends Task> extends ResourceController<T> {
 	
 
 	@Override
-	public String store(T entityTask, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String store(Task entityTask, BindingResult result, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		
 		try {
@@ -52,7 +54,7 @@ public class TaskController<T extends Task> extends ResourceController<T> {
 
 
 	@Override
-	public String update(T entity, BindingResult result, Integer id, RedirectAttributes redirectAttributes) {
+	public String update(Task entity, BindingResult result, Integer id, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		try {
 			entity.setId(id);
