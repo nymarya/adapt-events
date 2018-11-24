@@ -35,17 +35,14 @@ import br.com.adapt.repository.ResourceRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public abstract class ResourceService<T> {
+public abstract class ResourceService<T extends Resource> {
 	
 
 	@Autowired
 	private ResourceRepository resourceRepository;
 
 	@Transactional(readOnly = false)
-	public Resource saveResource(Resource entity) {
-		Resource t = resourceRepository.save(entity);
-		return t;
-	}
+	public abstract T saveResource(T entity);
 	
 
 	@Transactional(readOnly = false)
@@ -55,28 +52,21 @@ public abstract class ResourceService<T> {
 	
 	
 	@Transactional(readOnly = false)
-	public abstract Resource saveResource(T entity, Scheduler scheduler) throws InvalidTaskException;
+	public abstract T saveResource(T entity, Scheduler scheduler) throws InvalidTaskException;
 	
 	
 	@Transactional
-	public Resource findById(int id) {
-		return resourceRepository.findById(id);
-	}
+	public abstract T findById(int id);
 	
 	@Transactional(readOnly=false)
-	public void delete(Resource entity) {
-		resourceRepository.delete(entity);
-	}
+	public abstract void delete(T entity);
 
 	/**
 	 * Recupera todas as tarefas do usuário logado
 	 * @param name
 	 * @return
 	 */
-	public List<Resource> findByUserEmail(String name) {
-		List<Resource> resources = resourceRepository.findByUserEmail(name);
-		return resources;
-	}
+	public abstract List<T> findByUserEmail(String name);
 	
 	/**
 	 * recupera todas as tarefas temporarias do usuario logado
@@ -124,7 +114,7 @@ public abstract class ResourceService<T> {
 			}
 			Resource t = findById(resource.getId());
 			t.setStatus(resource.getStatus());
-			resourceRepository.save(t);
+			//resourceRepository.save(t);
 		}
 		return checkins;
 	}

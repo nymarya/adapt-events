@@ -52,29 +52,26 @@ public abstract class ResourceController<T> {
 	@Autowired
 	private UserService userService;
 	
-	private ResourceService resourceService;
+	private ResourceService taskService;
 	
-	@GetMapping("/tasks")
-	public String index(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByEmailAdress(auth.getName());
-		List<Resource> all = user.getScheduler().getTasks();
-		model.addAttribute("tasks", all);
-        return "tasks/index";
-    }
+	/**
+	 * Lista recursos
+	 * @param model
+	 * @return
+	 */
+	public abstract String index(Model model);
 	
-	@GetMapping("/tasks/create")
-	public String taskCreate(Model m) {
-		m.addAttribute("endDate", LocalTime.NOON);
-		m.addAttribute("startDate", LocalTime.NOON);
-        return "tasks/create";
-    }
+	/**
+	 * Renderiza formulário de criação
+	 * @param m
+	 * @return
+	 */
+	public abstract String create(Model m);
 	
 	/**
 	 * Método para salvar um novo recurso no BD 
 	 * @param entityTask Entidade com infos a ser salvas
 	 */
-	@PostMapping("/task/save")
 	public abstract String store( @Valid @ModelAttribute T entityTask,BindingResult result, RedirectAttributes redirectAttributes);
 
 	
@@ -82,60 +79,31 @@ public abstract class ResourceController<T> {
 	 * Método para atualizar recurso no BD 
 	 * @param entityTask Entidade com infos a ser salvas
 	 */
-	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
 	public abstract String update(@Valid @ModelAttribute T entity, BindingResult result, @PathVariable("id") Integer id,RedirectAttributes redirectAttributes);
 	
+	/**
+	 * Exibe formulário para alterar recurso
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	public abstract String edit(Model model, @PathVariable("id") Integer id);
 	
+	/**
+	 * Exibe tela com detalhes sobre o recurso
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	public abstract String show(Model model, @PathVariable("id") Integer id);
 	
-	
-	
-	@GetMapping("tasks/{id}/edit")
-	public String update(Model model, @PathVariable("id") Integer id) {
-		
-		try {
-			if (id != null) {
-				
-				Resource entityTask = resourceService.findById(id);
-				model.addAttribute("task", entityTask);
-				
-			}
-		} catch (Exception e) {
-			throw new ServiceException(e.getMessage());
-		}
-		return "tasks/edit";
-	}
-
-	
-	@GetMapping("tasks/{id}")
-	public String show(Model model, @PathVariable("id") Integer id) {
-		
-		try {
-			if (id != null) {
-				
-				Resource entity = resourceService.findById(id);
-				model.addAttribute("task", entity);
-				
-			}
-		} catch (Exception e) {
-			throw new ServiceException(e.getMessage());
-		}
-		return "tasks/show";
-	}
-	
-	@PostMapping("tasks/{id}/delete")
-	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-		try {
-			if (id != null) {
-				Resource entity = resourceService.findById(id);
-				resourceService.delete(entity);
-				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
-			}
-		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
-			throw new ServiceException(e.getMessage());
-		}
-		return "redirect:/tasks";
-	}
+	/**
+	 * Remove recurso.
+	 * @param id
+	 * @param redirectAttributes
+	 * @return
+	 */
+	public abstract String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes);
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

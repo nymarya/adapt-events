@@ -22,15 +22,20 @@ import br.com.adapt.domain.Type;
 
 @Service
 @Transactional(readOnly = false)
-public class TaskService<T extends Task> extends ResourceService<T> {
+public class TaskService extends ResourceService<Task> {
 
 	
 	@Autowired
-	private ResourceRepository resourceRepository;
+	private ResourceRepository<Task> taskRepository;
+	
+	@Transactional(readOnly = true)
+	public Task findById(int id) {
+		return taskRepository.findById(id);
+	}
 	
 
 	@Override
-	public T save( T entity ) {
+	public Task save( Task entity ) {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
@@ -56,23 +61,16 @@ public class TaskService<T extends Task> extends ResourceService<T> {
         return entity;
 
 	}
-	
-	
-
-
 
 	@Override
-	public Resource saveResource(T entity, Scheduler scheduler) throws InvalidTaskException {
+	public Task saveResource(Task entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         
         save( entity );
-        
-        // Se não 
-		return resourceRepository.save(entity);
+         
+		return taskRepository.save(entity);
 	}
-
-
 
 
 
@@ -80,6 +78,28 @@ public class TaskService<T extends Task> extends ResourceService<T> {
 	public Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	public Task saveResource(Task entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void delete(Task entity) {
+		taskRepository.delete(entity);
+		
+	}
+
+
+	@Override
+	public List<Task> findByUserEmail(String name) {
+		// TODO Auto-generated method stub
+		return taskRepository.findByUserEmail(name);
 	}
 
 	
