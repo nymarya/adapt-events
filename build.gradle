@@ -33,5 +33,6 @@ dependencies {
     compile(group: 'org.postgresql', name: 'postgresql', version: '42.1.1')
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version:'2.3.0'
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
     runtime('com.h2database:h2')
 }
