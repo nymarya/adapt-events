@@ -39,7 +39,7 @@ public abstract class ResourceService<T extends Resource> {
 	
 
 	@Autowired
-	private ResourceRepository resourceRepository;
+	protected ResourceRepository resourceRepository;
 
 	@Transactional(readOnly = false)
 	public abstract T saveResource(T entity);
@@ -83,21 +83,11 @@ public abstract class ResourceService<T extends Resource> {
 	 * recupera todas as tarefas temporarias do usuario logado
 	 * @return
 	 */
-	public List<Resource> findRoutineByUserAuthenticated(){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		List<Resource> resources = resourceRepository.findRoutineByUserEmail(auth.getName());
-		return resources;
-	}
+	public abstract List<T> findRoutineByUserAuthenticated();
 	
-	
-	public void teste() {
-		System.out.println("oi");
-	}
 
-	public List<Resource> findTemporaryNotDoneByUserAuthenticated() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return resourceRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
-	}
+	public abstract List<T> findTemporaryNotDoneByUserAuthenticated();
+	
 	
 	
 	/**

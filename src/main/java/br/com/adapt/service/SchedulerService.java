@@ -46,27 +46,24 @@ import br.com.adapt.repository.ResourceRepository;
 
 @Service
 @Transactional(readOnly = false)
-public class SchedulerService {
+public abstract class SchedulerService<T extends Resource> {
 	
 	@Autowired
 	private SchedulerRepository schedulerRepository;
 	
 	
-	private ResourceRepository resourceRepository;
-	
-	private ResourceService resourceService;
-	private TaskService taskService;
-	
+	protected ResourceService resourceService;
 	
 	
 	@Autowired
 	private UserService userService;
 	
+	
 	// Lista de tarefas rotina
-	private List< List<Resource> > routineTasks = new ArrayList< List<Resource> >();
+	protected List< List<T> > routineTasks = new ArrayList< List<T> >();
 
 	// lista de tarefas de temporarias
-    private List<Resource> temporaryTasks = new ArrayList< Resource >();
+    protected List<T> temporaryTasks = new ArrayList< T >();
     
     // lista de blocos livres
     private List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
@@ -85,35 +82,9 @@ public class SchedulerService {
 	}
 	
 	@Transactional(readOnly = true)
-	public void generateGroupsTask( ){
-		//temporaryTasks = resourceService.findTemporaryNotDoneByUserAuthenticated();
-		//resourceService.teste();
-		//System.out.println(temporaryTasks);
-		//List<Resource> resources = resourceService.findRoutineByUserAuthenticated();
-		/*// percorre todas as tarefas
-		for( Resource resource :  resources){
-        	
-        	// verifica se é rotina
-        	if( resource.getType() == Type.ROUTINE ){
-        		
-        		// verifica de qual dia da semana é e add tarefa na lista
-	        	switch( resource.getDay() ) {
-	        		case 0: routineTasks.get(0).add(resource); break;
-	        		case 1: routineTasks.get(1).add(resource); break;
-	        		case 2: routineTasks.get(2).add(resource); break;
-	        		case 3: routineTasks.get(3).add(resource); break;
-	        		case 4: routineTasks.get(4).add(resource); break;
-	        		case 5: routineTasks.get(5).add(resource); break;
-	        		case 6: routineTasks.get(6).add(resource); break;
-	        		default: break;
-        		} 
-        		
-        	} 
-        	
-        }*/
+	public abstract void generateGroupsTask( );
 	
-		
-	}
+	
 	
 	/**
 	 * Ordena tarefas de rotina pela data de início
@@ -121,9 +92,9 @@ public class SchedulerService {
 	@Transactional(readOnly = true)
 	public void orderRoutineByDate() {
 		for( int i=0; i<7; i++ ){
-        	
-        	Collections.sort(routineTasks.get(i), new Comparator<Resource>() {
-        		public int compare(Resource t1, Resource t2) {
+			
+        	Collections.sort(routineTasks.get(i), new Comparator<T>() {
+        		public int compare(T t1, T t2) {
         			return t1.getStartDate().compareTo(t2.getStartDate());
         		}
         	});
@@ -134,15 +105,9 @@ public class SchedulerService {
 	/**
 	 * Ordena tarefas pela prioridade
 	 */
-	public void orderTemporaryTasksByPriority() {
-
-    	Collections.sort(temporaryTasks, new Comparator<Resource>() {
-    		public int compare(Resource t1, Resource t2) {
-    			return -(t1.getPriority().compareTo(t2.getPriority()));
-    		}
-    	});
-    	
-	}
+	public abstract void orderTemporaryTasksByPriority();
+	
+	
 	
 	@Transactional(readOnly = true)
 	public void generateFreeBlocks() {
@@ -277,17 +242,17 @@ public class SchedulerService {
         routineTasks.clear();
         // inicializa lista de tarefas de rotina
         for( int i=0; i<7; i++ ){
-        	routineTasks.add( new ArrayList<Resource>() );
+        	routineTasks.add( new ArrayList<T>() );
         }
         
-        temporaryTasks = new ArrayList<Resource>();
+        temporaryTasks = new ArrayList<T>();
         
         // recupera lista de tarefas do usuario
         List<Resource> resources = user.getScheduler().getTasks();
         
         
         // gera listas com tarefas rotina e temporárias
-        generateGroupsTask( );
+        generateGroupsTask(  );
 		
 		
 		// ordena tarefas de rotina

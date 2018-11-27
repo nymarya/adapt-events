@@ -33,7 +33,7 @@ public class TaskService extends ResourceService<Task> {
 		return taskRepository.findById(id);
 	}
 	
-
+	
 	@Override
 	public Task save( Task entity ) {
 		
@@ -100,9 +100,24 @@ public class TaskService extends ResourceService<Task> {
 
 	@Override
 	public List<Task> findByUserEmail(String name) {
-		// TODO Auto-generated method stub
 		return taskRepository.findByUserEmail(name);
 	}
+
+	
+	@Override
+	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
+	}
+
+
+	@Override
+	public List<Task> findRoutineByUserAuthenticated() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return taskRepository.findRoutineByUserEmail(auth.getName());
+	}
+
+	
 
 	
 	
