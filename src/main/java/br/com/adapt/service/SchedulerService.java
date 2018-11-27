@@ -57,7 +57,7 @@ public class SchedulerService {
 	private ResourceService resourceService;
 	private TaskService taskService;
 	
-	
+
 	
 	@Autowired
 	private UserService userService;
@@ -316,5 +316,15 @@ public class SchedulerService {
 		return freeblocks;
 		
 	}
+	
+	/**
+	 * Download resources
+	 *
+	public void download() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmailAdress(auth.getName());
+        List<Task> resources = taskService.findByUserEmail(auth.getName());
+		iShared.export(resources);
+	}*/
 	
 }
