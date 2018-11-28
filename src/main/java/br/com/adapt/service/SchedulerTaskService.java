@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.adapt.domain.Type;
@@ -13,7 +14,7 @@ import br.com.adapt.model.Task;
 @Service
 public class SchedulerTaskService extends SchedulerService<Task> {
 
-	
+	@Autowired
 	private TaskService taskService;
 	
 	
@@ -35,7 +36,7 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 		
 		List<Task> temporary = taskService.findTemporaryNotDoneByUserAuthenticated();
 		
-		//System.out.println(temporary);
+		System.out.println(temporary);
 		/*
 		List<Task> resources = taskService.findRoutineByUserAuthenticated();
 		
