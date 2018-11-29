@@ -34,19 +34,16 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 	@Override
 	public void generateGroupsTask( ) {
 		
-		List<Task> temporary = taskService.findTemporaryNotDoneByUserAuthenticated();
+		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
 		
-		System.out.println(temporary);
-		/*
+		
 		List<Task> resources = taskService.findRoutineByUserAuthenticated();
 		
 		// percorre todas as tarefas
 		for( Task resource : resources){
         	
         	// verifica se é rotina
-        	if(Planning tasks dinamically ￼
-Planning tasks dinamically ￼
- resource.getType() == Type.ROUTINE ){
+        	if( resource.getType() == Type.ROUTINE ){
         		
         		// verifica de qual dia da semana é e add tarefa na lista
 	        	switch( resource.getDay() ) {
@@ -62,7 +59,7 @@ Planning tasks dinamically ￼
         		
         	} 
         	
-        }*/
+        }
 		
 	}
 
