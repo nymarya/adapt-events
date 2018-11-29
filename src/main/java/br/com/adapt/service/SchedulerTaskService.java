@@ -1,15 +1,21 @@
 package br.com.adapt.service;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.adapt.domain.Type;
+import br.com.adapt.exception.InvalidTaskException;
+import br.com.adapt.model.Freeblock;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.Task;
+import br.com.adapt.model.User;
 
 @Service
 public class SchedulerTaskService extends SchedulerService<Task> {
@@ -35,8 +41,7 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 	public void generateGroupsTask( ) {
 		
 		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
-		
-		
+
 		List<Task> resources = taskService.findRoutineByUserAuthenticated();
 		
 		// percorre todas as tarefas
@@ -57,10 +62,16 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 	        		default: break;
         		} 
         		
-        	} 
+        	}
         	
         }
 		
+	}
+
+
+	@Override
+	public int setIntervals( ) {
+		return 10;
 	}
 
 	

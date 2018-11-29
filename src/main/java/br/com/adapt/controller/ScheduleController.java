@@ -26,6 +26,7 @@ import br.com.adapt.model.Task;
 import br.com.adapt.model.Resource;
 import br.com.adapt.model.User;
 import br.com.adapt.service.SchedulerService;
+import br.com.adapt.service.SchedulerTaskService;
 import br.com.adapt.service.TaskService;
 import br.com.adapt.service.ResourceService;
 import br.com.adapt.util.CheckinForm;
@@ -37,7 +38,7 @@ public class ScheduleController {
 
 	
 	@Autowired
-	private SchedulerService SchedulerService;
+	private SchedulerTaskService SchedulerService;
 	
 	private ResourceService resourceService;
 	private TaskService taskService;

@@ -56,7 +56,7 @@ public abstract class SchedulerService<T extends Resource> {
 	
 	
 	@Autowired
-	private UserService userService;
+	protected UserService userService;
 	
 	
 	// Lista de tarefas rotina
@@ -66,7 +66,7 @@ public abstract class SchedulerService<T extends Resource> {
     protected List<T> temporaryTasks = new ArrayList< T >();
     
     // lista de blocos livres
-    private List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
+    protected List< List<Freeblock> > freeblocks = new ArrayList< List<Freeblock> >(); 
 
 	
 	/**
@@ -177,6 +177,12 @@ public abstract class SchedulerService<T extends Resource> {
         }
 	}
 	
+	
+	
+	public abstract int setIntervals( );
+	
+	
+	
 	/**
 	 * Tenta distribuir as tarefas temporárias a partir do dia atual.
 	 */
@@ -191,6 +197,9 @@ public abstract class SchedulerService<T extends Resource> {
 			// percorre blocos livres verificando se tarefa "cabe" lá dentro
 			Calendar calendar = Calendar.getInstance();
 			int day = calendar.get(Calendar.DAY_OF_WEEK)-1; 
+			
+			
+			
 			for( int j=day; j<7; j++ ){
 				
 				
@@ -213,17 +222,33 @@ public abstract class SchedulerService<T extends Resource> {
 						
 						temporaryTasks.get(i).setEndDate( endTime );
 						
-						
+
 						// diminui tempo do bloco livre
 						block.setStartDate( endTime );
+						
+						
+						// verifica quantos minutos ainda tem no bloco
+						long free = Duration.between(block.getStartDate(),block.getEndDate()).toMinutes();
+
+						if( free != 0 ){
+
+							
+							int interval = setIntervals();
+							
+							LocalTime start = block.getStartDate();
+
+							if( free >= interval ){
+								block.setStartDate(start.plusMinutes(interval));
+							} else {
+								block.setStartDate(start.plusMinutes(free));
+							}
+							
+						}
 						
 						update = false;
 						
 					}
-					
-					
-				}
-				
+				}	
 			}
 			
 		}
@@ -258,6 +283,7 @@ public abstract class SchedulerService<T extends Resource> {
 		// ordena tarefas de rotina
         orderRoutineByDate();
 
+        
         
         // inicializa lista de blocos livres 
         for( int i=0; i<7; i++ ){
