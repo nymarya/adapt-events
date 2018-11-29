@@ -213,6 +213,7 @@ public abstract class SchedulerService<T extends Resource> {
 					if( temporaryTasks.get(i).getExpectedTime() < freeTime*(-1) 
 							&& update==true ){
 						
+						
 						// atualiza o horário na tarefa
 						temporaryTasks.get(i).setDay(j);
 						temporaryTasks.get(i).setStartDate( block.getStartDate() );
