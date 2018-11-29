@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author mayra
  *
@@ -44,6 +46,7 @@ public class User implements Serializable{
 
 	
 	@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Scheduler scheduler;
 	
 	/**

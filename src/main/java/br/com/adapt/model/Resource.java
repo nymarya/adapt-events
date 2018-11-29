@@ -31,6 +31,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author jainebudke
  *
@@ -78,6 +80,7 @@ public abstract class Resource implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "scheduler_id")
+	@JsonIgnore
 	private Scheduler scheduler;
 	
 

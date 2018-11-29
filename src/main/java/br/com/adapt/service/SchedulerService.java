@@ -248,7 +248,7 @@ public abstract class SchedulerService<T extends Resource> {
         temporaryTasks = new ArrayList<T>();
         
         // recupera lista de tarefas do usuario
-        List<Resource> resources = user.getScheduler().getTasks();
+        List<Resource> resources = user.getScheduler().getResources();
         
         
         // gera listas com tarefas rotina e temporárias
