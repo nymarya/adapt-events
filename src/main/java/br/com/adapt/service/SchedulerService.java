@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +57,11 @@ public class SchedulerService {
 	private ResourceRepository resourceRepository;
 	
 	private ResourceService resourceService;
+	
+	@Autowired
 	private TaskService taskService;
 	
-
+	private SharedSchedule<Task> iShared = new SharedScheduleByDownload<Task>();
 	
 	@Autowired
 	private UserService userService;
@@ -319,12 +323,13 @@ public class SchedulerService {
 	
 	/**
 	 * Download resources
-	 *
-	public void download() {
+	 * @throws Exception 
+	 */
+	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
         List<Task> resources = taskService.findByUserEmail(auth.getName());
-		iShared.export(resources);
-	}*/
+		iShared.export(resources, request, response);
+	}
 	
 }

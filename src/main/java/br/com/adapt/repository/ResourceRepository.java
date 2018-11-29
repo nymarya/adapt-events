@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 @Repository
-public interface ResourceRepository<T> extends JpaRepository<Resource, Integer> {
+public interface ResourceRepository<T extends Resource> extends JpaRepository<Resource, Integer> {
 	
 	@Query("select u from Resource u where u.id = ?1")
 	T findById(int id);

@@ -10,14 +10,14 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
+import br.com.adapt.model.Resource;
 import br.com.adapt.model.Task;
 
-public class SharedScheduleByDownload implements SharedSchedule<Task> {
+public class SharedScheduleByDownload<T extends Resource> implements SharedSchedule<T> {
 
 	@Override
-	public void export(List<Task> resources) {
-
-
+	public void export(List<T> resources, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		buildCsvDocument(resources, request, response);
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Task> {
 	 * @param response
 	 * @throws Exception
 	 */
-	protected void buildCsvDocument(List<Task> tasks, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildCsvDocument(List<T> tasks, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 	    response.setHeader("Content-Disposition", "attachment; filename=\"my-csv-file.csv\"");
 
@@ -40,7 +40,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Task> {
 
 	    csvWriter.writeHeader(header);
 
-	    for(Task user : tasks){
+	    for(T user : tasks){
 	        csvWriter.write(user, header);
 	    }
 	    csvWriter.close();
