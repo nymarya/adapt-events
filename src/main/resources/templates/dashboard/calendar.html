@@ -71,8 +71,8 @@
 					        	  var timeStart = item.startDate.split(":")
 								  var timeEnd = item.endDate.split(":")
 								  
-								  var start = moment().startOf('week').add(item[3],'days').hour(timeStart[0]).minute(timeStart[1]);
-					        	  var end = moment().startOf('week').add(item[3],'days').hour(timeEnd[0]).minute(timeEnd[1]);
+								  var start = moment().startOf('week').add(item.day,'days').hour(timeStart[0]).minute(timeStart[1]);
+					        	  var end = moment().startOf('week').add(item.day,'days').hour(timeEnd[0]).minute(timeEnd[1]);
 								  var color = item.color == "ROUTINE" ? "#FFC420" : "#170DFF"
 						          $('#calendar').fullCalendar('renderEvent', {
 						        	  id: item.id,
