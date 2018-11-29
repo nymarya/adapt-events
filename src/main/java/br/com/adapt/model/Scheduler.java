@@ -58,11 +58,11 @@ public class Scheduler implements Serializable{
 		this.id = id;
 	}
 
-	public List<Resource> getTasks() {
+	public List<Resource> getResources() {
 		return resources;
 	}
 
-	public void setTasks(List<Resource> resources) {
+	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
 
