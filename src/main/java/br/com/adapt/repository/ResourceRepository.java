@@ -15,12 +15,14 @@ import org.springframework.data.jpa.repository.Query;
 
 
 @Repository
-public interface ResourceRepository<T extends Resource> extends JpaRepository<Resource, Integer> {
+
+public interface ResourceRepository<T extends Resource> extends JpaRepository<T, Integer> {
+
 	
 	@Query("select u from Resource u where u.id = ?1")
 	T findById(int id);
 
-	@Query("select t.startDate,t.endDate,t.title,t.day,t.id,t.type from Resource t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1")
+	@Query("select t from Resource t inner join Scheduler s on s.id=t.scheduler where s.user.email = ?1")
 	List<T> findByUserEmail(String name);
 
 	@Query("select t from Resource t")

@@ -287,7 +287,7 @@ public class SchedulerService {
         temporaryTasks = new ArrayList<Resource>();
         
         // recupera lista de tarefas do usuario
-        List<Resource> resources = user.getScheduler().getTasks();
+        List<Resource> resources = user.getScheduler().getResources();
         
         
         // gera listas com tarefas rotina e temporárias

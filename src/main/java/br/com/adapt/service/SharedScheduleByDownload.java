@@ -1,5 +1,8 @@
 package br.com.adapt.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +37,7 @@ public class SharedScheduleByDownload<T extends Resource> implements SharedSched
 
 	    response.setHeader("Content-Disposition", "attachment; filename=\"my-csv-file.csv\"");
 
+	    
 	    String[] header = {"Firstname","LastName","LastName","JobTitle","Company","Address","City","Country", "PhoneNumber"};
 	    ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
 	            CsvPreference.STANDARD_PREFERENCE);

@@ -44,7 +44,7 @@ public class TaskController extends ResourceController<Task> {
 	public String index(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
-		List<Resource> all = user.getScheduler().getTasks();
+		List<Resource> all = user.getScheduler().getResources();
 		model.addAttribute("tasks", all);
         return "tasks/index";
     }
