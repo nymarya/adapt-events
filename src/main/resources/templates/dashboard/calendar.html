@@ -73,7 +73,7 @@
 								  
 								  var start = moment().startOf('week').add(item.day,'days').hour(timeStart[0]).minute(timeStart[1]);
 					        	  var end = moment().startOf('week').add(item.day,'days').hour(timeEnd[0]).minute(timeEnd[1]);
-								  var color = item.color == "ROUTINE" ? "#FFC420" : "#170DFF"
+								  var color = item.type == "ROUTINE" ? "#FFC420" : "#170DFF"
 						          $('#calendar').fullCalendar('renderEvent', {
 						        	  id: item.id,
 						              title: item.title,
