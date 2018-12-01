@@ -61,7 +61,7 @@ public class SchedulerService {
 	@Autowired
 	private TaskService taskService;
 	
-	private SharedSchedule<Task> iShared = new SharedScheduleByDownload<Task>();
+	private SharedSchedule<Task> iShared = new SharedScheduleByDownload();
 	
 	@Autowired
 	private UserService userService;
