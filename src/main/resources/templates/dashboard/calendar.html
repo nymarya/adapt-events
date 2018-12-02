@@ -67,20 +67,20 @@
 					        var events = [];
 					        var sun = getSunday(new Date());
 					        doc.forEach(function(item, a) {
-					        	if( item[0] != null){
-					        	  var timeStart = item[0].split(":")
-								  var timeEnd = item[1].split(":")
+					        	if( item.startDate	 != null){
+					        	  var timeStart = item.startDate.split(":")
+								  var timeEnd = item.endDate.split(":")
 								  
-								  var start = moment().startOf('week').add(item[3],'days').hour(timeStart[0]).minute(timeStart[1]);
-					        	  var end = moment().startOf('week').add(item[3],'days').hour(timeEnd[0]).minute(timeEnd[1]);
-								  var color = item[5] == "ROUTINE" ? "#FFC420" : "#170DFF"
+								  var start = moment().startOf('week').add(item.day,'days').hour(timeStart[0]).minute(timeStart[1]);
+					        	  var end = moment().startOf('week').add(item.day,'days').hour(timeEnd[0]).minute(timeEnd[1]);
+								  var color = item.type == "ROUTINE" ? "#FFC420" : "#170DFF"
 						          $('#calendar').fullCalendar('renderEvent', {
-						        	  id: item[4],
-						              title: item[2],
+						        	  id: item.id,
+						              title: item.title,
 						              start: start,
 						              end: end,
 						              color: color,
-						              editable: item[5] != "ROUTINE"
+						              editable: item.type != "ROUTINE"
 						            });
 					        	}
 					          
