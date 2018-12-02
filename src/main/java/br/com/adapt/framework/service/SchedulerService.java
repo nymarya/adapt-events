@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.application.model.Task;
 import br.com.adapt.application.repository.TagRepository;
+import br.com.adapt.application.service.SharedScheduleByDownload;
+import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.model.Freeblock;
 import br.com.adapt.framework.model.Resource;
@@ -50,9 +54,15 @@ public abstract class SchedulerService<T extends Resource> {
 	@Autowired
 	private SchedulerRepository schedulerRepository;
 	
+
+	private ResourceRepository resourceRepository;
 	
+	@Autowired
+	private TaskService taskService;
+
 	protected ResourceService resourceService;
 	
+	private SharedSchedule<Task> iShared = new SharedScheduleByDownload();
 	
 	@Autowired
 	protected UserService userService;
@@ -306,6 +316,17 @@ public abstract class SchedulerService<T extends Resource> {
 		
 		return freeblocks;
 		
+	}
+	
+	/**
+	 * Download resources
+	 * @throws Exception 
+	 */
+	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByEmailAdress(auth.getName());
+        List<Task> resources = taskService.findByUserEmail(auth.getName());
+		iShared.export(resources, request, response);
 	}
 	
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.hibernate.service.spi.ServiceException;
@@ -41,6 +43,9 @@ public abstract class SchedulerController {
 	private ResourceService resourceService;
 	private TaskService taskService;
 	
+	@Autowired
+	private SchedulerService schedulerService;
+	
 	
 	public abstract String dashboardIndex(Model model);
 
@@ -49,6 +54,12 @@ public abstract class SchedulerController {
 	public String taskEdit() {
         return "dashboard/task_edit_form";
     }
+	
+	@GetMapping("/download")
+	public String download(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		schedulerService.download(request, response);
+		return "dashboard/profileEdit";
+	}
 
 	
 	/*
