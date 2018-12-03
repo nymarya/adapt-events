@@ -25,7 +25,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
+	@Autowired
 	private SchedulerService schedulerService;
 	
 	@Autowired
