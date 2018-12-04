@@ -20,15 +20,15 @@ public class SchedulerCourseService extends SchedulerService<Course> {
 	
 	@Override
 	public void orderTemporaryTasksByPriority() {
-
+		
     	Collections.sort(temporaryTasks, new Comparator<Course>() {
     		public int compare(Course t1, Course t2) {
-    			return -(t1.getPriority().compareTo(t2.getPriority()));
+    			return -(t1.getCategory().compareTo(t2.getCategory()));
     		}
     	});
 
-		
 	}
+	
 
 
 	@Override
@@ -65,7 +65,7 @@ public class SchedulerCourseService extends SchedulerService<Course> {
 
 	@Override
 	public int setIntervals( ) {
-		return 10;
+		return 15;
 	}
 
 	

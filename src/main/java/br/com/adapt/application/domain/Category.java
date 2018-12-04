@@ -7,9 +7,9 @@ public enum Category {
 	@Override
 	public String toString() {
 		switch(this) {
-	    	case CLASS: return "Aula";
 	    	case SUPPORT: return "Monitoria";
 	    	case EXTRA: return "Aula extra";
+	    	case CLASS: return "Aula";
 	    	default: throw new IllegalArgumentException();
 	    }
 	}

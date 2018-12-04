@@ -36,10 +36,11 @@ public class CourseController extends ResourceController<Course> {
 	@Autowired
 	private CourseService courseService;
 	
-	private static final String MSG_SUCESS_INSERT = "Tarefa cadastrada com sucesso.";
-	private static final String MSG_SUCESS_UPDATE = "Tarefa atualizada com sucesso.";
-	private static final String MSG_SUCESS_DELETE = "Tarefa removida com sucesso.";
+	private static final String MSG_SUCESS_INSERT = "Atividade cadastrada com sucesso.";
+	private static final String MSG_SUCESS_UPDATE = "Atividade atualizada com sucesso.";
+	private static final String MSG_SUCESS_DELETE = "Atividade removida com sucesso.";
 	private static final String MSG_ERROR = "Error.";
+	
 
 	@GetMapping("/tasks")
 	public String index(Model model) {
