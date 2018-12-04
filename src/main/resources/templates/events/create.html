@@ -36,52 +36,31 @@
    		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
 
  			<form method="POST"
-     			  th:action="@{/task/save}"
-				  th:object="${task}" >
+     			  th:action="@{/events/save}"
+				  th:object="${event}" >
 				<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
 				<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 						
      				
-     			<label>Digite o título da tarefa: </label>
-				<input name="title" type="text" class="form-control" placeholder="Título da tarefa"><br>
+     			<label>Título: </label>
+				<input name="title" type="text" class="form-control" placeholder="Título"><br>
 
-				<label>Descreva a tarefa a ser realizada:</label>
-				<input name="description" type="text" class="form-control" placeholder="Descrição da tarefa"><br>
+				<label>Descrição:</label>
+				<input name="description" type="text" class="form-control" placeholder="Descrição "><br>
 				
-				<label>Defina a dificuldade de realizar essa tarefa:</label>
-				<select class="custom-select form-group" name="dificulty">
-				  <option selected value="UNKNOWN">Não sei informar</option>
-				  <option selected value="LOW">Fácil</option>
-				  <option value="MEDIUM">Médio</option>
-				  <option value="HIGH">Difícil</option>
+				<label>Categoria:</label>
+				<select class="custom-select form-group" name="category">
+				  <option selected value="MINICOURSE">Minicurso</option>
+				  <option value="TALK">Palestra</option>
+				  <option value="WORKSHOP">Oficina</option>
 				</select><br><br>
 				
 				
-				<label>Essa tarefa faz parte da sua rotina?</label>
+				<label>Esse evento é fixo?</label>
 				<select class="custom-select form-group" name="type">
 				  <option value="ROUTINE">Sim</option>
 				  <option selected value="TEMPORARY">Não</option>
 				</select>
-				
-				<div class="form-group temporary" style="">
-					<label>Defina a prioridade dessa tarefa:</label>
-					<select class="custom-select form-group" name="priority">
-					  <option selected value="NONE">Nenhuma</option>
-					  <option value="LOW">Baixa</option>
-					  <option value="MEDIUM">Média</option>
-					  <option value="HIGH">Alta</option>
-					</select><br>
-				</div>
-				
-				<div class="form-group temporary" style="">
-					<label>Defina a data final de entrega dessa tarefa:</label>
-					<input name="dueDate" type="date" class="form-control" placeholder="Data final de entrega"><br>
-				</div>
-				
-				<div class="form-group temporary" style="">
-					<label>Defina o tempo necessário para realizar a tarefa:</label>
-					<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
-				</div>
 				
 				<div class="form-group routine" style="display:none">
       				<label for="dia">Dia</label>
@@ -106,6 +85,16 @@
 				<div class="form-group routine" style="display:none">
 					<label for="endDate">Fim</label>
 					<input name="endDate" class="time form-control">
+				</div>
+				
+				<div class="form-group" style="">
+					<label>Palestrante/Ministrante:</label>
+					<input name="speaker" type="text" class="form-control" placeholder="Palestrante"><br>
+				</div>
+				
+				<div class="form-group" style="">
+					<label>Duração esperada:</label>
+					<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
 				</div>
 				
 			  	<button type="submit" class="btn btn-blue">Cadastrar tarefa</button>

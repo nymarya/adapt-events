@@ -18,8 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.adapt.application.model.Tag;
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Event;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
@@ -48,7 +47,7 @@ public abstract class ResourceService<T extends Resource> {
 	@Transactional(readOnly = false)
 	public abstract Resource saveTask(Resource entity, Scheduler scheduler) throws InvalidTaskException;
 
-	public abstract T save( T entity );
+	public abstract T save( T entity ) throws InvalidTaskException;
 	
 	
 	@Transactional(readOnly = false)

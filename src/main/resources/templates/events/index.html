@@ -28,32 +28,32 @@
 	<body>
    		
    				
- 		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+ 		<div class="col-md-9 bgcolor-g margin-dash event-form" layout:fragment="content">
  			<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
 			<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 			
 
-	 		<h1 class="adapt">Tarefas</h1>
+	 		<h1 class="adapt">Eventos</h1>
 			<hr />
-			<a th:href="@{/tasks/create}" class="btn btn-success pull-right">Nova tarefa</a><br/><br/>
+			<a th:href="@{/events/create}" class="btn btn-success pull-right">Novo evento</a><br/><br/>
 			
 			<table class="table">
 				
 				<thead>
 					<tr>
 						<th>Título</th> 
-						<th>Dificuldade</th> 
+						<th>Categoria</th> 
 						<th>Opções</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="task : ${tasks}">
-						<td th:text="${task.title}"></td> 
-						<td th:text="${task.dificulty}"></td> 
+					<tr th:each="event : ${events}">
+						<td th:text="${event.title}"></td> 
+						<td th:text="${event.category}"></td> 
 						<td style="text-align:center">
-								<a th:href="${'/tasks/'+ task.id }" class="btn btn-xs btn-primary">Ver</a> 
-						 		<a th:href="${'/tasks/'+ task.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
-								<form th:action="${'/tasks/'+ task.id +'/delete'}"
+								<a th:href="${'/events/'+ event.id }" class="btn btn-xs btn-primary">Ver</a> 
+						 		<a th:href="${'/events/'+ event.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
+								<form th:action="${'/events/'+ event.id +'/delete'}"
                                    class="btn-group"  method="post" name="f">
                                  <button class="btn btn-xs btn-danger"
                                          onclick="return confirm('Você tem certeza que deseja excluir essa essa tag?');">

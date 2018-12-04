@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+
+	<body>
+
+
+   		<div class="col-md-9 bgcolor-g margin-dash event-form" layout:fragment="content">
+
+			
+			<h1 class="adapt">Detalhes da tarefa</h1>
+			<hr />
+
+			<label for="title">Título: </label>  
+			<span th:text="${event.title}"></span> <br>
+
+
+			<label for="speaker">Palestrante/ministrante: </label>  
+			<span th:text="${event.speaker}"></span><br> 
+
+			<label for="expectedTime">Tempo esperado: </label>  
+			<span th:text="${event.expectedTime}"></span><br> 
+
+			<label for="difficulty">Categoria: </label>  
+			<span th:text="${event.category}"></span> <br>
+
+			<label for="description">Descrição: </label>  
+			<span th:text="${event.description}"></span> <br>
+			
+			<label for="priority">Prioridade: </label>  
+			<span th:text="${event.priority}"></span> <br>
+			
+			<label for="type">Tipo: </label>  
+			<span th:text="${event.type}"></span> <br><br>
+			
+			<a th:href="@{/events}" class="btn btn-primary" >Retornar à listagem</a> 
+			
+   				
+   		</div>
+   		
+   		
+	</body>
+</html>

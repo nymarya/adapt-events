@@ -1,7 +1,7 @@
 package br.com.adapt.application.service;
 
-import br.com.adapt.application.model.Task;
-import br.com.adapt.application.repository.TaskRepository;
+import br.com.adapt.application.model.Event;
+import br.com.adapt.application.repository.EventRepository;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
@@ -22,37 +22,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = false)
-public class TaskService extends ResourceService<Task> {
+public class EventService extends ResourceService<Event> {
 
 	
 	@Autowired
-	private ResourceRepository<Task> taskRepository;
+	private ResourceRepository<Event> taskRepository;
 	
 	@Transactional(readOnly = true)
-	public Task findById(int id) {
+	public Event findById(int id) {
 		return taskRepository.findById(id);
 	}
 	
 	
 	@Override
-	public Task save( Task entity ) {
+	public Event save( Event entity ) throws InvalidTaskException {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
-        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
-        	//throw new InvalidTaskException("Tarefa inválida.");
+        if( entity.getCategory() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
+        	throw new InvalidTaskException("Evento inválido.");
         } 
         
         //Se for rotina, os campos dia, hora de inicio e fim são obrigatorios
         if( entity.getType() == Type.ROUTINE) {
         	Integer day = entity.getDay();
         	if(entity.getEndDate() == null || entity.getStartDate() == null || day == null) {
-        		//throw new InvalidTaskException("Tarefa inválida.");
+        		throw new InvalidTaskException("Evento inválido.");
         	}
         } else { //Se não for rotina, prioridade e tempo esperado são obrigatorios
         	Integer expectedTime = entity.getExpectedTime();
-        	if(entity.getPriority() == null || expectedTime == 0) {
-        		//throw new InvalidTaskException("Tarefa inválida.");
+        	if(expectedTime == 0) {
+        		throw new InvalidTaskException("Evento inválido.");
         	}
         	entity.setStartDate(null);
         	entity.setEndDate(null);
@@ -63,7 +63,7 @@ public class TaskService extends ResourceService<Task> {
 	}
 
 	@Override
-	public Task saveResource(Task entity, Scheduler scheduler) throws InvalidTaskException {
+	public Event saveResource(Event entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         
@@ -83,7 +83,7 @@ public class TaskService extends ResourceService<Task> {
 
 
 	@Override
-	public Task saveResource(Task entity) {
+	public Event saveResource(Event entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,26 +93,26 @@ public class TaskService extends ResourceService<Task> {
 	 */
 	@Override
 	@Transactional(readOnly = false)
-	public void delete(Task entity) {
+	public void delete(Event entity) {
 		taskRepository.delete(entity);		
 	}
 
 
 	@Override
-	public List<Task> findByUserEmail(String name) {
+	public List<Event> findByUserEmail(String name) {
 		return taskRepository.findByUserEmail(name);
 	}
 
 	
 	@Override
-	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
+	public List<Event> findTemporaryNotDoneByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
 	}
 
 
 	@Override
-	public List<Task> findRoutineByUserAuthenticated() {
+	public List<Event> findRoutineByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findRoutineByUserEmail(auth.getName());
 	}

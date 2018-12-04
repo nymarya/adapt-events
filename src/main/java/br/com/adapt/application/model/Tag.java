@@ -44,14 +44,6 @@ public class Tag implements Serializable{
 	@Column(name = "color")
 	private String color;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "tasks_tags",
-        joinColumns = @JoinColumn(name = "tag_id"),
-        inverseJoinColumns = @JoinColumn(name = "task_id")
-    )
-	private List<Tag> tasks;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
@@ -110,23 +102,6 @@ public class Tag implements Serializable{
 		this.color = color;
 	}
 
-	
-	/**
-	 * Get the tasks
-	 * @return the tasks
-	 */
-	public List<Tag> getTasks() {
-		return tasks;
-	}
-
-	
-	/**
-	 * Update the tasks 
-	 * @param tasks the tasks to set
-	 */
-	public void setTasks(List<Tag> tasks) {
-		this.tasks = tasks;
-	}
 
 
 	/**
