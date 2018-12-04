@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Course;
 import br.com.adapt.application.service.SchedulerTaskService;
 import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.exception.InvalidTaskException;

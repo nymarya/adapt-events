@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Course;
 import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.controller.ResourceController;
 import br.com.adapt.framework.model.Resource;
@@ -28,7 +28,7 @@ import br.com.adapt.framework.service.UserService;
 
 
 @Controller
-public class TaskController extends ResourceController<Task> {
+public class TaskController extends ResourceController<Course> {
 
 	@Autowired
 	private UserService userService;
@@ -59,8 +59,8 @@ public class TaskController extends ResourceController<Task> {
 
 	@PostMapping("/task/save")
 	@Override
-	public String store(Task entityTask, BindingResult result, RedirectAttributes redirectAttributes) {
-		Task resource = null;
+	public String store(Course entityTask, BindingResult result, RedirectAttributes redirectAttributes) {
+		Course resource = null;
 		
 		try {
 
@@ -77,7 +77,7 @@ public class TaskController extends ResourceController<Task> {
 
 	@Override
 	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(Task entity, BindingResult result, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	public String update(Course entity, BindingResult result, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		try {
 			entity.setId(id);
@@ -98,7 +98,7 @@ public class TaskController extends ResourceController<Task> {
 		try {
 			if (id != null) {
 				
-				Task entityTask = taskService.findById(id);
+				Course entityTask = taskService.findById(id);
 				model.addAttribute("task", entityTask);
 				
 			}
@@ -129,7 +129,7 @@ public class TaskController extends ResourceController<Task> {
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		try {
 			if (id != null) {
-				Task entity = taskService.findById(id);
+				Course entity = taskService.findById(id);
 				taskService.delete(entity);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
 			}

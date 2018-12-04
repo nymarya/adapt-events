@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Course;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
 import br.com.adapt.framework.model.Freeblock;
@@ -19,7 +19,7 @@ import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.SchedulerService;
 
 @Service
-public class SchedulerTaskService extends SchedulerService<Task> {
+public class SchedulerTaskService extends SchedulerService<Course> {
 
 	@Autowired
 	private TaskService taskService;
@@ -28,8 +28,8 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 	@Override
 	public void orderTemporaryTasksByPriority() {
 
-    	Collections.sort(temporaryTasks, new Comparator<Task>() {
-    		public int compare(Task t1, Task t2) {
+    	Collections.sort(temporaryTasks, new Comparator<Course>() {
+    		public int compare(Course t1, Course t2) {
     			return -(t1.getPriority().compareTo(t2.getPriority()));
     		}
     	});
@@ -43,10 +43,10 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 		
 		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
 
-		List<Task> resources = taskService.findRoutineByUserAuthenticated();
+		List<Course> resources = taskService.findRoutineByUserAuthenticated();
 		
 		// percorre todas as tarefas
-		for( Task resource : resources){
+		for( Course resource : resources){
         	
         	// verifica se é rotina
         	if( resource.getType() == Type.ROUTINE ){

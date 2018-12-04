@@ -1,6 +1,6 @@
 package br.com.adapt.application.service;
 
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Course;
 import br.com.adapt.application.repository.TaskRepository;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
@@ -22,20 +22,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = false)
-public class TaskService extends ResourceService<Task> {
+public class TaskService extends ResourceService<Course> {
 
 	
 	@Autowired
-	private ResourceRepository<Task> taskRepository;
+	private ResourceRepository<Course> taskRepository;
 	
 	@Transactional(readOnly = true)
-	public Task findById(int id) {
+	public Course findById(int id) {
 		return taskRepository.findById(id);
 	}
 	
 	
 	@Override
-	public Task save( Task entity ) {
+	public Course save( Course entity ) {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
@@ -63,7 +63,7 @@ public class TaskService extends ResourceService<Task> {
 	}
 
 	@Override
-	public Task saveResource(Task entity, Scheduler scheduler) throws InvalidTaskException {
+	public Course saveResource(Course entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         
@@ -83,7 +83,7 @@ public class TaskService extends ResourceService<Task> {
 
 
 	@Override
-	public Task saveResource(Task entity) {
+	public Course saveResource(Course entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,26 +93,26 @@ public class TaskService extends ResourceService<Task> {
 	 */
 	@Override
 	@Transactional(readOnly = false)
-	public void delete(Task entity) {
+	public void delete(Course entity) {
 		taskRepository.delete(entity);		
 	}
 
 
 	@Override
-	public List<Task> findByUserEmail(String name) {
+	public List<Course> findByUserEmail(String name) {
 		return taskRepository.findByUserEmail(name);
 	}
 
 	
 	@Override
-	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
+	public List<Course> findTemporaryNotDoneByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
 	}
 
 
 	@Override
-	public List<Task> findRoutineByUserAuthenticated() {
+	public List<Course> findRoutineByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findRoutineByUserEmail(auth.getName());
 	}
