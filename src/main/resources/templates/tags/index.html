@@ -33,27 +33,26 @@
 			<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 			
 
-	 		<h1 class="adapt">Tarefas</h1>
+	 		<h1 class="adapt">Tags</h1>
 			<hr />
-			<a th:href="@{/tasks/create}" class="btn btn-success pull-right">Nova tarefa</a><br/><br/>
+			<a th:href="@{/tags/create}" class="btn btn-success pull-right">Nova tag</a><br/><br/>
 			
 			<table class="table">
-				
 				<thead>
 					<tr>
-						<th>Título</th> 
-						<th>Dificuldade</th> 
+						<th>Nome</th> 
+						<th>Cor</th> 
 						<th>Opções</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="task : ${tasks}">
-						<td th:text="${task.title}"></td> 
-						<td th:text="${task.dificulty}"></td> 
+					<tr th:each="tag : ${tags}">
+						<td th:text="${tag.name}"></td> 
+						<td th:text="${tag.color}"></td> 
 						<td style="text-align:center">
-								<a th:href="${'/tasks/'+ task.id }" class="btn btn-xs btn-primary">Ver</a> 
-						 		<a th:href="${'/tasks/'+ task.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
-								<form th:action="${'/tasks/'+ task.id +'/delete'}"
+								<a th:href="${'/tags/'+ tag.id }" class="btn btn-xs btn-primary">Ver</a> 
+						 		<a th:href="${'/tags/'+ tag.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
+								<form th:action="${'/tags/'+ tag.id +'/delete'}"
                                    class="btn-group"  method="post" name="f">
                                  <button class="btn btn-xs btn-danger"
                                          onclick="return confirm('Você tem certeza que deseja excluir essa essa tag?');">
@@ -63,9 +62,9 @@
 						</td>
 					</tr>
 				</tbody>
-					
 			</table>
 	 				
 		</div>
 	</body>
 </html>
+

@@ -1,45 +1,52 @@
 package br.com.adapt.application.service;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import br.com.adapt.application.model.Course;
+import br.com.adapt.application.model.Task;
 import br.com.adapt.framework.domain.Type;
+import br.com.adapt.framework.exception.InvalidTaskException;
+import br.com.adapt.framework.model.Freeblock;
+import br.com.adapt.framework.model.Resource;
+import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.SchedulerService;
 
 @Service
-public class SchedulerCourseService extends SchedulerService<Course> {
+public class SchedulerTaskService extends SchedulerService<Task> {
 
 	@Autowired
-	private CourseService courseService;
+	private TaskService taskService;
 	
 	
 	@Override
 	public void orderTemporaryTasksByPriority() {
-		
-    	Collections.sort(temporaryTasks, new Comparator<Course>() {
-    		public int compare(Course t1, Course t2) {
-    			return -(t1.getCategory().compareTo(t2.getCategory()));
+
+    	Collections.sort(temporaryTasks, new Comparator<Task>() {
+    		public int compare(Task t1, Task t2) {
+    			return -(t1.getPriority().compareTo(t2.getPriority()));
     		}
     	});
 
+		
 	}
-	
 
 
 	@Override
 	public void generateGroupsTask( ) {
 		
-		temporaryTasks = courseService.findTemporaryNotDoneByUserAuthenticated();
+		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
 
-		List<Course> resources = courseService.findRoutineByUserAuthenticated();
+		List<Task> resources = taskService.findRoutineByUserAuthenticated();
 		
 		// percorre todas as tarefas
-		for( Course resource : resources){
+		for( Task resource : resources){
         	
         	// verifica se é rotina
         	if( resource.getType() == Type.ROUTINE ){
@@ -65,7 +72,7 @@ public class SchedulerCourseService extends SchedulerService<Course> {
 
 	@Override
 	public int setIntervals( ) {
-		return 15;
+		return 10;
 	}
 
 	

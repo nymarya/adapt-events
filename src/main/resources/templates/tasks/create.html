@@ -42,36 +42,46 @@
 				<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 						
      				
-     			<label>Digite o título da atividade: </label>
+     			<label>Digite o título da tarefa: </label>
 				<input name="title" type="text" class="form-control" placeholder="Título da tarefa"><br>
 
-				<label>Descreva a atividade a ser realizada:</label>
+				<label>Descreva a tarefa a ser realizada:</label>
 				<input name="description" type="text" class="form-control" placeholder="Descrição da tarefa"><br>
 				
-				<label>Digite o nome do responsável pela atividade:</label>
-				<input name="teacher" type="text" class="form-control" placeholder="Nome responsável"><br>
-				
-				
-				<label>Defina a categoria da atividade:</label>
-				<select class="custom-select form-group" name="category">
-				  <option selected value="CLASS">Aula</option>
-				  <option selected value="SUPPORT">Monitoria</option>
-				  <option value="EXTRA">Aula extra</option>
+				<label>Defina a dificuldade de realizar essa tarefa:</label>
+				<select class="custom-select form-group" name="dificulty">
+				  <option selected value="UNKNOWN">Não sei informar</option>
+				  <option selected value="LOW">Fácil</option>
+				  <option value="MEDIUM">Médio</option>
+				  <option value="HIGH">Difícil</option>
 				</select><br><br>
 				
-				<div class="" style="">
-					<label>Defina o tempo necessário para realizar a atividade:</label>
-					<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
-				</div>
 				
-				
-				<label>Essa atividade é fixa?</label>
+				<label>Essa tarefa faz parte da sua rotina?</label>
 				<select class="custom-select form-group" name="type">
 				  <option value="ROUTINE">Sim</option>
 				  <option selected value="TEMPORARY">Não</option>
 				</select>
 				
+				<div class="form-group temporary" style="">
+					<label>Defina a prioridade dessa tarefa:</label>
+					<select class="custom-select form-group" name="priority">
+					  <option selected value="NONE">Nenhuma</option>
+					  <option value="LOW">Baixa</option>
+					  <option value="MEDIUM">Média</option>
+					  <option value="HIGH">Alta</option>
+					</select><br>
+				</div>
 				
+				<div class="form-group temporary" style="">
+					<label>Defina a data final de entrega dessa tarefa:</label>
+					<input name="dueDate" type="date" class="form-control" placeholder="Data final de entrega"><br>
+				</div>
+				
+				<div class="form-group temporary" style="">
+					<label>Defina o tempo necessário para realizar a tarefa:</label>
+					<input name="expectedTime" type="text" class="form-control" placeholder="Tempo esperado para concluí-la"><br>
+				</div>
 				
 				<div class="form-group routine" style="display:none">
       				<label for="dia">Dia</label>
@@ -98,8 +108,7 @@
 					<input name="endDate" class="time form-control">
 				</div>
 				
-			  	<button type="submit" class="btn btn-blue">Cadastrar atividade</button>
-			  	
+			  	<button type="submit" class="btn btn-blue">Cadastrar tarefa</button>
 			</form>
    			
    		</div>

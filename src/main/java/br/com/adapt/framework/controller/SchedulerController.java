@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.adapt.application.model.Course;
-import br.com.adapt.application.service.SchedulerCourseService;
-import br.com.adapt.application.service.CourseService;
+import br.com.adapt.application.model.Tag;
+import br.com.adapt.application.model.Task;
+import br.com.adapt.application.service.SchedulerTaskService;
+import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.exception.InvalidTaskException;
 import br.com.adapt.framework.model.Freeblock;
 import br.com.adapt.framework.model.Resource;
@@ -40,7 +41,7 @@ public abstract class SchedulerController {
 	
 	
 	private ResourceService resourceService;
-	private CourseService courseService;
+	private TaskService taskService;
 	
 	@Autowired
 	private SchedulerService schedulerService;

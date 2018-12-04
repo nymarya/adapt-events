@@ -17,14 +17,14 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import br.com.adapt.application.model.Course;
+import br.com.adapt.application.model.Task;
 import br.com.adapt.framework.service.SharedSchedule;
 import br.com.adapt.framework.util.DateFormatterAdapt;
 
-public class SharedScheduleByDownload implements SharedSchedule<Course> {
+public class SharedScheduleByDownload implements SharedSchedule<Task> {
 
 	@Override
-	public void export(List<Course> resources, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void export(List<Task> resources, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		buildCsvDocument(resources, request, response);
 	}
 
@@ -39,7 +39,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Course> {
 	 * @param response
 	 * @throws Exception
 	 */
-	protected void buildCsvDocument(List<Course> courses, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildCsvDocument(List<Task> tasks, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String formattedDate = new SimpleDateFormat("dd-MM-yy").format(Calendar.getInstance().getTime());
 	    response.setHeader("Content-Disposition", "attachment; filename=\"adapt_"+formattedDate+".csv\"");
@@ -57,13 +57,13 @@ public class SharedScheduleByDownload implements SharedSchedule<Course> {
                 // write the header
                 mapWriter.writeHeader(header); 
                 
-                for(Course course : courses) {
+                for(Task task : tasks) {
                 	final Map<String, Object> entry = new HashMap<String, Object>();
-                    entry.put(header[0], course.getTitle());
-                    entry.put(header[1], course.getDescription());
-                    entry.put(header[2], formatter.getDateTime(course).get(0));
-                    entry.put(header[3], formatter.getDateTime(course).get(1));
-                    entry.put(header[4], course.getCategory());
+                    entry.put(header[0], task.getTitle());
+                    entry.put(header[1], task.getDescription());
+                    entry.put(header[2], formatter.getDateTime(task).get(0));
+                    entry.put(header[3], formatter.getDateTime(task).get(1));
+                    entry.put(header[4], task.getDificulty());
                     
                     mapWriter.write(entry, header);
                                     	

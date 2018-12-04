@@ -18,7 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.adapt.application.model.Course;
+import br.com.adapt.application.model.Tag;
+import br.com.adapt.application.model.Task;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
