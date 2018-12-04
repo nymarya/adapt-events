@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.application.model.Course;
 import br.com.adapt.application.service.SharedScheduleByDownload;
-import br.com.adapt.application.service.TaskService;
+import br.com.adapt.application.service.CourseService;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.model.Freeblock;
 import br.com.adapt.framework.model.Resource;
@@ -57,7 +57,7 @@ public abstract class SchedulerService<T extends Resource> {
 	private ResourceRepository resourceRepository;
 	
 	@Autowired
-	private TaskService taskService;
+	private CourseService courseService;
 
 	protected ResourceService resourceService;
 	
@@ -324,7 +324,7 @@ public abstract class SchedulerService<T extends Resource> {
 	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
-        List<Course> resources = taskService.findByUserEmail(auth.getName());
+        List<Course> resources = courseService.findByUserEmail(auth.getName());
 		iShared.export(resources, request, response);
 	}
 	

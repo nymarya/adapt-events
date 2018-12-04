@@ -22,6 +22,23 @@ public class Course extends Resource {
 	
 	@Column(name = "category")
 	private Category category;
+
+	public String getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
 	
 	
 }

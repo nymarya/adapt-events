@@ -1,28 +1,21 @@
 package br.com.adapt.application.service;
 
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.adapt.application.model.Course;
 import br.com.adapt.framework.domain.Type;
-import br.com.adapt.framework.exception.InvalidTaskException;
-import br.com.adapt.framework.model.Freeblock;
-import br.com.adapt.framework.model.Resource;
-import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.SchedulerService;
 
 @Service
-public class SchedulerTaskService extends SchedulerService<Course> {
+public class SchedulerCourseService extends SchedulerService<Course> {
 
 	@Autowired
-	private TaskService taskService;
+	private CourseService courseService;
 	
 	
 	@Override
@@ -41,9 +34,9 @@ public class SchedulerTaskService extends SchedulerService<Course> {
 	@Override
 	public void generateGroupsTask( ) {
 		
-		temporaryTasks = taskService.findTemporaryNotDoneByUserAuthenticated();
+		temporaryTasks = courseService.findTemporaryNotDoneByUserAuthenticated();
 
-		List<Course> resources = taskService.findRoutineByUserAuthenticated();
+		List<Course> resources = courseService.findRoutineByUserAuthenticated();
 		
 		// percorre todas as tarefas
 		for( Course resource : resources){

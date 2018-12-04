@@ -63,7 +63,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Course> {
                     entry.put(header[1], course.getDescription());
                     entry.put(header[2], formatter.getDateTime(course).get(0));
                     entry.put(header[3], formatter.getDateTime(course).get(1));
-                    entry.put(header[4], course.getDificulty());
+                    entry.put(header[4], course.getCategory());
                     
                     mapWriter.write(entry, header);
                                     	

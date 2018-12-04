@@ -7,16 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.adapt.application.service.SchedulerTaskService;
+import br.com.adapt.application.service.SchedulerCourseService;
 import br.com.adapt.framework.controller.SchedulerController;
 import br.com.adapt.framework.model.Freeblock;
 
 
 @Controller
-public class SchedulerTaskController extends SchedulerController {
+public class SchedulerCourseController extends SchedulerController {
 
 	@Autowired
-	protected SchedulerTaskService SchedulerService;
+	protected SchedulerCourseService SchedulerService;
 	
 
 	@GetMapping("/dashboard")

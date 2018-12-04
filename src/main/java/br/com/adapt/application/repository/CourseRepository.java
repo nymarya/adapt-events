@@ -7,7 +7,7 @@ import br.com.adapt.application.model.Course;
 import br.com.adapt.framework.repository.ResourceRepository;
 
 @NoRepositoryBean
-public interface TaskRepository extends ResourceRepository<Course> {
+public interface CourseRepository extends ResourceRepository<Course> {
 	
 }
 

@@ -1,7 +1,7 @@
 package br.com.adapt.application.service;
 
 import br.com.adapt.application.model.Course;
-import br.com.adapt.application.repository.TaskRepository;
+import br.com.adapt.application.repository.CourseRepository;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = false)
-public class TaskService extends ResourceService<Course> {
+public class CourseService extends ResourceService<Course> {
 
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class TaskService extends ResourceService<Course> {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
-        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
+        if( entity.getCategory() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
         	//throw new InvalidTaskException("Tarefa inválida.");
         } 
         
