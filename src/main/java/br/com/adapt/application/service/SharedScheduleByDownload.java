@@ -17,14 +17,14 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.io.ICsvMapWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Event;
 import br.com.adapt.framework.service.SharedSchedule;
 import br.com.adapt.framework.util.DateFormatterAdapt;
 
-public class SharedScheduleByDownload implements SharedSchedule<Task> {
+public class SharedScheduleByDownload implements SharedSchedule<Event> {
 
 	@Override
-	public void export(List<Task> resources, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void export(List<Event> resources, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		buildCsvDocument(resources, request, response);
 	}
 
@@ -39,7 +39,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Task> {
 	 * @param response
 	 * @throws Exception
 	 */
-	protected void buildCsvDocument(List<Task> tasks, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void buildCsvDocument(List<Event> tasks, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String formattedDate = new SimpleDateFormat("dd-MM-yy").format(Calendar.getInstance().getTime());
 	    response.setHeader("Content-Disposition", "attachment; filename=\"adapt_"+formattedDate+".csv\"");
@@ -57,7 +57,7 @@ public class SharedScheduleByDownload implements SharedSchedule<Task> {
                 // write the header
                 mapWriter.writeHeader(header); 
                 
-                for(Task task : tasks) {
+                for(Event task : tasks) {
                 	final Map<String, Object> entry = new HashMap<String, Object>();
                     entry.put(header[0], task.getTitle());
                     entry.put(header[1], task.getDescription());

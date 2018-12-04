@@ -3,7 +3,7 @@ package br.com.adapt.framework.repository;
 import org.springframework.stereotype.Repository;
 
 import br.com.adapt.application.model.Tag;
-import br.com.adapt.application.model.Task;
+import br.com.adapt.application.model.Event;
 import br.com.adapt.framework.model.Resource;
 
 import java.time.LocalDateTime;

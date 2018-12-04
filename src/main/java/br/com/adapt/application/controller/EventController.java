@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.adapt.application.model.Task;
-import br.com.adapt.application.service.TaskService;
+import br.com.adapt.application.model.Event;
+import br.com.adapt.application.service.EventService;
 import br.com.adapt.framework.controller.ResourceController;
 import br.com.adapt.framework.model.Resource;
 import br.com.adapt.framework.model.User;
@@ -28,116 +28,116 @@ import br.com.adapt.framework.service.UserService;
 
 
 @Controller
-public class TaskController extends ResourceController<Task> {
+public class EventController extends ResourceController<Event> {
 
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
-	private TaskService taskService;
+	private EventService eventService;
 	
-	private static final String MSG_SUCESS_INSERT = "Tarefa cadastrada com sucesso.";
-	private static final String MSG_SUCESS_UPDATE = "Tarefa atualizada com sucesso.";
-	private static final String MSG_SUCESS_DELETE = "Tarefa removida com sucesso.";
+	private static final String MSG_SUCESS_INSERT = "Evento cadastrado com sucesso.";
+	private static final String MSG_SUCESS_UPDATE = "Evento atualizado com sucesso.";
+	private static final String MSG_SUCESS_DELETE = "Evento removido com sucesso.";
 	private static final String MSG_ERROR = "Error.";
 
-	@GetMapping("/tasks")
+	@GetMapping("/events")
 	public String index(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
 		List<Resource> all = user.getScheduler().getResources();
-		model.addAttribute("tasks", all);
-        return "tasks/index";
+		model.addAttribute("events", all);
+        return "events/index";
     }
 	
-	@GetMapping("/tasks/create")
+	@GetMapping("/events/create")
 	public String create(Model m) {
 		m.addAttribute("endDate", LocalTime.NOON);
 		m.addAttribute("startDate", LocalTime.NOON);
-        return "tasks/create";
+        return "events/create";
     }
 
-	@PostMapping("/task/save")
+	@PostMapping("/events/save")
 	@Override
-	public String store(Task entityTask, BindingResult result, RedirectAttributes redirectAttributes) {
-		Task resource = null;
+	public String store(Event entity, BindingResult result, RedirectAttributes redirectAttributes) {
+		Event resource = null;
 		
 		try {
 
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = taskService.saveResource(entityTask, user.getScheduler());
+			resource = eventService.saveResource(entity, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_INSERT);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", e.getMessage());
-			return "redirect:/tasks/create";
+			return "redirect:/events/create";
 		}
-		return "redirect:/tasks";
+		return "redirect:/events";
 	}
 
 	@Override
-	@RequestMapping(value = "/tasks/{id}", method = RequestMethod.POST)
-	public String update(Task entity, BindingResult result, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/events/{id}", method = RequestMethod.POST)
+	public String update(Event entity, BindingResult result, @PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		Resource resource = null;
 		try {
 			entity.setId(id);
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	        User user = userService.findByEmailAdress(auth.getName());
-			resource = taskService.saveResource(entity, user.getScheduler());
+			resource = eventService.saveResource(entity, user.getScheduler());
 			redirectAttributes.addFlashAttribute("success", MSG_SUCESS_UPDATE);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			e.printStackTrace();
 		}
-		return "redirect:/tasks";
+		return "redirect:/events";
 	}
 
-	@GetMapping("tasks/{id}/edit")
+	@GetMapping("events/{id}/edit")
 	public String edit(Model model, @PathVariable("id") Integer id) {
 		
 		try {
 			if (id != null) {
 				
-				Task entityTask = taskService.findById(id);
-				model.addAttribute("task", entityTask);
+				Event entityTask = eventService.findById(id);
+				model.addAttribute("event", entityTask);
 				
 			}
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
-		return "tasks/edit";
+		return "events/edit";
 	}
 
 	
-	@GetMapping("tasks/{id}")
+	@GetMapping("events/{id}")
 	public String show(Model model, @PathVariable("id") Integer id) {
 		
 		try {
 			if (id != null) {
 				
-				Resource entity = taskService.findById(id);
-				model.addAttribute("task", entity);
+				Resource entity = eventService.findById(id);
+				model.addAttribute("event", entity);
 				
 			}
 		} catch (Exception e) {
 			throw new ServiceException(e.getMessage());
 		}
-		return "tasks/show";
+		return "events/show";
 	}
 	
-	@PostMapping("tasks/{id}/delete")
+	@PostMapping("events/{id}/delete")
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		try {
 			if (id != null) {
-				Task entity = taskService.findById(id);
-				taskService.delete(entity);
+				Event entity = eventService.findById(id);
+				eventService.delete(entity);
 				redirectAttributes.addFlashAttribute("success", MSG_SUCESS_DELETE);
 			}
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", MSG_ERROR);
 			throw new ServiceException(e.getMessage());
 		}
-		return "redirect:/tasks";
+		return "redirect:/events";
 	}
 	
 	

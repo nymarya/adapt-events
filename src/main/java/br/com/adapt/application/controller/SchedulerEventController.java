@@ -13,7 +13,7 @@ import br.com.adapt.framework.model.Freeblock;
 
 
 @Controller
-public class SchedulerTaskController extends SchedulerController {
+public class SchedulerEventController extends SchedulerController {
 
 	@Autowired
 	protected SchedulerTaskService SchedulerService;
@@ -22,8 +22,8 @@ public class SchedulerTaskController extends SchedulerController {
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
 		
-		List< List< Freeblock > > tasks = SchedulerService.generate();
-		model.addAttribute("tasks", tasks);
+		List< List< Freeblock > > envents = SchedulerService.generate();
+		model.addAttribute("events", envents);
         return "dashboard/calendar";
     }
 	

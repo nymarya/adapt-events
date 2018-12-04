@@ -14,29 +14,22 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import br.com.adapt.application.domain.Category;
 import br.com.adapt.framework.domain.Difficulty;
 import br.com.adapt.framework.model.Resource;
 
 
 @Entity
-@Table(name = "tasks")
-public class Task extends Resource {
+@Table(name = "events")
+public class Event extends Resource {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "due_date")
 	private Date dueDate;
 	
-	@Column(name = "dificulty")
-	private Difficulty dificulty;
-	
-	@ManyToMany
-    @JoinTable(
-        name = "tasks_tags",
-        joinColumns = @JoinColumn(name = "task_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-	private List<Tag> tags;
+	@Column(name = "category")
+	private Category category;
 	
 
 	public Date getDueDate() {
@@ -47,12 +40,12 @@ public class Task extends Resource {
 		this.dueDate = dueDate;
 	}
 
-	public Difficulty getDificulty() {
-		return dificulty;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setDificulty(Difficulty dificulty) {
-		this.dificulty = dificulty;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	
