@@ -22,8 +22,9 @@ public class Event extends Resource {
 	@Column(name = "speaker")
 	private String speaker;
 
-	@Column(name = "order")
-	private Integer order;
+	@Column(name="event_order")
+	private int order;
+	
 
 	public Category getCategory() {
 		return category;
@@ -47,18 +48,5 @@ public class Event extends Resource {
 		this.speaker = speaker;
 	}
 
-	/**
-	 * @return the order
-	 */
-	public int getOrder() {
-		return order;
-	}
-
-	/**
-	 * @param order the order to set
-	 */
-	public void setOrder(int order) {
-		this.order = order;
-	}
 
 }
