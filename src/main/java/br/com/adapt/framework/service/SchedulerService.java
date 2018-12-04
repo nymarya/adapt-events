@@ -28,10 +28,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.adapt.application.model.Task;
-import br.com.adapt.application.repository.TagRepository;
+import br.com.adapt.application.model.Course;
 import br.com.adapt.application.service.SharedScheduleByDownload;
-import br.com.adapt.application.service.TaskService;
+import br.com.adapt.application.service.CourseService;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.model.Freeblock;
 import br.com.adapt.framework.model.Resource;
@@ -58,11 +57,11 @@ public abstract class SchedulerService<T extends Resource> {
 	private ResourceRepository resourceRepository;
 	
 	@Autowired
-	private TaskService taskService;
+	private CourseService courseService;
 
 	protected ResourceService resourceService;
 	
-	private SharedSchedule<Task> iShared = new SharedScheduleByDownload();
+	private SharedSchedule<Course> iShared = new SharedScheduleByDownload();
 	
 	@Autowired
 	protected UserService userService;
@@ -325,7 +324,7 @@ public abstract class SchedulerService<T extends Resource> {
 	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmailAdress(auth.getName());
-        List<Task> resources = taskService.findByUserEmail(auth.getName());
+        List<Course> resources = courseService.findByUserEmail(auth.getName());
 		iShared.export(resources, request, response);
 	}
 	

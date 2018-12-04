@@ -33,23 +33,23 @@
 			<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 			
 
-	 		<h1 class="adapt">Tarefas</h1>
+	 		<h1 class="adapt">Atividades</h1>
 			<hr />
-			<a th:href="@{/tasks/create}" class="btn btn-success pull-right">Nova tarefa</a><br/><br/>
+			<a th:href="@{/tasks/create}" class="btn btn-success pull-right">Nova atividade</a><br/><br/>
 			
 			<table class="table">
 				
 				<thead>
 					<tr>
 						<th>Título</th> 
-						<th>Dificuldade</th> 
+						<th>Categoria</th> 
 						<th>Opções</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="task : ${tasks}">
 						<td th:text="${task.title}"></td> 
-						<td th:text="${task.dificulty}"></td> 
+						<td th:text="${task.category}"></td> 
 						<td style="text-align:center">
 								<a th:href="${'/tasks/'+ task.id }" class="btn btn-xs btn-primary">Ver</a> 
 						 		<a th:href="${'/tasks/'+ task.id +'/edit'}" class="btn btn-xs btn-info">Editar</a> 
