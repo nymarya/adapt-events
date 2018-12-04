@@ -6,35 +6,35 @@
 	<body>
 
 
-   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+   		<div class="col-md-9 bgcolor-g margin-dash event-form" layout:fragment="content">
 
 			
 			<h1 class="adapt">Detalhes da tarefa</h1>
 			<hr />
 
 			<label for="title">Título: </label>  
-			<span th:text="${task.title}"></span> <br>
+			<span th:text="${event.title}"></span> <br>
 
 
-			<label for="dueDate">Data de entrega: </label>  
-			<span th:text="${task.dueDate}"></span><br> 
+			<label for="speaker">Palestrante/ministrante: </label>  
+			<span th:text="${event.speaker}"></span><br> 
 
 			<label for="expectedTime">Tempo esperado: </label>  
-			<span th:text="${task.expectedTime}"></span><br> 
+			<span th:text="${event.expectedTime}"></span><br> 
 
-			<label for="difficulty">Dificuldade: </label>  
-			<span th:text="${task.dificulty}"></span> <br>
+			<label for="difficulty">Categoria: </label>  
+			<span th:text="${event.category}"></span> <br>
 
 			<label for="description">Descrição: </label>  
-			<span th:text="${task.description}"></span> <br>
+			<span th:text="${event.description}"></span> <br>
 			
 			<label for="priority">Prioridade: </label>  
-			<span th:text="${task.priority}"></span> <br>
+			<span th:text="${event.priority}"></span> <br>
 			
 			<label for="type">Tipo: </label>  
-			<span th:text="${task.type}"></span> <br><br>
+			<span th:text="${event.type}"></span> <br><br>
 			
-			<a th:href="@{/tasks}" class="btn btn-primary" >Retornar à listagem</a> 
+			<a th:href="@{/events}" class="btn btn-primary" >Retornar à listagem</a> 
 			
    				
    		</div>
