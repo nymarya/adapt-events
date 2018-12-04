@@ -21,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.com.adapt.application.model.Tag;
 
 
 
@@ -48,9 +47,6 @@ public class Scheduler implements Serializable{
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy="scheduler", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Tag> tags;
-	
 	
 	public Integer getId() {
 		return id;
@@ -77,19 +73,7 @@ public class Scheduler implements Serializable{
 		this.user = user;
 	}
 
-	/**
-	 * @return the tags
-	 */
-	public List<Tag> getTags() {
-		return tags;
-	} 
 
-	/**
-	 * @param tags the tags to set
-	 */
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
 		
 	
 }

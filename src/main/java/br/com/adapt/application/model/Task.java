@@ -30,13 +30,6 @@ public class Task extends Resource {
 	@Column(name = "dificulty")
 	private Difficulty dificulty;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "tasks_tags",
-        joinColumns = @JoinColumn(name = "task_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-	private List<Tag> tags;
 	
 
 	public Date getDueDate() {

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.adapt.application.model.Tag;
 import br.com.adapt.application.model.Task;
 import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.model.Resource;
