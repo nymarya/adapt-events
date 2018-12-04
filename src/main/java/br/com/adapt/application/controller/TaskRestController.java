@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.adapt.application.model.Course;
-import br.com.adapt.application.service.CourseService;
+import br.com.adapt.application.model.Task;
+import br.com.adapt.application.service.TaskService;
 import br.com.adapt.framework.controller.ResourceRestController;
 
 @RestController
-public class CourseRestController extends ResourceRestController<Course> {
+public class TaskRestController extends ResourceRestController<Task> {
 	
 	@Autowired
-	private CourseService courseService;
+	private TaskService taskService;
 	
 	@GetMapping("/api/tasks")
-    public List<Course> resources(@RequestParam(value="start", defaultValue="World") String start,
+    public List<Task> resources(@RequestParam(value="start", defaultValue="World") String start,
     		@RequestParam(value="end", defaultValue="World") String end,
     		@RequestParam(value="_", defaultValue="World") String e) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return courseService.findByUserEmail(auth.getName());
+        return taskService.findByUserEmail(auth.getName());
     }
 
 }

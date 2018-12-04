@@ -1,7 +1,7 @@
 package br.com.adapt.application.service;
 
-import br.com.adapt.application.model.Course;
-import br.com.adapt.application.repository.CourseRepository;
+import br.com.adapt.application.model.Task;
+import br.com.adapt.application.repository.TaskRepository;
 import br.com.adapt.framework.domain.Status;
 import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
@@ -22,24 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = false)
-public class CourseService extends ResourceService<Course> {
+public class TaskService extends ResourceService<Task> {
 
 	
 	@Autowired
-	private ResourceRepository<Course> taskRepository;
+	private ResourceRepository<Task> taskRepository;
 	
 	@Transactional(readOnly = true)
-	public Course findById(int id) {
+	public Task findById(int id) {
 		return taskRepository.findById(id);
 	}
 	
 	
 	@Override
-	public Course save( Course entity ) {
+	public Task save( Task entity ) {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
-        if( entity.getCategory() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
+        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
         	//throw new InvalidTaskException("Tarefa inválida.");
         } 
         
@@ -63,7 +63,7 @@ public class CourseService extends ResourceService<Course> {
 	}
 
 	@Override
-	public Course saveResource(Course entity, Scheduler scheduler) throws InvalidTaskException {
+	public Task saveResource(Task entity, Scheduler scheduler) throws InvalidTaskException {
         entity.setScheduler(scheduler);
         entity.setStatus(Status.TODO);
         
@@ -83,7 +83,7 @@ public class CourseService extends ResourceService<Course> {
 
 
 	@Override
-	public Course saveResource(Course entity) {
+	public Task saveResource(Task entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,26 +93,26 @@ public class CourseService extends ResourceService<Course> {
 	 */
 	@Override
 	@Transactional(readOnly = false)
-	public void delete(Course entity) {
+	public void delete(Task entity) {
 		taskRepository.delete(entity);		
 	}
 
 
 	@Override
-	public List<Course> findByUserEmail(String name) {
+	public List<Task> findByUserEmail(String name) {
 		return taskRepository.findByUserEmail(name);
 	}
 
 	
 	@Override
-	public List<Course> findTemporaryNotDoneByUserAuthenticated() {
+	public List<Task> findTemporaryNotDoneByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findTemporaryNotDoneByUserAuthenticated(auth.getName());
 	}
 
 
 	@Override
-	public List<Course> findRoutineByUserAuthenticated() {
+	public List<Task> findRoutineByUserAuthenticated() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return taskRepository.findRoutineByUserEmail(auth.getName());
 	}
