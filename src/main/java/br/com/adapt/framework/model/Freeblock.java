@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,17 +23,27 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author jainebudke
  *
  */
+@Entity
+@Table(name = "free_blocks")
 public class Freeblock implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@DateTimeFormat(pattern = "H:m")
+	@Column(name = "start_date")
 	private LocalTime startDate;
 
+	@DateTimeFormat(pattern = "H:m")
+	@Column(name = "end_date")
 	private LocalTime endDate;
 
+	@OneToOne
+	@JoinColumn(name = "scheduler_id")
 	private Scheduler scheduler;
 
 	

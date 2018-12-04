@@ -35,19 +35,19 @@ public class EventService extends ResourceService<Event> {
 	
 	
 	@Override
-	public Event save( Event entity ) {
+	public Event save( Event entity ) throws InvalidTaskException {
 		
 
         //Titulo, descrição e dificuldade sempre são obrigatorios
-        if( entity.getDificulty() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
-        	//throw new InvalidTaskException("Tarefa inválida.");
+        if( entity.getCategory() == null || entity.getTitle().isEmpty() || entity.getDescription().isEmpty()) {
+        	throw new InvalidTaskException("Tarefa inválida.");
         } 
         
         //Se for rotina, os campos dia, hora de inicio e fim são obrigatorios
         if( entity.getType() == Type.ROUTINE) {
         	Integer day = entity.getDay();
         	if(entity.getEndDate() == null || entity.getStartDate() == null || day == null) {
-        		//throw new InvalidTaskException("Tarefa inválida.");
+        		throw new InvalidTaskException("Tarefa inválida.");
         	}
         } else { //Se não for rotina, prioridade e tempo esperado são obrigatorios
         	Integer expectedTime = entity.getExpectedTime();

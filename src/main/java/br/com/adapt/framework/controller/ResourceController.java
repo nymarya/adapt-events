@@ -15,21 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.adapt.application.model.Tag;
-import br.com.adapt.application.model.Event;
-import br.com.adapt.framework.model.Resource;
-import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.ResourceService;
 import br.com.adapt.framework.service.UserService;
 

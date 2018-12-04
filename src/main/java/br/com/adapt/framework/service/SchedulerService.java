@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.application.model.Event;
-import br.com.adapt.application.repository.TagRepository;
 import br.com.adapt.application.service.SharedScheduleByDownload;
 import br.com.adapt.application.service.EventService;
 import br.com.adapt.framework.domain.Type;

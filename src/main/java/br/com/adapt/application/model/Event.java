@@ -1,44 +1,29 @@
 package br.com.adapt.application.model;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.adapt.application.domain.Category;
-import br.com.adapt.framework.domain.Difficulty;
 import br.com.adapt.framework.model.Resource;
-
 
 @Entity
 @Table(name = "events")
 public class Event extends Resource {
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
-	@Column(name = "due_date")
-	private Date dueDate;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "category")
 	private Category category;
-	
 
-	public Date getDueDate() {
-		return dueDate;
-	}
+	@Column(name = "speaker")
+	private String speaker;
 
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
+	@Column(name = "order")
+	private Integer order;
 
 	public Category getCategory() {
 		return category;
@@ -48,5 +33,32 @@ public class Event extends Resource {
 		this.category = category;
 	}
 
-	
+	/**
+	 * @return the speaker
+	 */
+	public String getSpeaker() {
+		return speaker;
+	}
+
+	/**
+	 * @param speaker the speaker to set
+	 */
+	public void setSpeaker(String speaker) {
+		this.speaker = speaker;
+	}
+
+	/**
+	 * @return the order
+	 */
+	public int getOrder() {
+		return order;
+	}
+
+	/**
+	 * @param order the order to set
+	 */
+	public void setOrder(int order) {
+		this.order = order;
+	}
+
 }

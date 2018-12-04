@@ -34,7 +34,7 @@ public interface ResourceRepository<T extends Resource> extends JpaRepository<T,
 	@Query("select t from Resource t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=0")
 	List<T> findRoutineByUserEmail(String name);
 	 
-	@Query("select t from Task t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=1 and t.status <> 2")
+	@Query("select t from Resource t left join Scheduler s on t.scheduler=s.id left join User u on u.id=s.user where u.email = ?1 and t.type=1 and t.status <> 2")
 	List<T> findTemporaryNotDoneByUserAuthenticated(String name);
 	
 }
