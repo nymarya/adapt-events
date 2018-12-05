@@ -1,16 +1,7 @@
 package br.com.adapt.framework.service;
 
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,13 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.adapt.application.model.Event;
-import br.com.adapt.framework.domain.Status;
-import br.com.adapt.framework.domain.Type;
 import br.com.adapt.framework.exception.InvalidTaskException;
 import br.com.adapt.framework.model.Resource;
 import br.com.adapt.framework.model.Scheduler;
-import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.repository.ResourceRepository;
 
 
@@ -107,6 +94,12 @@ public abstract class ResourceService<T extends Resource> {
 		}
 		return checkins;
 	}
+	
+	/**
+	 * Determina o que acontece diariamente em relação ao cronograma
+	 */
+	@Transactional(readOnly=false)
+	public abstract void dailyCheck();
 
 	
 }
