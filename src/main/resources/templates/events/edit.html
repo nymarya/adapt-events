@@ -6,47 +6,113 @@
 	<body>
 
 
-   		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
+   		<div class="col-md-9 bgcolor-g margin-dash event-form" layout:fragment="content">
 
-			<form name="f" th:action="${'/tasks/'+ task.id }" method="POST">
+			<form name="f" th:action="${'/events/'+ event.id }" method="POST">
 				<div th:if="${success != null}" class="alert alert-success" role="alert"><span th:text="${success}">msg success</span></div>
 				<div th:if="${error != null}" class="alert alert-danger" role="alert"><span th:text="${error}">msg error</span></div>
 						
-	    				
-				<input name="title" type="text" class="form-control" th:field="${task.title}"><br>
-				<input name="date" type="text" class="form-control" th:field="${task.dueDate}"><br>
-				<input name="expectedTime" type="text" class="form-control" th:field="${task.expectedTime}"><br>
-				<input name="description" type="text" class="form-control" th:field="${task.description}"><br>
-				
-				<label>Defina a dificuldade de realizar essa tarefa:</label>
+	    		<div class="form-group" >		
+     			<label>Título: </label>
+				<input name="title" type="text" class="form-control" th:field="${event.title}">
+					</div>
+					<div class="form-group" >
+     			<label>Descrição: </label>
+				<input name="description" type="text" class="form-control" th:field="${event.description}">
+				</div>
+				<div class="form-group" >
+				<label>Categoria:</label>
 
-				<select name="dificulty" class="custom-select">
-				  <option th:selected="${task.dificulty.toString() == 'Baixa' }" value="LOW" >Baixa</option>
-  				  <option th:selected="${task.dificulty.toString() == 'Média' }" value="MEDIUM" >Média</option>
-  				  <option th:selected="${task.dificulty.toString() == 'Alta' }"  value="HIGH">Alta</option>
-				</select><br>
+				<select name="category" class="custom-select">
+				  <option th:selected="${event.category.toString() == 'Minicurso' }" value="MINICOURSE" >Minicurso</option>
+  				  <option th:selected="${event.category.toString() == 'Palestra' }" value="TALK" >Palestra</option>
+  				  <option th:selected="${event.category.toString() == 'Oficina' }"  value="WORKSHOP">Oficina</option>
+				</select>
+				</div>
 							
+				<div class="form-group" >
+				<label>Esse evento é fixo?</label>
+				<select class="custom-select form-group" name="type" id="type">
+				  <option th:selected="${event.type.toString() == 'Rotina' }" value="ROUTINE">Sim</option>
+				  <option th:selected="${event.type.toString() == 'Temporária' }" value="TEMPORARY">Não</option>
+				</select>
+				</div>
 				
-				<label>Defina a prioridade dessa tarefa:</label>
-				<select class="custom-select form-group" name="priority">
-				  <option th:selected="${task.priority.toString() == 'Nenhuma' }" value="NONE">Nenhuma</option>
-				  <option th:selected="${task.priority.toString() == 'Baixa' }"  value="LOW" >Baixa</option>
-  				  <option th:selected="${task.priority.toString() == 'Média' }"  value="MEDIUM">Média</option>
-  				  <option th:selected="${task.priority.toString() == 'Alta' }"  value="HIGH">Alta</option>
-				</select><br>
-				
-				<label>Essa tarefa faz parte da sua rotina?</label>
-				<select class="custom-select form-group" name="type">
-				  <option th:selected="${task.type.toString() == 'Rotina' }" value="ROUTINE">Sim</option>
-				  <option th:selected="${task.type.toString() == 'Temporária' }" value="TEMPORARY">Não</option>
-				</select><br><br>
+				<div class="form-group routine" style="display:none">
+      				<label for="dia">Dia</label>
+      				<select class="custom-select form-group" name="day">
+						<option th:selected="${event.day == 0 }" value="0">Domingo</option>
+						<option th:selected="${event.day == 1 }" value="1">Segunda</option>
+						<option th:selected="${event.day == 2 }" value="2">Terça</option>
+						<option th:selected="${event.day == 3 }" value="3">Quarta</option>
+						<option th:selected="${event.day == 4 }" value="4">Quinta</option>
+						<option th:selected="${event.day == 5 }" value="5">Sexta</option>
+						<option th:selected="${event.day == 6 }" value="6">Sexta</option>
+					</select>
+				</div>
 				
 					
-		  		<button type="submit" class="btn btn-blue">Editar tarefa</button>
+				<div class="form-group routine" style="display:none">
+					<label for="startDate">Inicio</label>
+					<input name="startDate" class=" time form-control"  th:value="${event.startDate.toString()}">
+				</div>
+				
+				
+				<div class="form-group routine" style="display:none">
+					<label for="endDate">Fim</label>
+					<input name="endDate" class="time form-control"  th:value="${event.endDate.toString()}">
+				</div>
+				
+				<div class="form-group" style="">
+					<label>Palestrante/Ministrante:</label>
+					<input name="speaker" type="text" class="form-control" placeholder="Palestrante"  th:field="${event.speaker}"><br>
+				</div>
+				
+				<div class="form-group" style="">
+					<label>Duração esperada:</label>
+					<input name="expectedTime" type="text" class="form-control"  th:field="${event.expectedTime}" placeholder="Tempo esperado para concluí-la"><br>
+				</div>
+				
+					
+		  		<button type="submit" class="btn btn-blue">Editar evento</button>
 			</form>
    				
    		</div>
-   		
+   		<th:block layout:fragment="script">	
+   			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  					integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  					crossorigin="anonymous"></script>
+		   	<<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+		   	<script>
+		   	$(document).ready(function(){
+		   		$('.time').timepicker({
+		   		    timeFormat: 'HH:mm',
+		   		    interval: 30,
+		   		    minTime: '07',
+		   		    maxTime: '22:00',
+		   		    defaultTime: '11',
+		   		    startTime: '07:00',
+		   		    dynamic: false,
+		   		    dropdown: true,
+		   		    scrollbar: true
+		   		});
+		   			$("#type").on('change', function(){
+		   				if( $(this).val() == "ROUTINE"){
+		   					$('.routine').show();
+		   				} else {
+		   					$('.routine').hide();
+		   				}
+		   				
+		   				if( $(this).val() == "TEMPORARY"){
+		   					$('.temporary').show();
+		   				} else {
+		   					$('.temporary').hide();
+		   				}
+		   			});
+		   			$("#type").trigger('change');
+		   		})
+		   	</script>	
+	   	</th:block>
    		
 	</body>
 </html>

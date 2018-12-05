@@ -1,5 +1,6 @@
 package br.com.adapt.application.controller;
 
+import java.sql.Date;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -100,6 +101,7 @@ public class EventController extends ResourceController<Event> {
 				
 				Event entityTask = eventService.findById(id);
 				model.addAttribute("event", entityTask);
+				
 				
 			}
 		} catch (Exception e) {
