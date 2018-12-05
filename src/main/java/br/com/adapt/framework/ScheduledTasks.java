@@ -12,7 +12,10 @@ public class ScheduledTasks {
 	@Autowired
     private ResourceService resourceService;
 
-    @Scheduled(fixedRate = 5000)
+	/**
+	 * Todo dia às 22h
+	 */
+    @Scheduled(cron="0 0 22 * * *")
     public void reportCurrentTime() {
         resourceService.dailyCheck();
     }
