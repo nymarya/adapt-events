@@ -1,5 +1,6 @@
 package br.com.adapt.application.service;
 
+import br.com.adapt.application.domain.Category;
 import br.com.adapt.application.model.Event;
 import br.com.adapt.application.repository.EventRepository;
 import br.com.adapt.framework.domain.Status;
@@ -50,13 +51,27 @@ public class EventService extends ResourceService<Event> {
         		throw new InvalidTaskException("Evento inválido.");
         	}
         } else { //Se não for rotina, prioridade e tempo esperado são obrigatorios
-        	Integer expectedTime = entity.getExpectedTime();
-        	if(expectedTime == 0) {
-        		throw new InvalidTaskException("Evento inválido.");
-        	}
+        	//Integer expectedTime = entity.getExpectedTime();
+        	//if(expectedTime == 0) {
+        	//	throw new InvalidTaskException("Evento inválido.");
+        	//}
         	entity.setStartDate(null);
         	entity.setEndDate(null);
+        	
+        	// verifica se qual a categoria da atividade
+            if( entity.getCategory() == Category.MINICOURSE ){
+            	entity.setExpectedTime(60);
+            } else if(entity.getCategory() == Category.TALK ){
+            	entity.setExpectedTime(90);
+            } else if(entity.getCategory() == Category.WORKSHOP ){
+            	entity.setExpectedTime(60);
+            }
+            
         }	
+        
+        
+        
+
         
         return entity;
 
