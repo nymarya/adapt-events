@@ -96,12 +96,6 @@ public abstract class ResourceService<T extends Resource> {
 		}
 		return checkins;
 	}
-	
-	/**
-	 * Determina o que acontece diariamente em relação ao cronograma
-	 */
-	@Transactional(readOnly=false)
-	public abstract void dailyCheck();
 
 	
 }

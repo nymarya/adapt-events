@@ -329,4 +329,10 @@ public abstract class SchedulerService<T extends Resource> {
 		iShared.export(resources, request, response);
 	}
 	
+	/**
+	 * Determina o que acontece diariamente em relação ao cronograma
+	 */
+	@Transactional(readOnly=false)
+	public abstract void dailyCheck();
+	
 }

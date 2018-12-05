@@ -75,6 +75,13 @@ public class SchedulerTaskService extends SchedulerService<Task> {
 		return 10;
 	}
 
+
+	@Override
+	public void dailyCheck() {
+		// Não faz nada, cronograma é gerado sempre ao carregar dashboard
+		
+	}
+
 	
 	
 }
