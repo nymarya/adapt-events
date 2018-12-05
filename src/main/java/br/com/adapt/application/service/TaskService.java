@@ -117,6 +117,12 @@ public class TaskService extends ResourceService<Task> {
 		return taskRepository.findRoutineByUserEmail(auth.getName());
 	}
 
+
+	@Override
+	public void dailyCheck() {
+		// Não faz nada, cronograma vai ser atualizado diariamente	
+	}
+
 	
 
 	
