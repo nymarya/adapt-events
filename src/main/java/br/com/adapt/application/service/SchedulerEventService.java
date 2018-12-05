@@ -19,7 +19,7 @@ import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.SchedulerService;
 
 @Service
-public class SchedulerTaskService extends SchedulerService<Event> {
+public class SchedulerEventService extends SchedulerService<Event> {
 
 	@Autowired
 	private EventService taskService;
