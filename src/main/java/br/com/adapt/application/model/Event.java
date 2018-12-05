@@ -1,5 +1,7 @@
 package br.com.adapt.application.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -47,6 +49,5 @@ public class Event extends Resource {
 	public void setSpeaker(String speaker) {
 		this.speaker = speaker;
 	}
-
 
 }
