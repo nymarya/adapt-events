@@ -29,6 +29,9 @@ public class EventService extends ResourceService<Event> {
 	@Autowired
 	private ResourceRepository<Event> taskRepository;
 	
+	@Autowired
+	private EventRepository eventRepository;
+	
 	@Transactional(readOnly = true)
 	public Event findById(int id) {
 		return taskRepository.findById(id);
@@ -132,6 +135,9 @@ public class EventService extends ResourceService<Event> {
 		return taskRepository.findRoutineByUserEmail(auth.getName());
 	}
 
-	
+	public List<Event> findTemporaryNotPostponedByUserEmail(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return eventRepository.findTemporaryNotPostponedByUserEmail(auth.getName());
+	}
 	
 }

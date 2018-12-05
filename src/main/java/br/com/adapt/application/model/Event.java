@@ -27,6 +27,12 @@ public class Event extends Resource {
 	@Column(name="event_order")
 	private int order;
 	
+	/**
+	 * Se True, evento foi adiado
+	 */
+	@Column(name="posteponed")
+	private boolean postponed;
+	
 
 	public Category getCategory() {
 		return category;

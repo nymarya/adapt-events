@@ -21,9 +21,6 @@ public class SchedulerEventController extends SchedulerController {
 
 	@GetMapping("/dashboard")
 	public String dashboardIndex(Model model) {
-		
-		List< List< Freeblock > > envents = SchedulerService.generate();
-		model.addAttribute("events", envents);
         return "dashboard/calendar";
     }
 	

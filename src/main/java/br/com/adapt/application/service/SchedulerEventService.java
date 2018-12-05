@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adapt.application.model.Event;
 import br.com.adapt.framework.domain.Type;
@@ -77,8 +78,16 @@ public class SchedulerEventService extends SchedulerService<Event> {
 
 
 	@Override
+	@Transactional(readOnly = false)
 	public void dailyCheck() {
-		// Não faz nada, cronograma é gerado sempre ao carregar dashboard
+		// Remove todos os eventos que não foram realizados
+		// Caso estejam como cancelados ou realizados
+		List<Event> events = taskService.findTemporaryNotPostponedByUserEmail();
+		for(Event e : events)
+			taskService.delete(e);
+	
+		// Gera cronograma
+		this.generate();
 		
 	}
 
