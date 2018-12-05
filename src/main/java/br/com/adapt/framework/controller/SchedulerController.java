@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.adapt.application.model.Event;
-import br.com.adapt.application.service.SchedulerTaskService;
+import br.com.adapt.application.service.SchedulerEventService;
 import br.com.adapt.application.service.EventService;
 import br.com.adapt.framework.exception.InvalidTaskException;
 import br.com.adapt.framework.model.Freeblock;

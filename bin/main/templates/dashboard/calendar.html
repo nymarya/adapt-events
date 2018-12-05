@@ -11,8 +11,10 @@
 	</head>
 	<body>
    				
- 		<div class="col-md-9 bgcolor-g margin-dash task-form" layout:fragment="content">
- 			
+ 		<div class="col-md-9 bgcolor-g margin-dash " layout:fragment="content">
+ 			<div class="col-md-9 task-form" >
+ 				<a target="_blank" th:href=@{download} class="btn btn-primary pull-right"><i class="fa fa-download"></i></a>
+ 			</div>
  			<div id="calendar" ></div>
 				
  		</div>
@@ -55,7 +57,7 @@
 					
 					events: function(start, end, timezone, callback) {
 					    $.ajax({
-					      url: 'api/tasks',
+					      url: 'api/events',
 					      dataType: 'json',
 					      type:'GET',
 					      data: {
@@ -73,7 +75,7 @@
 								  
 								  var start = moment().startOf('week').add(item.day,'days').hour(timeStart[0]).minute(timeStart[1]);
 					        	  var end = moment().startOf('week').add(item.day,'days').hour(timeEnd[0]).minute(timeEnd[1]);
-								  var color = item.color == "ROUTINE" ? "#FFC420" : "#170DFF"
+								  var color = item.type == "ROUTINE" ? "#FFC420" : "#170DFF"
 						          $('#calendar').fullCalendar('renderEvent', {
 						        	  id: item.id,
 						              title: item.title,

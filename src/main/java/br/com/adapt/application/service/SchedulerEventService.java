@@ -19,7 +19,7 @@ import br.com.adapt.framework.model.User;
 import br.com.adapt.framework.service.SchedulerService;
 
 @Service
-public class SchedulerTaskService extends SchedulerService<Event> {
+public class SchedulerEventService extends SchedulerService<Event> {
 
 	@Autowired
 	private EventService taskService;
@@ -30,7 +30,7 @@ public class SchedulerTaskService extends SchedulerService<Event> {
 
     	Collections.sort(temporaryTasks, new Comparator<Event>() {
     		public int compare(Event t1, Event t2) {
-    			return -(t1.getPriority().compareTo(t2.getPriority()));
+    			return -(t1.getCategory().compareTo(t2.getCategory()));
     		}
     	});
 

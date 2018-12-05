@@ -6,14 +6,14 @@ package br.com.adapt.application.domain;
  *
  */
 public enum Category {
-	WORKSHOP, TALK, MINICOURSE;
+	WORKSHOP, MINICOURSE, TALK;
 	
 	@Override
 	public String toString() {
 		switch(this) {
 	    	case WORKSHOP: return "Oficina";
-	    	case TALK: return "Palestra";
 	    	case MINICOURSE: return "Minicurso";
+	    	case TALK: return "Palestra";
 	    	default: throw new IllegalArgumentException();
 	    }
 	}
