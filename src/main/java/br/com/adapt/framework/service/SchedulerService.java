@@ -61,7 +61,7 @@ public abstract class SchedulerService<T extends Resource> {
 
 	protected ResourceService resourceService;
 	
-	private SharedSchedule<Event> iShared = new SharedScheduleByDownload();
+	protected SharedSchedule<Event> iShared;
 	
 	@Autowired
 	protected UserService userService;

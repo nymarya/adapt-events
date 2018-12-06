@@ -24,6 +24,11 @@ public class SchedulerEventService extends SchedulerService<Event> {
 	@Autowired
 	private EventService taskService;
 	
+	public SchedulerEventService() {
+		super();
+		iShared = new SharedScheduleByDownload();
+	}
+	
 	
 	@Override
 	public void orderTemporaryTasksByPriority() {
